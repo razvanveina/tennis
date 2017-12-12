@@ -3,6 +3,8 @@ package com.ssn.tennis.model;
 
 import java.io.Serializable;
 
+import com.ssn.tennis.common.Utils;
+
 public class User implements Serializable {
   private static final long serialVersionUID = 1L;
   private int id;
@@ -15,7 +17,7 @@ public class User implements Serializable {
   public User(String user, String password, String name, String surname, boolean admin) {
     super();
     this.user = user;
-    this.password = password;
+    this.password = Utils.encrypt(password);
     this.name = name;
     this.surname = surname;
     this.admin = admin;
@@ -56,7 +58,7 @@ public class User implements Serializable {
   }
 
   public boolean hasPassword(String pass) {
-    return password.equals(pass);
+    return password.equals(Utils.encrypt(pass));
   }
 
   public String getName() {

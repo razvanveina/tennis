@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@page import="com.ssn.ssijs.common.*" %>
+    <%@page import="com.ssn.tennis.common.*" %>
     
     <%@include file="../checkLogin.jsp" %>
     <%@include file="../checkAdminRights.jsp" %> 
@@ -11,10 +11,9 @@
 	String pass = request.getParameter("pass");
 	String name = request.getParameter("name");
 	String surname = request.getParameter("surname");
-	String email = request.getParameter("email");
+	String admin = request.getParameter("admin");
 	
-	DataSource dataSource = DataSourceFactory.getDataSource();
-  dataSource.editUser(oldUser, user2, pass, name, surname, email);
+	Database.getInstance().editUser(oldUser, user2, pass, name, surname, !admin.equals(""));
 %>
 
 <%@include file="users.jsp" %>

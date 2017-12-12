@@ -15,6 +15,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.ssn.tennis.common.Utils;
+
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
  * @version $Revision: $, $Date: $, $Author: $
@@ -54,6 +56,8 @@ public class Database implements Serializable {
 
   public void removeUser(User user) {
     users.remove(user);
+    save(instance);
+
   }
 
   private static Database load() throws FileNotFoundException {
@@ -104,6 +108,24 @@ public class Database implements Serializable {
 
   public ArrayList<User> getUsers() {
     return users;
+  }
+
+  public void editUser(String oldUser, String user, String pass, String name, String surname, boolean admin) {
+    User tempUser = getUserByUsername(oldUser);
+    tempUser.setUser(user);
+    tempUser.setName(name);
+    tempUser.setSurname(surname);
+    tempUser.setPassword(pass);
+    tempUser.setAdmin(admin);
+    save(instance);
+  }
+
+  public void changePassword(String oldUser, String oldPass, String newPass) {
+    User tempUser = checkLogin(oldUser, oldPass);
+    if (tempUser != null) {
+      tempUser.setPassword(Utils.encrypt(newPass));
+    }
+    save(instance);
   }
 
 }
