@@ -24,7 +24,9 @@ import com.ssn.tennis.common.Utils;
 
 public class Database implements Serializable {
   private static final long serialVersionUID = 1L;
+
   private static Database instance = null;
+
   private ArrayList<User> users = new ArrayList<User>();
 
   public static Database getInstance() {
@@ -41,9 +43,6 @@ public class Database implements Serializable {
     return instance;
   }
 
-  /**
-   * 
-   */
   private void init() {
     users.add(new User("raz", "raz", "Razvan", "Veina", true));
     users.add(new User("cni", "cni", "Nichifor", "Catalin", true));
@@ -57,24 +56,6 @@ public class Database implements Serializable {
   public void removeUser(User user) {
     users.remove(user);
     save(instance);
-
-  }
-
-  private static Database load() throws FileNotFoundException {
-    try {
-      ObjectInputStream ois = new ObjectInputStream(new FileInputStream("database.ser"));
-      @SuppressWarnings("unchecked")
-      Database db = (Database) ois.readObject();
-      ois.close();
-
-      return db;
-    } catch (FileNotFoundException e) {
-      throw e;
-    } catch (ClassNotFoundException e) {
-      throw new RuntimeException(e);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
 
   }
 
@@ -94,16 +75,6 @@ public class Database implements Serializable {
       }
     }
     return null;
-  }
-
-  private static void save(Database db) {
-    try {
-      ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("database.ser"));
-      oos.writeObject(db);
-      oos.close();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
   }
 
   public ArrayList<User> getUsers() {
@@ -126,6 +97,34 @@ public class Database implements Serializable {
       tempUser.setPassword(Utils.encrypt(newPass));
     }
     save(instance);
+  }
+
+  private static void save(Database db) {
+    try {
+      ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("database.ser"));
+      oos.writeObject(db);
+      oos.close();
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private static Database load() throws FileNotFoundException {
+    try {
+      ObjectInputStream ois = new ObjectInputStream(new FileInputStream("database.ser"));
+      @SuppressWarnings("unchecked")
+      Database db = (Database) ois.readObject();
+      ois.close();
+
+      return db;
+    } catch (FileNotFoundException e) {
+      throw e;
+    } catch (ClassNotFoundException e) {
+      throw new RuntimeException(e);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
   }
 
 }

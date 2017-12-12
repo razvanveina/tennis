@@ -15,7 +15,6 @@ public class User implements Serializable {
   private boolean admin;
 
   public User(String user, String password, String name, String surname, boolean admin) {
-    super();
     this.user = user;
     this.password = Utils.encrypt(password);
     this.name = name;
@@ -23,8 +22,8 @@ public class User implements Serializable {
     this.admin = admin;
   }
 
-  public boolean hasName(String name2) {
-    return user.equals(name2);
+  public boolean hasName(String name) {
+    return user.equals(name);
   }
 
   @Override
@@ -65,51 +64,30 @@ public class User implements Serializable {
     return name;
   }
 
-  /**
-   * @return the user
-   */
   public String getUser() {
     return user;
   }
 
-  /**
-   * @param user the user to set
-   */
   public void setUser(String user) {
     this.user = user;
   }
 
-  /**
-   * @return the password
-   */
   public String getPassword() {
     return password;
   }
 
-  /**
-   * @param password the password to set
-   */
   public void setPassword(String password) {
     this.password = password;
   }
 
-  /**
-   * @return the surname
-   */
   public String getSurname() {
     return surname;
   }
 
-  /**
-   * @param surname the surname to set
-   */
   public void setSurname(String surname) {
     this.surname = surname;
   }
 
-  /**
-   * @param name the name to set
-   */
   public void setName(String name) {
     this.name = name;
   }
@@ -122,16 +100,10 @@ public class User implements Serializable {
     this.id = id;
   }
 
-  /**
-   * @return the admin
-   */
   public boolean isAdmin() {
     return admin;
   }
 
-  /**
-   * @param admin the admin to set
-   */
   public void setAdmin(boolean admin) {
     this.admin = admin;
   }
