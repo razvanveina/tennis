@@ -14,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.ssn.tennis.common.Utils;
 
@@ -29,10 +30,15 @@ public class Database implements Serializable {
 
   private ArrayList<User> users = new ArrayList<User>();
 
+  private ArrayList<Tournament> tournaments = new ArrayList<>();
+
   public static Database getInstance() {
     if (instance == null) {
       try {
         instance = load();
+        if (instance.tournaments == null) {
+          instance.tournaments = new ArrayList<>();
+        }
       } catch (FileNotFoundException e) {
         System.out.println("Database not found, continue...");
         instance = new Database();
@@ -99,6 +105,10 @@ public class Database implements Serializable {
     save(instance);
   }
 
+  public void addTournament(String name, Date date, TournamentType type) {
+    tournaments.add(new Tournament(name, date, type));
+  }
+
   private static void save(Database db) {
     try {
       ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("database.ser"));
@@ -124,7 +134,10 @@ public class Database implements Serializable {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
 
+  public ArrayList<Tournament> getTournaments() {
+    return tournaments;
   }
 
 }
