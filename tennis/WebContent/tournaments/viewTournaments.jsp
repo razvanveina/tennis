@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>View users</title>
+<title>View tournaments</title>
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <BODY> 

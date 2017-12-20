@@ -140,4 +140,13 @@ public class Database implements Serializable {
     return tournaments;
   }
 
+  public boolean checkDuplicateTournament(String tournamentName, Date date){
+	  for(Tournament tournament:tournaments){
+		  if(tournament.getName().equals(tournamentName) || tournament.getStartDate().equals(date)){
+			  return true;
+		  }
+	  }
+	  return false;
+  }
+  
 }

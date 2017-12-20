@@ -13,8 +13,14 @@
 	
   DateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
   Date date = format.parse(dateS);
-  
+  boolean isDuplicate=Database.getInstance().checkDuplicateTournament(name, date);
+  if(!isDuplicate){
 	Database.getInstance().addTournament(name, date, type); 
+	%>Tournament <%=name %> was added <% 
+  }else{
+	  %>The tournament you were trying to create is a duplicate. Please try another name or date<%  
+	  }
+  
 %>
 
 <%@include file="viewTournaments.jsp" %> 
