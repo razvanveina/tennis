@@ -51,6 +51,11 @@ public class Tournament {
     this.participants = participants;
   }
 
+  public void addParticipant(String userName){
+	 
+	  participants.add(Database.getInstance().getUserByUsername(userName));
+  }
+  
   public TournamentType getType() {
     return type;
   }
@@ -65,6 +70,17 @@ public class Tournament {
 
   public void setTeams(ArrayList<Team> teams) {
     this.teams = teams;
+  }
+  
+  public String getParticipantsAsString(){
+	  String participantsNames="[";
+	  if(!participants.isEmpty()){
+	  for(User part:participants){
+		
+		  participantsNames=participantsNames+part.getName()+",";
+	  }
+  }
+	  return participantsNames+"]";
   }
 
 }

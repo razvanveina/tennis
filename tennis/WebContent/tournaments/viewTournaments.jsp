@@ -34,7 +34,7 @@ ArrayList<Tournament> tournaments = Database.getInstance().getTournaments();
       <TD><%= df.format(t.getStartDate()) %></TD>
       <TD><A href="editTournamentForm.jsp?name=<%=t.getName() %>"><%= t.getName() %></A></TD>
       <TD><%= t.getType() %></TD>
-      <TD><A href="addPlayersToTournament.jsp?name=<%=t.getName() %>"><%= t.getParticipants().toString() %></A></TD> 
+      <TD><A href="addPlayersToTournamentForm.jsp?name=<%=t.getName() %>"><%= t.getParticipantsAsString()%></A></TD> 
       <TD><%= t.getParticipants().size() %></TD>
 <%--       <TD><A href="mailto:<%= user.getEmail() %>"><%= user.getEmail() %></A></TD> --%>    
     </TR>

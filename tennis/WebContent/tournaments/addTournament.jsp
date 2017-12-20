@@ -16,9 +16,18 @@
   boolean isDuplicate=Database.getInstance().checkDuplicateTournament(name, date);
   if(!isDuplicate){
 	Database.getInstance().addTournament(name, date, type); 
-	%>Tournament <%=name %> was added <% 
+  %>
+  <script language="javascript">
+  alert( "Tournament <%= name%> was created" );
+  </script>
+  <% 
   }else{
-	  %>The tournament you were trying to create is a duplicate. Please try another name or date<%  
+    %>
+    <script language="javascript">
+    alert( "The tournament you were trying to create is a duplicate. Please try another name or date" );
+    </script>
+    <% 
+	  
 	  }
   
 %>

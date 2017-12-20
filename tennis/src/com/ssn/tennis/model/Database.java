@@ -82,6 +82,15 @@ public class Database implements Serializable {
     }
     return null;
   }
+  
+  public Tournament getTournamentByName(String name){
+	  for(Tournament tour: tournaments){
+		  if (tour.getName().equals(name)){
+			  return tour;
+		  }
+	  }
+	  return null;
+  }
 
   public ArrayList<User> getUsers() {
     return users;
