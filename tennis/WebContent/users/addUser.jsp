@@ -11,7 +11,7 @@
 	String surname = request.getParameter("surname");
   String admin = request.getParameter("admin");
 	
-	User newUser = new User(user2, pass, name, surname, !admin.equals(""));
+	User newUser = new User(user2, pass, name, surname, admin == null || !admin.equals(""));
 	Database.getInstance().addUser(newUser); 
 %>
 
