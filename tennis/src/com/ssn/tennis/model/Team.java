@@ -15,4 +15,13 @@ import java.util.ArrayList;
 
 public class Team {
   private ArrayList<User> players = new ArrayList<User>();
+
+  public boolean hasPlayer(String name) {
+    for (User u : players) {
+      if (u.hasName(name)) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

@@ -108,4 +108,8 @@ public class User implements Serializable {
     this.admin = admin;
   }
 
+  public int getRating() {
+    return Database.getInstance().getUserRatingByName(name);
+  }
+
 }

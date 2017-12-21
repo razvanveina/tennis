@@ -158,4 +158,16 @@ public class Database implements Serializable {
     return false;
   }
 
+  public int getUserRatingByName(String name) {
+    int won = 0;
+    int lost = 0;
+
+    for (Tournament t : tournaments) {
+      won += t.getMatchesWonByUserName(name);
+      lost += t.getMatchesLostByUserName(name);
+    }
+
+    return (won + lost != 0) ? won * 1000 / (won + lost) : 0;
+  }
+
 }
