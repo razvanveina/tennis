@@ -102,12 +102,29 @@ public class Tournament implements Serializable {
 
   private void buildTeams() {
     Collections.sort(participants, new Comparator<User>() {
-
       @Override
       public int compare(User o1, User o2) {
         return o1.getRating() - o2.getRating();
       }
     });
+
+    for (int i = 0; i < participants.size() / 2; i++) {
+      Team team = new Team();
+      team.addPlayer(participants.get(i));
+      team.addPlayer(participants.get(participants.size() - i - 1));
+      teams.add(team);
+    }
+
+    MatchFormatDefinition[] matchesStructure = this.getFormat().getMatchesStructure();
+    for (int i = 0; i < matchesStructure.length; i++) {
+      if (matchesStructure[i] instanceof GroupMatchFormatDefinition) {
+        GroupMatchFormatDefinition def = (GroupMatchFormatDefinition) matchesStructure[i];
+        Team team1 = teams.get(def.getTeam1() - 1);
+        Team team2 = teams.get(def.getTeam2() - 1);
+        Match match = new Match(team1, team2);
+        matches.add(match);
+      }
+    }
   }
 
   public ArrayList<Match> getMatches() {

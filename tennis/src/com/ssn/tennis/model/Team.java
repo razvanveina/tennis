@@ -31,4 +31,11 @@ public class Team implements Serializable {
   public String toString() {
     return players.toString();
   }
+
+  /**
+   * @param user
+   */
+  public void addPlayer(User user) {
+    players.add(user);
+  }
 }

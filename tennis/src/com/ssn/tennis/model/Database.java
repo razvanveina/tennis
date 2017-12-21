@@ -191,6 +191,7 @@ public class Database implements Serializable {
   }
 
   public void startTournament(String name) {
-
+    Tournament tournament = getTournamentByName(name);
+    tournament.start();
   }
 }
