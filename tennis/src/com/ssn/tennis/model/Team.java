@@ -26,4 +26,9 @@ public class Team implements Serializable {
     }
     return false;
   }
+
+  @Override
+  public String toString() {
+    return players.toString();
+  }
 }

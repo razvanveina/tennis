@@ -14,5 +14,5 @@ import java.io.Serializable;
  */
 
 public enum MatchType implements Serializable {
-    GROUP, KNOCKOUT
+    FINAL, LOSERS_FINAL, SEMIFINAL, GROUP
 }

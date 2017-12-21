@@ -25,9 +25,11 @@ public class TournamentFormat6Teams extends TournamentFormat {
       new GroupMatchFormatDefinition(4, "B", 3, 6), //
       new GroupMatchFormatDefinition(5, "A", 2, 5), //
       new GroupMatchFormatDefinition(6, "B", 4, 6), //
+
       new KnockoutFromGroupMatchFormatDefinition(7, "A", "B", 1, 2), //
-      new KnockoutFromGroupMatchFormatDefinition(8, "A", "B", 1, 2), //
-      new KnockoutFromKnockoutMatchFormatDefinition(9, 7, 8, true), //
+      new KnockoutFromGroupMatchFormatDefinition(8, "B", "A", 1, 2), //
+
+      new KnockoutFromKnockoutMatchFormatDefinition(MatchType.FINAL, 9, 7, 8, true), //
     };
   }
 

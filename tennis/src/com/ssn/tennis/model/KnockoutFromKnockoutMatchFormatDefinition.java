@@ -18,8 +18,8 @@ public class KnockoutFromKnockoutMatchFormatDefinition extends MatchFormatDefini
   private int team2MatchId;
   private boolean winners;
 
-  public KnockoutFromKnockoutMatchFormatDefinition(int number, int team1MatchId, int team2MatchId, boolean winners) {
-    super(number);
+  public KnockoutFromKnockoutMatchFormatDefinition(MatchType type, int number, int team1MatchId, int team2MatchId, boolean winners) {
+    super(number, type);
     this.team1MatchId = team1MatchId;
     this.team2MatchId = team2MatchId;
     this.winners = winners;

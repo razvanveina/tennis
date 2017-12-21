@@ -19,7 +19,7 @@ public class GroupMatchFormatDefinition extends MatchFormatDefinition {
   private int team2;
 
   public GroupMatchFormatDefinition(int number, String group, int team1, int team2) {
-    super(number);
+    super(number, MatchType.GROUP);
     this.group = group;
     this.team1 = team1;
     this.team2 = team2;

@@ -16,10 +16,16 @@ import java.io.Serializable;
 public class MatchFormatDefinition implements Serializable {
   private static final long serialVersionUID = 1L;
   protected int number;
+  private MatchType type;
 
-  public MatchFormatDefinition(int number) {
+  public MatchFormatDefinition(int number, MatchType type) {
     super();
     this.number = number;
+    this.type = type;
+  }
+
+  public MatchType getType() {
+    return type;
   }
 
 }

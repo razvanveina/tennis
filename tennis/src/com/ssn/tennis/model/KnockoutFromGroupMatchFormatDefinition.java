@@ -20,7 +20,7 @@ public class KnockoutFromGroupMatchFormatDefinition extends MatchFormatDefinitio
   private int team2GroupPosition;
 
   public KnockoutFromGroupMatchFormatDefinition(int number, String team1Group, String team2Group, int team1GroupPosition, int team2GroupPosition) {
-    super(number);
+    super(number, MatchType.SEMIFINAL);
     this.team1Group = team1Group;
     this.team2Group = team2Group;
     this.team1GroupPosition = team1GroupPosition;

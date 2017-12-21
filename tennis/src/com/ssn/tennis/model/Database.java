@@ -190,4 +190,7 @@ public class Database implements Serializable {
     return (won + lost != 0) ? won * 1000 / (won + lost) : 0;
   }
 
+  public void startTournament(String name) {
+
+  }
 }

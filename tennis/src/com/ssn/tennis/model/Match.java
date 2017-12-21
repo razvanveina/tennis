@@ -44,4 +44,8 @@ public class Match implements Serializable {
     return !isWonByUser(name);
   }
 
+  @Override
+  public String toString() {
+    return team1.toString() + " - " + team2.toString();
+  }
 }
