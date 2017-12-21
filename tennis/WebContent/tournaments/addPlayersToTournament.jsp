@@ -5,21 +5,22 @@
     <%@page import="java.text.*" %>
     
     <%@include file="../checkLogin.jsp" %>
-   
+
 
 <%
-String[] players= request.getParameterValues("usersArray[]");
-ArrayList<User> usersToAdd=new ArrayList<User>();
-String tournamentName=request.getParameter("name");
-Tournament tournament=Database.getInstance().getTournamentByName(tournamentName);
-%><%=tournament.getName() %><%
-if(players!=null){
-	for(String player:players){
-		String playerName=player.replaceAll("/", "");
-		usersToAdd.add(Database.getInstance().getUserByUsername(playerName));
-	}
-}
-tournament.setParticipants(usersToAdd);
+     String[] players = request.getParameterValues("usersArray[]");
+     ArrayList<User> usersToAdd = new ArrayList<User>();
+     String tournamentName = request.getParameter("name");
+     Tournament tournament = Database.getInstance().getTournamentByName(tournamentName);
+   %><%=tournament.getName()%>
+<%
+  if (players != null) {
+    for (String player : players) {
+      String playerName = player.replaceAll("/", "");
+      usersToAdd.add(Database.getInstance().getUserByUsername(playerName));
+    }
+  }
+  tournament.setParticipants(usersToAdd);
 %>
 <%@include file="viewTournaments.jsp" %> 
 

@@ -13,6 +13,7 @@ package com.ssn.tennis.model;
 
 public class KnockoutFromGroupMatchFormatDefinition extends MatchFormatDefinition {
 
+  private static final long serialVersionUID = 1L;
   private String team1Group;
   private String team2Group;
   private int team1GroupPosition;

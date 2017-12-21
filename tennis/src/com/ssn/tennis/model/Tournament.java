@@ -6,6 +6,7 @@
 
 package com.ssn.tennis.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,7 +17,9 @@ import java.util.Date;
  * @version $Revision: $, $Date: $, $Author: $
  */
 
-public class Tournament {
+public class Tournament implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   private String name;
   private Date startDate;
   private ArrayList<User> participants = new ArrayList<User>();
@@ -54,10 +57,10 @@ public class Tournament {
     this.participants = participants;
   }
 
-  public void addParticipant(String userName) {
-
-    participants.add(Database.getInstance().getUserByUsername(userName));
-  }
+  //  public void addParticipant(String userName) {
+  //
+  //    participants.add(Database.getInstance().getUserByUsername(userName));
+  //  }
 
   public TournamentType getType() {
     return type;

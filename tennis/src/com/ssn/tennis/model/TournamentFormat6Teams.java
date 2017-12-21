@@ -13,6 +13,8 @@ package com.ssn.tennis.model;
 
 public class TournamentFormat6Teams extends TournamentFormat {
 
+  private static final long serialVersionUID = 1L;
+
   @Override
   public MatchFormatDefinition[] getMatchesStructure() {
 

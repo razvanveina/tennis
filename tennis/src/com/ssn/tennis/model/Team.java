@@ -6,6 +6,7 @@
 
 package com.ssn.tennis.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +14,8 @@ import java.util.ArrayList;
  * @version $Revision: $, $Date: $, $Author: $
  */
 
-public class Team {
+public class Team implements Serializable {
+  private static final long serialVersionUID = 1L;
   private ArrayList<User> players = new ArrayList<User>();
 
   public boolean hasPlayer(String name) {

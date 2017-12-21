@@ -28,7 +28,7 @@ ArrayList<User> users= Database.getInstance().getUsers();
 				<%for (User user : users){%>
 
 				<INPUT type="checkbox" name="usersArray[]"
-					value=<%=user.getUser() %> />
+					value="<%=user.getUser() %>" />
 				<%=user.getName()%>
 				<BR />
 

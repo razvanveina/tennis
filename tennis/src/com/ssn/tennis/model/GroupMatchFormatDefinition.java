@@ -13,6 +13,7 @@ package com.ssn.tennis.model;
 
 public class GroupMatchFormatDefinition extends MatchFormatDefinition {
 
+  private static final long serialVersionUID = 1L;
   private String group;
   private int team1;
   private int team2;

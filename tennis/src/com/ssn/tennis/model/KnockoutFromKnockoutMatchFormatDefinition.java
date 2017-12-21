@@ -13,6 +13,7 @@ package com.ssn.tennis.model;
 
 public class KnockoutFromKnockoutMatchFormatDefinition extends MatchFormatDefinition {
 
+  private static final long serialVersionUID = 1L;
   private int team1MatchId;
   private int team2MatchId;
   private boolean winners;

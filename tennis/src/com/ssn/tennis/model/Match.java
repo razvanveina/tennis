@@ -6,12 +6,16 @@
 
 package com.ssn.tennis.model;
 
+import java.io.Serializable;
+
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
  * @version $Revision: $, $Date: $, $Author: $
  */
 
-public class Match {
+public class Match implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   Team team1;
   Team team2;
 
