@@ -8,7 +8,10 @@
 	if (userLogin != null) {
 		session.setAttribute("user", userLogin);
 	} else {
-    throw new RuntimeException("Invalid user / password");
+    %>
+<font face="verdana" color="green">Invalid username or password! please try again </font>
+<br />
+    <% 
 	}
 %>
 

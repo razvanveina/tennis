@@ -18,6 +18,8 @@ Tournament tournament = Database.getInstance().getTournamentByName(name);
 
 <%
 ArrayList<User> users= Database.getInstance().getUsers();
+ArrayList<User> lastUsers=tournament.getParticipants();
+boolean hasOldParticipants=!lastUsers.isEmpty();
 %>
 	<element>
 		<FORM
@@ -25,11 +27,14 @@ ArrayList<User> users= Database.getInstance().getUsers();
 			method="POST">
 			<legend>Choose users</legend>
 			<fieldset>
-				<%for (User user : users){%>
-
+				<%       
+        for(User user : users){
+          boolean isChecked= (hasOldParticipants && lastUsers.contains(user));
+          String checked=(isChecked? "checked":"");
+          %>
 				<INPUT type="checkbox" name="usersArray[]"
-					value="<%=user.getUser() %>" />
-				<%=user.getName()%>
+					value="<%=user.getUser() %>" <%= checked %>/>
+			(<%=user.getUser()%> )<%=user.getName()%> <%=user.getSurname()%> 
 				<BR />
 
 				<%}%>

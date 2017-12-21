@@ -35,6 +35,10 @@ ArrayList<User> users = Database.getInstance().getUsers();
 <% } %>
 
 </TABLE>
- 
+ <br />
+<FORM action="addUserForm.jsp" method="POST">
+<INPUT type="submit" value="Add user"/>
+</FORM>
+
 </BODY>
 </HTML>     

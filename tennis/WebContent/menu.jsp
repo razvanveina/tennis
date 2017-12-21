@@ -8,10 +8,8 @@
 <% 
 	if (userM != null && userM.isAdmin()) {
 %>
-<A href="<%=rel %>users/addUserForm.jsp">Add user</A>
-<A href="<%=rel %>users/users.jsp">View users</A>
-<A href="<%=rel %>tournaments/addTournamentForm.jsp">Add tournament</A>
-<A href="<%=rel %>tournaments/viewTournaments.jsp">View tournaments</A>
+<A href="<%=rel %>users/users.jsp">Users</A>
+<A href="<%=rel %>tournaments/viewTournaments.jsp">Tournaments</A>
 <%
 	} 
 %>

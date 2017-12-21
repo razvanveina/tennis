@@ -31,9 +31,14 @@ ArrayList<Tournament> tournaments = Database.getInstance().getTournaments();
 
 <% for (Tournament t : tournaments) { 
   DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
+  int numberOfPlayersNeeded=t.getMatches().isEmpty()? -1:0;
+  boolean hasEnoughPlayers=t.getParticipants().size()==numberOfPlayersNeeded;
+if(hasEnoughPlayers){
 %>
-
-    <TR> 
+  <TR bgcolor="#ccff99">
+<%}else{ %>
+    <TR bgcolor="#ffff99">
+    <%} %>
       <TD><%= df.format(t.getStartDate()) %></TD>
       <TD><A href="editTournamentForm.jsp?name=<%=t.getName() %>"><%= t.getName() %></A></TD>
       <TD><%= t.getType() %></TD>
@@ -47,6 +52,9 @@ ArrayList<Tournament> tournaments = Database.getInstance().getTournaments();
 <% } %>
 
 </TABLE>
- 
+ <br />
+<FORM action="addTournamentForm.jsp" method="POST">
+<INPUT type="submit" value="Add tournament"/>
+</FORM>
 </BODY>
 </HTML>     
