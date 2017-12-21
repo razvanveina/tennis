@@ -19,5 +19,8 @@ Type: <select name="type">
   <option value="DOUBLE">DOUBLE</option>
   <option value="SINGLE">SINGLE</option>
 </select><BR/>
+Format: <select name="format">
+  <option value="6 teams">6 teams</option>
+</select><BR/>
 <INPUT type="submit" value="Add"/>
 </FORM>

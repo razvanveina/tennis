@@ -32,6 +32,8 @@ public class Database implements Serializable {
 
   private ArrayList<Tournament> tournaments = new ArrayList<>();
 
+  private transient TournamentFormats tf = new TournamentFormats();
+
   public static Database getInstance() {
     if (instance == null) {
       try {
@@ -39,6 +41,7 @@ public class Database implements Serializable {
         if (instance.tournaments == null) {
           instance.tournaments = new ArrayList<>();
         }
+        instance.tf = new TournamentFormats();
       } catch (FileNotFoundException e) {
         System.out.println("Database not found, continue...");
         instance = new Database();
@@ -53,6 +56,22 @@ public class Database implements Serializable {
     users.add(new User("raz", "raz", "Razvan", "Veina", true));
     users.add(new User("cni", "cni", "Catalin", "Nichifor", true));
     users.add(new User("dst", "dst", "Dana", "Stan", true));
+    users.add(new User("cmt", "cmt", "Cristi", "Matei", false));
+
+    users.add(new User("cpl", "cpl", "Cosmin", "Plugar", false));
+    users.add(new User("cba", "cba", "Cristi", "Baciu", false));
+    users.add(new User("asa", "asa", "Andreea", "Sas", false));
+    users.add(new User("apa", "apa", "Andreea", "Pantea", false));
+
+    users.add(new User("ave", "ave", "Andor", "Vetesi", false));
+    users.add(new User("rva", "rva", "Robert", "Valea", false));
+    users.add(new User("ema", "ema", "Elena", "Malaescu", false));
+    users.add(new User("rvo", "rvo", "Razvan", "Voicu", false));
+
+    users.add(new User("cvo", "cvo", "Cristina", "Volinteriu", false));
+    users.add(new User("cco", "cco", "Marius", "Cosma", false));
+    users.add(new User("acn", "acn", "Andrei", "Contoman", false));
+    users.add(new User("sbr", "sbr", "Sorin", "Brazdau", false));
   }
 
   public void addUser(User user) {
@@ -115,8 +134,8 @@ public class Database implements Serializable {
     save(instance);
   }
 
-  public void addTournament(String name, Date date, TournamentType type) {
-    tournaments.add(new Tournament(name, date, type));
+  public void addTournament(String name, Date date, TournamentType type, String tournamentFormat) {
+    tournaments.add(new Tournament(name, date, type, tf.getTournamentFormatByName(tournamentFormat)));
   }
 
   private static void save(Database db) {

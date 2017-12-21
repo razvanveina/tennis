@@ -17,4 +17,8 @@ public abstract class TournamentFormat implements Serializable {
   private static final long serialVersionUID = 1L;
 
   public abstract MatchFormatDefinition[] getMatchesStructure();
+
+  public abstract String getName();
+
+  public abstract int getMaxPlayers();
 }

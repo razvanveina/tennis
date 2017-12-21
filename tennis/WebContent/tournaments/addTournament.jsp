@@ -10,13 +10,14 @@
 	String name = request.getParameter("name");
   String dateS = request.getParameter("date");
   TournamentType type = TournamentType.valueOf(request.getParameter("type"));
+  String tourFormat = request.getParameter("format");
 	
   DateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
   Date date = format.parse(dateS);
   boolean isDuplicate=Database.getInstance().checkDuplicateTournament(name, date);
   if(!isDuplicate){
-	Database.getInstance().addTournament(name, date, type); 
-  %>
+	  Database.getInstance().addTournament(name, date, type, tourFormat);  
+  %> 
   <script language="javascript">
   alert( "Tournament <%= name%> was created" );
   </script>

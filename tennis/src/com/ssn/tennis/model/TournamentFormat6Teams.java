@@ -31,4 +31,14 @@ public class TournamentFormat6Teams extends TournamentFormat {
     };
   }
 
+  @Override
+  public String getName() {
+    return "6 teams";
+  }
+
+  @Override
+  public int getMaxPlayers() {
+    return 12;
+  }
+
 }

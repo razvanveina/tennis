@@ -26,11 +26,14 @@ public class Tournament implements Serializable {
   private TournamentType type = TournamentType.DOUBLE;
   private ArrayList<Team> teams = new ArrayList<Team>();
   private ArrayList<Match> matches = new ArrayList<Match>();
+  private TournamentStatus status = TournamentStatus.NEW;
+  private TournamentFormat format;
 
-  public Tournament(String name, Date date, TournamentType type) {
+  public Tournament(String name, Date date, TournamentType type, TournamentFormat format) {
     this.name = name;
     startDate = date;
     this.type = type;
+    this.format = format;
   }
 
   public String getName() {
@@ -141,6 +144,14 @@ public class Tournament implements Serializable {
     }
 
     return lost;
+  }
+
+  public TournamentStatus getStatus() {
+    return status;
+  }
+
+  public TournamentFormat getFormat() {
+    return format;
   }
 
 }
