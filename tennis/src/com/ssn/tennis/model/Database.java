@@ -51,7 +51,8 @@ public class Database implements Serializable {
 
   private void init() {
     users.add(new User("raz", "raz", "Razvan", "Veina", true));
-    users.add(new User("cni", "cni", "Nichifor", "Catalin", true));
+    users.add(new User("cni", "cni", "Catalin", "Nichifor", true));
+    users.add(new User("dst", "dst", "Dana", "Stan", true));
   }
 
   public void addUser(User user) {
@@ -82,14 +83,14 @@ public class Database implements Serializable {
     }
     return null;
   }
-  
-  public Tournament getTournamentByName(String name){
-	  for(Tournament tour: tournaments){
-		  if (tour.getName().equals(name)){
-			  return tour;
-		  }
-	  }
-	  return null;
+
+  public Tournament getTournamentByName(String name) {
+    for (Tournament tour : tournaments) {
+      if (tour.getName().equals(name)) {
+        return tour;
+      }
+    }
+    return null;
   }
 
   public ArrayList<User> getUsers() {
