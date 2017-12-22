@@ -13,6 +13,10 @@ import java.util.Comparator;
 import java.util.Date;
 
 import com.ssn.tennis.model.classification.Classification;
+import com.ssn.tennis.model.enums.TournamentStatus;
+import com.ssn.tennis.model.enums.TournamentType;
+import com.ssn.tennis.model.format.TournamentFormat;
+import com.ssn.tennis.model.matchdef.MatchFormatDefinition;
 
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
@@ -120,13 +124,12 @@ public class Tournament implements Serializable {
 
     MatchFormatDefinition[] matchesStructure = this.getFormat().getMatchesStructure();
     for (int i = 0; i < matchesStructure.length; i++) {
-      if (matchesStructure[i] instanceof GroupMatchFormatDefinition) {
-        GroupMatchFormatDefinition def = (GroupMatchFormatDefinition) matchesStructure[i];
-        Team team1 = teams.get(def.getTeam1() - 1);
-        Team team2 = teams.get(def.getTeam2() - 1);
-        Match match = new Match(team1, team2, def);
-        matches.add(match);
-      }
+      MatchFormatDefinition def = matchesStructure[i];
+      Match match = def.createMatch(this);
+      //      Team team1 = teams.get(def.getTeam1() - 1);
+      //      Team team2 = teams.get(def.getTeam2() - 1);
+      //      Match match = new Match(team1, team2, def);
+      matches.add(match);
     }
   }
 
@@ -177,15 +180,26 @@ public class Tournament implements Serializable {
   public Classification getClassification(String group) {
     Classification cls = new Classification();
 
-    for (Team team : teams) {
-      cls.addTeam(team);
+    for (Match match : matches) {
+      if (match.isGroupMatch(group)) {
+        cls.addMatch(match);
+      }
     }
 
-    for (Match match : matches) {
-      cls.addMatch(match);
-    }
+    cls.sort();
 
     return cls;
+  }
+
+  public boolean isGroupFinished(String group) {
+    for (Match match : matches) {
+      if (match.isGroupMatch(group)) {
+        if (!match.isPlayed()) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
 }

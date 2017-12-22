@@ -29,7 +29,9 @@ public class Team implements Serializable {
 
   @Override
   public String toString() {
-    return players.toString();
+    return players.toString().//
+      replaceAll("[\\[\\]]", "").//
+      replaceAll(", ", "/");
   }
 
   /**

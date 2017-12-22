@@ -9,6 +9,8 @@ package com.ssn.tennis.model;
 import java.io.Serializable;
 
 import com.ssn.tennis.model.classification.ClassificationLine;
+import com.ssn.tennis.model.matchdef.GroupMatchFormatDefinition;
+import com.ssn.tennis.model.matchdef.MatchFormatDefinition;
 
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
@@ -24,9 +26,9 @@ public class Match implements Serializable {
   int points1;
   int points2;
 
-  private GroupMatchFormatDefinition format;
+  private MatchFormatDefinition format;
 
-  public Match(Team team1, Team team2, GroupMatchFormatDefinition def) {
+  public Match(Team team1, Team team2, MatchFormatDefinition def) {
     this.team1 = team1;
     this.team2 = team2;
     this.format = def;
@@ -49,12 +51,7 @@ public class Match implements Serializable {
     return !isWonByUser(name);
   }
 
-  @Override
-  public String toString() {
-    return team1.toString() + " - " + team2.toString();
-  }
-
-  public GroupMatchFormatDefinition getFormat() {
+  public MatchFormatDefinition getFormat() {
     return format;
   }
 
@@ -79,6 +76,10 @@ public class Match implements Serializable {
    * @param cl2
    */
   public void addToClassificationLines(ClassificationLine cl1, ClassificationLine cl2) {
+    if (!isPlayed()) {
+      return;
+    }
+
     if (isWonByTeam1()) {
       cl1.incrementWins();
       cl2.incrementLosses();
@@ -107,4 +108,19 @@ public class Match implements Serializable {
     this.points2 = points2;
   }
 
+  @Override
+  public String toString() {
+    return team1.toString() + " - " + team2.toString();
+  }
+
+  public boolean isGroupMatch(String group) {
+    return format.isGroupMatch(group);
+  }
+
+  /**
+   * @return
+   */
+  public Team getWinningTeam() {
+    return (isWonByTeam1() ? team1 : team2);
+  }
 }

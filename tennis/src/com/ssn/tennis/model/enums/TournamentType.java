@@ -4,7 +4,7 @@
  * $Header: $
  */
 
-package com.ssn.tennis.model;
+package com.ssn.tennis.model.enums;
 
 import java.io.Serializable;
 

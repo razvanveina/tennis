@@ -4,7 +4,12 @@
  * $Header: $
  */
 
-package com.ssn.tennis.model;
+package com.ssn.tennis.model.matchdef;
+
+import com.ssn.tennis.model.Match;
+import com.ssn.tennis.model.Tournament;
+import com.ssn.tennis.model.enums.MatchType;
+import com.ssn.tennis.model.proxy.GroupPositionTeamProxy;
 
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
@@ -25,6 +30,12 @@ public class KnockoutFromGroupMatchFormatDefinition extends MatchFormatDefinitio
     this.team2Group = team2Group;
     this.team1GroupPosition = team1GroupPosition;
     this.team2GroupPosition = team2GroupPosition;
+  }
+
+  @Override
+  public Match createMatch(Tournament tournament) {
+    return new Match(new GroupPositionTeamProxy(this.team1Group, this.team1GroupPosition, tournament), //
+      new GroupPositionTeamProxy(this.team2Group, this.team2GroupPosition, tournament), this);
   }
 
 }

@@ -4,7 +4,7 @@
  * $Header: $
  */
 
-package com.ssn.tennis.model;
+package com.ssn.tennis.model.enums;
 
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>

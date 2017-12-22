@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.ssn.tennis.common.Utils;
+import com.ssn.tennis.model.enums.TournamentType;
+import com.ssn.tennis.model.format.TournamentFormats;
 
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
@@ -136,6 +138,7 @@ public class Database implements Serializable {
 
   public void addTournament(String name, Date date, TournamentType type, String tournamentFormat) {
     tournaments.add(new Tournament(name, date, type, tf.getTournamentFormatByName(tournamentFormat)));
+    save(this);
   }
 
   private static void save(Database db) {
@@ -193,5 +196,10 @@ public class Database implements Serializable {
   public void startTournament(String name) {
     Tournament tournament = getTournamentByName(name);
     tournament.start();
+  }
+
+  public void addParticipantsToTournament(Tournament t, ArrayList<User> participants) {
+    t.setParticipants(participants);
+    save(this);
   }
 }

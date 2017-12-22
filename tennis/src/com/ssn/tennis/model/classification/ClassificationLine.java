@@ -71,4 +71,20 @@ public class ClassificationLine implements Comparable<ClassificationLine> {
     ga += points2;
   }
 
+  public int getWon() {
+    return won;
+  }
+
+  public int getLost() {
+    return lost;
+  }
+
+  public int getGf() {
+    return gf;
+  }
+
+  public int getGa() {
+    return ga;
+  }
+
 }

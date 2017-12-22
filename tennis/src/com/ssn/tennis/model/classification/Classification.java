@@ -7,6 +7,7 @@
 package com.ssn.tennis.model.classification;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import com.ssn.tennis.model.Match;
 import com.ssn.tennis.model.Team;
@@ -35,7 +36,13 @@ public class Classification {
    */
   public void addMatch(Match match) {
     ClassificationLine cl1 = getClassificationLineByTeam(match.getTeam1());
+    if (cl1 == null) {
+      cls.add(cl1 = new ClassificationLine(match.getTeam1()));
+    }
     ClassificationLine cl2 = getClassificationLineByTeam(match.getTeam2());
+    if (cl2 == null) {
+      cls.add(cl2 = new ClassificationLine(match.getTeam2()));
+    }
     match.addToClassificationLines(cl1, cl2);
   }
 
@@ -48,4 +55,9 @@ public class Classification {
 
     return null;
   }
+
+  public void sort() {
+    Collections.sort(cls);
+  }
+
 }

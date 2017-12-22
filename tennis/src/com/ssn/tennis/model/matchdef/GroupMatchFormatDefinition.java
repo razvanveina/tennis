@@ -4,7 +4,12 @@
  * $Header: $
  */
 
-package com.ssn.tennis.model;
+package com.ssn.tennis.model.matchdef;
+
+import com.ssn.tennis.model.Match;
+import com.ssn.tennis.model.Team;
+import com.ssn.tennis.model.Tournament;
+import com.ssn.tennis.model.enums.MatchType;
 
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
@@ -49,4 +54,20 @@ public class GroupMatchFormatDefinition extends MatchFormatDefinition {
     this.team2 = team2;
   }
 
+  @Override
+  public boolean isGroupMatch(String group) {
+    return group.equals(this.group);
+  }
+
+  @Override
+  public String getStageInfo() {
+    return "Group " + group;
+  }
+
+  @Override
+  public Match createMatch(Tournament tournament) {
+    Team t1 = tournament.getTeams().get(getTeam1() - 1);
+    Team t2 = tournament.getTeams().get(getTeam2() - 1);
+    return new Match(t2, t1, this);
+  }
 }

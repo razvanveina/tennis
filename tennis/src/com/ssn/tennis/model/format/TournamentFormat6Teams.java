@@ -4,7 +4,13 @@
  * $Header: $
  */
 
-package com.ssn.tennis.model;
+package com.ssn.tennis.model.format;
+
+import com.ssn.tennis.model.enums.MatchType;
+import com.ssn.tennis.model.matchdef.GroupMatchFormatDefinition;
+import com.ssn.tennis.model.matchdef.KnockoutFromGroupMatchFormatDefinition;
+import com.ssn.tennis.model.matchdef.KnockoutFromKnockoutMatchFormatDefinition;
+import com.ssn.tennis.model.matchdef.MatchFormatDefinition;
 
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
@@ -41,6 +47,16 @@ public class TournamentFormat6Teams extends TournamentFormat {
   @Override
   public int getMaxPlayers() {
     return 12;
+  }
+
+  @Override
+  public String[] getGroupNames() {
+    return new String[] { "A", "B" };
+  }
+
+  @Override
+  public int[] getGroupMatchesCount() {
+    return new int[] { 3, 3 };
   }
 
 }

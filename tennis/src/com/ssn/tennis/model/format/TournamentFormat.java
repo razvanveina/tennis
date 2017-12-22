@@ -4,9 +4,11 @@
  * $Header: $
  */
 
-package com.ssn.tennis.model;
+package com.ssn.tennis.model.format;
 
 import java.io.Serializable;
+
+import com.ssn.tennis.model.matchdef.MatchFormatDefinition;
 
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
@@ -21,4 +23,8 @@ public abstract class TournamentFormat implements Serializable {
   public abstract String getName();
 
   public abstract int getMaxPlayers();
+
+  public abstract String[] getGroupNames();
+
+  public abstract int[] getGroupMatchesCount();
 }

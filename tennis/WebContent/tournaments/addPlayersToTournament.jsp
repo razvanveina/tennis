@@ -15,12 +15,12 @@
    %><%=tournament.getName()%>
 <%
   if (players != null) {
-    for (String player : players) {
+    for (String player : players) { 
       String playerName = player.replaceAll("/", "");
       usersToAdd.add(Database.getInstance().getUserByUsername(playerName));
     }
   }
-  tournament.setParticipants(usersToAdd);
+Database.getInstance().addParticipantsToTournament(tournament, usersToAdd);
 %>
 <%@include file="viewTournaments.jsp" %> 
 
