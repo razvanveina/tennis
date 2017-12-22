@@ -28,4 +28,8 @@ public class MatchFormatDefinition implements Serializable {
     return type;
   }
 
+  public int getNumber() {
+    return number;
+  }
+
 }

@@ -121,7 +121,7 @@ public class Tournament implements Serializable {
         GroupMatchFormatDefinition def = (GroupMatchFormatDefinition) matchesStructure[i];
         Team team1 = teams.get(def.getTeam1() - 1);
         Team team2 = teams.get(def.getTeam2() - 1);
-        Match match = new Match(team1, team2);
+        Match match = new Match(team1, team2, def);
         matches.add(match);
       }
     }

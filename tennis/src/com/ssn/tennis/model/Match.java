@@ -22,9 +22,12 @@ public class Match implements Serializable {
   int points1;
   int points2;
 
-  public Match(Team team1, Team team2) {
+  private GroupMatchFormatDefinition format;
+
+  public Match(Team team1, Team team2, GroupMatchFormatDefinition def) {
     this.team1 = team1;
     this.team2 = team2;
+    this.format = def;
   }
 
   public boolean isPlayed() {
@@ -48,4 +51,13 @@ public class Match implements Serializable {
   public String toString() {
     return team1.toString() + " - " + team2.toString();
   }
+
+  public GroupMatchFormatDefinition getFormat() {
+    return format;
+  }
+
+  public void setFormat(GroupMatchFormatDefinition format) {
+    this.format = format;
+  }
+
 }

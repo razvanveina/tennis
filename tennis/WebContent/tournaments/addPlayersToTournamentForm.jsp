@@ -20,7 +20,9 @@ Tournament tournament = Database.getInstance().getTournamentByName(name);
 ArrayList<User> users= Database.getInstance().getUsers();
 ArrayList<User> lastUsers=tournament.getParticipants();
 boolean hasOldParticipants=!lastUsers.isEmpty();
+int checkCount=0;
 %>
+
 	<element>
 		<FORM
 			action="addPlayersToTournament.jsp?name=<%=tournament.getName() %>"
@@ -34,8 +36,9 @@ boolean hasOldParticipants=!lastUsers.isEmpty();
           %>
 				<INPUT type="checkbox" name="usersArray[]"
 					value="<%=user.getUser() %>" <%= checked %>/>
-			(<%=user.getUser()%> )<%=user.getName()%> <%=user.getSurname()%> 
+			<b>(<%=user.getUser()%>)</b> <%=user.getName()%> <%=user.getSurname()%> 
 				<BR />
+        
 
 				<%}%>
 				<INPUT type="submit" value="Add" />

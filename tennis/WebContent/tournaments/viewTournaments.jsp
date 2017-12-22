@@ -29,9 +29,11 @@ ArrayList<Tournament> tournaments = Database.getInstance().getTournaments();
       <!-- <TH>Email</TH> -->
     </TR>
 
-<% for (Tournament t : tournaments) { 
+<% 
+int playersChosen=0;
+for (Tournament t : tournaments) { 
   DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
-  int numberOfPlayersNeeded=t.getMatches().isEmpty()? -1:0;
+  int numberOfPlayersNeeded=t.getMatches().isEmpty()? -1:t.getFormat().getMaxPlayers();
   boolean hasEnoughPlayers=t.getParticipants().size()==numberOfPlayersNeeded;
 if(hasEnoughPlayers){
 %>
@@ -40,15 +42,17 @@ if(hasEnoughPlayers){
     <TR bgcolor="#ffff99">
     <%} %>
       <TD><%= df.format(t.getStartDate()) %></TD>
-      <TD><A href="editTournamentForm.jsp?name=<%=t.getName() %>"><%= t.getName() %></A></TD>
+      <TD><A href="viewTournamentForm.jsp?name=<%=t.getName() %>"><%= t.getName() %></A></TD>
       <TD><%= t.getType() %></TD>
       <TD><%= t.getFormat().getName() %></TD>
       <TD><%= t.getFormat().getMaxPlayers() %></TD> 
       <TD><A href="addPlayersToTournamentForm.jsp?name=<%=t.getName() %>"><%= t.getParticipantsAsString()%></A></TD> 
       <TD><%= t.getParticipants().size() %></TD>
       <TD><%= t.getStatus() %></TD>
-<%--       <TD><A href="mailto:<%= user.getEmail() %>"><%= user.getEmail() %></A></TD> --%>    
-    </TR>
+     <TD> <a href="viewTournamentForm.jsp?name=<%=t.getName()%>">
+  <img src="/img/start.png" alt="start">
+</a>
+</TD>
 <% } %>
 
 </TABLE>
