@@ -12,6 +12,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+import com.ssn.tennis.model.classification.Classification;
+
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
  * @version $Revision: $, $Date: $, $Author: $
@@ -169,6 +171,20 @@ public class Tournament implements Serializable {
 
   public TournamentFormat getFormat() {
     return format;
+  }
+
+  public Classification getClassification(String group) {
+    Classification cls = new Classification();
+
+    for (Team team : teams) {
+      cls.addTeam(team);
+    }
+
+    for (Match match : matches) {
+      cls.addMatch(match);
+    }
+
+    return cls;
   }
 
 }

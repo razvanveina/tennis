@@ -8,6 +8,8 @@ package com.ssn.tennis.model;
 
 import java.io.Serializable;
 
+import com.ssn.tennis.model.classification.ClassificationLine;
+
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
  * @version $Revision: $, $Date: $, $Author: $
@@ -58,6 +60,36 @@ public class Match implements Serializable {
 
   public void setFormat(GroupMatchFormatDefinition format) {
     this.format = format;
+  }
+
+
+  public Team getTeam1() {
+    return team1;
+  }
+
+  public Team getTeam2() {
+    return team2;
+  }
+
+  public boolean isWonByTeam1() {
+    return points1 > points2;
+  }
+
+  /**
+   * @param cl1
+   * @param cl2
+   */
+  public void addToClassificationLines(ClassificationLine cl1, ClassificationLine cl2) {
+    if (isWonByTeam1()) {
+      cl1.incrementWins();
+      cl2.incrementLosses();
+    } else {
+      cl1.incrementLosses();
+      cl2.incrementWins();
+    }
+
+    cl1.addPoints(points1, points2);
+    cl2.addPoints(points2, points1);
   }
 
 }
