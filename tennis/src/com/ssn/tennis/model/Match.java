@@ -62,7 +62,6 @@ public class Match implements Serializable {
     this.format = format;
   }
 
-
   public Team getTeam1() {
     return team1;
   }
@@ -90,6 +89,22 @@ public class Match implements Serializable {
 
     cl1.addPoints(points1, points2);
     cl2.addPoints(points2, points1);
+  }
+
+  public int getPoints1() {
+    return points1;
+  }
+
+  public void setPoints1(int points1) {
+    this.points1 = points1;
+  }
+
+  public int getPoints2() {
+    return points2;
+  }
+
+  public void setPoints2(int points2) {
+    this.points2 = points2;
   }
 
 }

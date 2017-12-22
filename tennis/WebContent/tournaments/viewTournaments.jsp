@@ -33,7 +33,7 @@ ArrayList<Tournament> tournaments = Database.getInstance().getTournaments();
 int playersChosen=0;
 for (Tournament t : tournaments) { 
   DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
-  int numberOfPlayersNeeded=t.getMatches().isEmpty()? -1:t.getFormat().getMaxPlayers();
+  int numberOfPlayersNeeded=t.getFormat()!=null? t.getFormat().getMaxPlayers(): -1;
   boolean hasEnoughPlayers=t.getParticipants().size()==numberOfPlayersNeeded;
 if(hasEnoughPlayers){
 %>
@@ -41,6 +41,7 @@ if(hasEnoughPlayers){
 <%}else{ %>
     <TR bgcolor="#ffff99">
     <%} %>
+    <%= numberOfPlayersNeeded %>
       <TD><%= df.format(t.getStartDate()) %></TD>
       <TD><A href="viewTournamentForm.jsp?name=<%=t.getName() %>"><%= t.getName() %></A></TD>
       <TD><%= t.getType() %></TD>
@@ -49,14 +50,26 @@ if(hasEnoughPlayers){
       <TD><A href="addPlayersToTournamentForm.jsp?name=<%=t.getName() %>"><%= t.getParticipantsAsString()%></A></TD> 
       <TD><%= t.getParticipants().size() %></TD>
       <TD><%= t.getStatus() %></TD>
-     <TD> <a href="viewTournamentForm.jsp?name=<%=t.getName()%>">
-  <img src="/img/start.png" alt="start">
-</a>
-</TD>
+      <%
+      if(hasEnoughPlayers && t.getStatus().equals(TournamentStatus.NEW)){
+        %>
+        <TD><a href="startTournament.jsp?name=<%=t.getName() %>" alt="start">
+        <img src="../img/start.png"></TD>
+        </a>
+        </TD>
+     <%
+      }else{
+        %>
+        <TD> <a href="" alt="start">
+        <img src="../img/start1.png"></TD>
+        </a>
+        </TD>
+    <%} %>
 <% } %>
 
 </TABLE>
  <br />
+
 <FORM action="addTournamentForm.jsp" method="POST">
 <INPUT type="submit" value="Add tournament"/>
 </FORM>

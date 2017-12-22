@@ -5,10 +5,10 @@
     <%@page import="java.text.*" %>
     
     <%@include file="../checkLogin.jsp" %>
-
-
 <%
-
+String tournamentString=request.getParameter("name");
+Tournament tour= Database.getInstance().getTournamentByName(tournamentString);
+tour.start();
 %>
 <%@include file="viewTournamentForm.jsp" %> 
 

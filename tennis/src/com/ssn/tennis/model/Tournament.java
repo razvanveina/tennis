@@ -100,6 +100,7 @@ public class Tournament implements Serializable {
 
   public void start() {
     buildTeams();
+    status = TournamentStatus.STARTED;
   }
 
   private void buildTeams() {
