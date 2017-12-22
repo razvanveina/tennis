@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="com.ssn.tennis.common.*, java.util.*, java.text.*"%>
+    pageEncoding="ISO-8859-1" import="com.ssn.tennis.common.*, com.ssn.tennis.model.enums.*, java.util.*, java.text.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,7 +22,7 @@ ArrayList<Tournament> tournaments = Database.getInstance().getTournaments();
       <TH>Name</TH>
       <TH>Type</TH>
       <TH>Format</TH>
-      <TH>Max players</TH>
+      <TH>Max players</TH> 
       <TH>Players</TH>
       <TH>No of players</TH>
       <TH>Status</TH>

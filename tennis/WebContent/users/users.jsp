@@ -13,7 +13,8 @@
 <%@include file="../menu.jsp" %>
 
 <%
-ArrayList<User> users = Database.getInstance().getUsers(); 
+ArrayList<User> users = Database.getInstance().getUsers();
+Collections.sort(users);
 %>
 
 <TABLE>
@@ -21,6 +22,9 @@ ArrayList<User> users = Database.getInstance().getUsers();
       <TH>User</TH>
       <TH>Name</TH>
       <TH>Surname</TH>
+      <TH>Rating</TH>
+      <TH>Won</TH>
+      <TH>Lost</TH>
       <!-- <TH>Email</TH> -->
     </TR>
 
@@ -30,6 +34,9 @@ ArrayList<User> users = Database.getInstance().getUsers();
       <TD><A href="editUserForm.jsp?name=<%=user.getUser() %>"><%= user.getUser() %></A></TD>
       <TD><%= user.getName() %></TD>
       <TD><%= user.getSurname() %></TD>
+      <TD><%= user.getRating() %></TD>
+      <TD><%= user.getWon() %></TD>
+      <TD><%= user.getLost() %></TD>
 <%--       <TD><A href="mailto:<%= user.getEmail() %>"><%= user.getEmail() %></A></TD> --%>    
     </TR>
 <% } %>

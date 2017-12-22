@@ -182,15 +182,30 @@ public class Database implements Serializable {
   }
 
   public int getUserRatingByName(String name) {
+    int won = getMatchesWonByUsername(name);
+    int lost = getMatchesLostByUsername(name);
+
+    return (won + lost != 0) ? won * 1000 / (won + lost) : 0;
+  }
+
+  public int getMatchesWonByUsername(String name) {
     int won = 0;
-    int lost = 0;
 
     for (Tournament t : tournaments) {
       won += t.getMatchesWonByUserName(name);
-      lost += t.getMatchesLostByUserName(name);
     }
 
-    return (won + lost != 0) ? won * 1000 / (won + lost) : 0;
+    return (won);
+  }
+
+  public int getMatchesLostByUsername(String name) {
+    int count = 0;
+
+    for (Tournament t : tournaments) {
+      count += t.getMatchesLostByUserName(name);
+    }
+
+    return (count);
   }
 
   public void startTournament(String name) {

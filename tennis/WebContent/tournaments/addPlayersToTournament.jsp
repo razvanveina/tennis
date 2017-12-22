@@ -22,6 +22,6 @@
   }
 Database.getInstance().addParticipantsToTournament(tournament, usersToAdd);
 %>
-<%@include file="viewTournaments.jsp" %> 
+<%@include file="viewTournaments.jsp" %>  
 
 

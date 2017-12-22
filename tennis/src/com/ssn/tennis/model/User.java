@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import com.ssn.tennis.common.Utils;
 
-public class User implements Serializable {
+public class User implements Serializable, Comparable<User> {
   private static final long serialVersionUID = 1L;
   private int id;
   private String user;
@@ -109,7 +109,19 @@ public class User implements Serializable {
   }
 
   public int getRating() {
-    return Database.getInstance().getUserRatingByName(name);
+    return Database.getInstance().getUserRatingByName(user);
   }
 
+  @Override
+  public int compareTo(User o) {
+    return o.getRating() - this.getRating();
+  }
+
+  public int getWon() {
+    return Database.getInstance().getMatchesWonByUsername(this.user);
+  }
+
+  public int getLost() {
+    return Database.getInstance().getMatchesLostByUsername(this.user);
+  }
 }
