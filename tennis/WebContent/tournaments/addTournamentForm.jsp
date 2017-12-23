@@ -1,3 +1,5 @@
+<%@page import="com.ssn.tennis.model.format.TournamentFormats"%>
+<%@page import="com.ssn.tennis.model.format.TournamentFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -20,7 +22,9 @@ Type: <select name="type">
   <option value="SINGLE">SINGLE</option>
 </select><BR/>
 Format: <select name="format">
-  <option value="6 teams">6 teams</option>
+<% for (TournamentFormat tf : new TournamentFormats().getFormats()) { %> 
+  <option value="<%=tf.getName() %>"><%=tf.getName() %></option>
+  <% } %>
 </select><BR/>
 <INPUT type="submit" value="Add"/>
 </FORM>

@@ -123,4 +123,8 @@ public class Match implements Serializable {
   public Team getWinningTeam() {
     return (isWonByTeam1() ? team1 : team2);
   }
+
+  public Team getLosingTeam() {
+    return (isWonByTeam1() ? team2 : team1);
+  }
 }

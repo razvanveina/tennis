@@ -36,7 +36,11 @@ public class MatchWinnerTeamProxy extends Team {
       if (!tournament.getMatches().get(teamMatchId - 1).isPlayed()) {
         return (winners ? "W" : "L") + teamMatchId;
       } else {
-        team = tournament.getMatches().get(teamMatchId - 1).getWinningTeam();
+        if (winners) {
+          team = tournament.getMatches().get(teamMatchId - 1).getWinningTeam();
+        } else {
+          team = tournament.getMatches().get(teamMatchId - 1).getLosingTeam();
+        }
       }
 
     }

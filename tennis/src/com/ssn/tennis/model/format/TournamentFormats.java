@@ -18,6 +18,8 @@ public class TournamentFormats {
 
   public TournamentFormats() {
     formats.add(new TournamentFormat6Teams());
+    formats.add(new TournamentFormat5Teams());
+    formats.add(new TournamentFormat4Teams());
   }
 
   public TournamentFormat getTournamentFormatByName(String name) {
@@ -28,4 +30,9 @@ public class TournamentFormats {
     }
     return null;
   }
+
+  public ArrayList<TournamentFormat> getFormats() {
+    return formats;
+  }
+
 }
