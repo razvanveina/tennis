@@ -45,8 +45,8 @@ public class TournamentFormat6Teams extends TournamentFormat {
   }
 
   @Override
-  public int getMaxPlayers() {
-    return 12;
+  public int getMaxTeams() {
+    return 6;
   }
 
   @Override

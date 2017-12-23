@@ -30,6 +30,11 @@ public class GroupPositionTeamProxy extends Team {
   }
 
   @Override
+  public boolean hasPlayer(String name) {
+    return (team != null ? team.hasPlayer(name) : false);
+  }
+
+  @Override
   public String toString() {
     if (team == null) {
       if (!tournament.isGroupFinished(teamGroup)) {
@@ -41,6 +46,5 @@ public class GroupPositionTeamProxy extends Team {
     }
 
     return team.toString();
-
   }
 }

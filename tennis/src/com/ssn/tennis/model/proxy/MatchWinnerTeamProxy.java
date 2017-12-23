@@ -44,4 +44,9 @@ public class MatchWinnerTeamProxy extends Team {
     return team.toString();
   }
 
+  @Override
+  public boolean hasPlayer(String name) {
+    return (team != null ? team.hasPlayer(name) : false);
+  }
+
 }

@@ -22,7 +22,7 @@ public abstract class TournamentFormat implements Serializable {
 
   public abstract String getName();
 
-  public abstract int getMaxPlayers();
+  public abstract int getMaxTeams();
 
   public abstract String[] getGroupNames();
 

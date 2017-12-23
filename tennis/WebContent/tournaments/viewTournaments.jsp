@@ -33,7 +33,7 @@ ArrayList<Tournament> tournaments = Database.getInstance().getTournaments();
 int playersChosen=0;
 for (Tournament t : tournaments) { 
   DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
-  int numberOfPlayersNeeded=t.getFormat()!=null? t.getFormat().getMaxPlayers(): -1;
+  int numberOfPlayersNeeded=t.getFormat()!=null? t.getMaxPlayers() : -1; 
   boolean hasEnoughPlayers=t.getParticipants().size()==numberOfPlayersNeeded;
 if(hasEnoughPlayers){
 %>
@@ -46,7 +46,7 @@ if(hasEnoughPlayers){
       <TD><A href="viewTournamentForm.jsp?name=<%=t.getName() %>"><%= t.getName() %></A></TD>
       <TD><%= t.getType() %></TD>
       <TD><%= t.getFormat().getName() %></TD>
-      <TD><%= t.getFormat().getMaxPlayers() %></TD> 
+      <TD><%= t.getMaxPlayers() %></TD> 
       <TD><A href="addPlayersToTournamentForm.jsp?name=<%=t.getName() %>"><%= t.getParticipantsAsString()%></A></TD> 
       <TD><%= t.getParticipants().size() %></TD>
       <TD><%= t.getStatus() %></TD>

@@ -89,13 +89,22 @@ public class Tournament implements Serializable {
 
   public String getParticipantsAsString() {
     String participantsNames = "[";
+
     if (!participants.isEmpty()) {
       for (User part : participants) {
-
-        participantsNames = participantsNames + part.getName() + ",";
+        if (participantsNames.length() != 1) {
+          participantsNames += ", " + part.getUser();
+        } else {
+          participantsNames += part.getUser();
+        }
       }
     }
+
     return participantsNames + "]";
+  }
+
+  public int getMaxPlayers() {
+    return format.getMaxTeams() * type.getPlayersPerTeam();
   }
 
   public boolean isStarted() {
@@ -115,10 +124,15 @@ public class Tournament implements Serializable {
       }
     });
 
-    for (int i = 0; i < participants.size() / 2; i++) {
+    for (int i = 0; i < participants.size() / type.getPlayersPerTeam(); i++) {
       Team team = new Team();
-      team.addPlayer(participants.get(i));
-      team.addPlayer(participants.get(participants.size() - i - 1));
+      if (type.equals(TournamentType.DOUBLE)) {
+        team.addPlayer(participants.get(i));
+        team.addPlayer(participants.get(participants.size() - i - 1));
+      } else {
+        team.addPlayer(participants.get(i));
+      }
+      //Team team = this.type.createTeamForParticipantsAndIndex();
       teams.add(team);
     }
 

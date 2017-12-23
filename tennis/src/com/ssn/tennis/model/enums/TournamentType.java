@@ -14,5 +14,16 @@ import java.io.Serializable;
  */
 
 public enum TournamentType implements Serializable {
-    SINGLE, DOUBLE
+    SINGLE(1), DOUBLE(2);
+
+  private int playersPerTeam;
+
+  TournamentType(int playersPerTeam) {
+    this.playersPerTeam = playersPerTeam;
+  }
+
+  public int getPlayersPerTeam() {
+    return playersPerTeam;
+  }
+
 }
