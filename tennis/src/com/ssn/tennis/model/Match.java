@@ -7,6 +7,7 @@
 package com.ssn.tennis.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import com.ssn.tennis.model.classification.ClassificationLine;
 import com.ssn.tennis.model.matchdef.GroupMatchFormatDefinition;
@@ -126,5 +127,13 @@ public class Match implements Serializable {
 
   public Team getLosingTeam() {
     return (isWonByTeam1() ? team2 : team1);
+  }
+
+  /**
+   * @param teams
+   * @return
+   */
+  public boolean isBetweenTeams(ArrayList<Team> teams) {
+    return teams.contains(team1) && teams.contains(team2);
   }
 }
