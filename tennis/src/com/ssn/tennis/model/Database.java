@@ -172,9 +172,9 @@ public class Database implements Serializable {
     return tournaments;
   }
 
-  public boolean checkDuplicateTournament(String tournamentName, Date date) {
+  public boolean checkDuplicateTournament(String tournamentName) {
     for (Tournament tournament : tournaments) {
-      if (tournament.getName().equals(tournamentName) || tournament.getStartDate().equals(date)) {
+      if (tournament.getName().equals(tournamentName)) {
         return true;
       }
     }

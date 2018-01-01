@@ -47,5 +47,18 @@ int checkCount=0;
 <p></p>
 		</FORM>
 	</element>
-</BODY>
+  <script language="JavaScript" type="text/javascript">
+
+function CountCheck(){
+   var chkCnt = 0;
+   var Frm = document.forms[0]; // or name where the first form is 0
+   var dLen = Frm.length - 1;
+   for (i=0;i<=dLen;i++){
+     if (Frm.type == 'checkbox') chkCnt++;
+   }
+} // end function
+
+</script>
+
+  </BODY>
 </HTML>  

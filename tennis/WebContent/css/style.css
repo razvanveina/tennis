@@ -23,6 +23,24 @@ pre
   background-color: #ffffee;
 }
 
+.bottomImg
+{
+    position: fixed;
+    max-width: 100%;
+    right: 10px;
+    bottom: 10px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    top: -5px;
+    left: 105%; 
+}
+
 p
 {
   padding:5px;

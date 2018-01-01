@@ -2,6 +2,30 @@
     pageEncoding="ISO-8859-1" import="com.ssn.tennis.common.*, com.ssn.tennis.model.enums.*, java.util.*, java.text.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<style>
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+</style>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>View tournaments</title>
@@ -53,17 +77,31 @@ if(hasEnoughPlayers){
       <%
       if(hasEnoughPlayers && t.getStatus().equals(TournamentStatus.NEW)){
         %>
-        <TD><a href="startTournament.jsp?name=<%=t.getName() %>" alt="start">
-        <img src="../img/start.png"></TD>
+        <TD>
+        <div class="tooltip">
+        <a href="startTournament.jsp?name=<%=t.getName() %>">       
+        <img src="../img/start.png" width="25" height="20">
         </a>
-        </TD>
+        <span class="tooltiptext">Start tournament</span>
+
+        </div>
+</TD>
      <%
-      }else{
+      }else if(!hasEnoughPlayers){
         %>
-        <TD> <a href="" alt="start">
-        <img src="../img/start1.png"></TD>
-        </a>
+        <TD> 
+        <div class="tooltip">
+        <img src="../img/start1.png" width="25" height="20">
+        <span class="tooltiptext">Not enough players</span>
+        </div>
         </TD>
+     
+    <%} else {%>
+        <TD>
+        <div class="tooltip">
+        <img src="../img/start2.png" width="25" height="20">
+        <span class="tooltiptext">Tournament has already started</span>
+        </div></TD>
     <%} %>
 <% } %>
 

@@ -32,8 +32,14 @@ ArrayList<Match> matches=tournament.getMatches();
 <% 
 for (Match match: matches) { 
   int matchNumber=match.getFormat().getNumber();
-%>
-    <TR >
+  if(match.isPlayed()){
+    %>
+    <TR bgcolor="#cccccc">
+    <%
+    }else{%>
+  
+    <TR bgcolor="#e6e6e6">
+    <%} %>
       <TD><INPUT type="hidden" name=id<%=matchNumber%>/><%=matchNumber%></TD>
       <TD><INPUT type="hidden" name="group"+<%=matchNumber%>/><b><%= match.getFormat().getStageInfo() %></b></TD>
       <TD><INPUT type="hidden" name="players"+<%=matchNumber%>><b><%= match.toString()%></b></TD>
@@ -47,6 +53,7 @@ for (Match match: matches) {
 <INPUT type="submit" value="Save"/>
 </FORM>
 
+ <br />
 <% for (int i = 0; i < tournament.getFormat().getGroupNames().length; i++) {
   Classification cls = tournament.getClassification(tournament.getFormat().getGroupNames()[i]);
   %>

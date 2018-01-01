@@ -21,6 +21,8 @@ Password: <INPUT type="password" name="pass"/>
 } else {
 %>
 <%@include file="menu.jsp" %> 
+ <img class="bottomImg" src="./img/0022.gif">
+
 <%
 }
 %>

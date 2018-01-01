@@ -15,7 +15,7 @@
 	
   DateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
   Date date = format.parse(dateS);
-  boolean isDuplicate=Database.getInstance().checkDuplicateTournament(name, date);
+  boolean isDuplicate=Database.getInstance().checkDuplicateTournament(name);
   if(!isDuplicate){
 	  Database.getInstance().addTournament(name, date, type, tourFormat);  
   %> 
