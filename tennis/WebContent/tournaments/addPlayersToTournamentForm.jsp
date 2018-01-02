@@ -7,6 +7,30 @@
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 <title>Add player to tournament</title>
 </head>
+  <style type="text/css">
+  
+  .box1 { 
+    float: left;
+    padding: 15px;
+    width:25%;
+  }
+  .box2   {
+  text-align: center;
+  font-size: 30px;
+  vertical-align: -50px;
+   padding: 15px;
+    float:right;
+    min-height:230px;
+    width:55%;
+  }
+.clearfix::after {
+    content:"";
+    clear: right;
+    display: table;
+}
+
+
+  </style>  
 <body>
 <%
 String name = request.getParameter("name");
@@ -22,41 +46,50 @@ ArrayList<User> lastUsers=tournament.getParticipants();
 boolean hasOldParticipants=!lastUsers.isEmpty();
 int checkCount=0;
 %>
-
-	<element>
+<div class="clearfix">
+	<div class="box1">
 		<FORM
 			action="addPlayersToTournament.jsp?name=<%=tournament.getName() %>"
 			method="POST">
-			<legend>Choose users</legend>
+			<legend><b>Choose users: </b></legend>
+      <br>
 			<fieldset>
 				<%       
+        Collections.sort(users);
         for(User user : users){
           boolean isChecked= (hasOldParticipants && lastUsers.contains(user));
           String checked=(isChecked? "checked":"");
           %>
 				<INPUT type="checkbox" name="usersArray[]"
-					value="<%=user.getUser() %>" <%= checked %>/>
+					value="<%=user.getUser() %>" <%= checked %> onchange='checkboxes()'/>
 			<b>(<%=user.getUser()%>)</b> <%=user.getName()%> <%=user.getSurname()%> 
 				<BR />
         
 
 				<%}%>
-				<INPUT type="submit" value="Add" />
 			</fieldset>
-
-<p></p>
+      <br>
+				<INPUT type="submit" value="Add"/>
 		</FORM>
-	</element>
+	</div>
+  <div class="box2"> Players selected: <p id="checkedPlayers" align=center><%=lastUsers.size() %>
+</p></div>
+  </div>
   <script language="JavaScript" type="text/javascript">
 
-function CountCheck(){
-   var chkCnt = 0;
-   var Frm = document.forms[0]; // or name where the first form is 0
-   var dLen = Frm.length - 1;
-   for (i=0;i<=dLen;i++){
-     if (Frm.type == 'checkbox') chkCnt++;
-   }
-} // end function
+  function checkboxes()
+  {
+   var inputElems = document.getElementsByTagName("input"),
+    count = 0;
+
+    for (var i=0; i<inputElems.length; i++) {       
+       if (inputElems[i].type == "checkbox" && inputElems[i].checked == true){
+          count++;
+       }
+    }
+    document.getElementById("checkedPlayers").innerHTML = count;
+
+ }
 
 </script>
 

@@ -38,7 +38,7 @@ for (Match match: matches) {
     <%
     }else{%>
   
-    <TR bgcolor="#e6e6e6">
+    <TR bgcolor="#f2f2f2">
     <%} %>
       <TD><INPUT type="hidden" name=id<%=matchNumber%>/><%=matchNumber%></TD>
       <TD><INPUT type="hidden" name="group"+<%=matchNumber%>/><b><%= match.getFormat().getStageInfo() %></b></TD>
@@ -69,7 +69,7 @@ for (Match match: matches) {
   for (ClassificationLine cl : cls.getCls()) {
   %>
   <TR>
-  <TD><%=++counter%></TD><TD><%=cl.getTeam() %></TD><TD><%=cl.getWon() %></TD>
+  <TD><%=++counter%></TD><TD><b><%=cl.getTeam() %></b></TD><TD><%=cl.getWon() %></TD>
   <TD><%=cl.getLost() %></TD><TD><%=cl.getGf()%></TD><TD><%=cl.getGa() %></TD>
   </TR>
   

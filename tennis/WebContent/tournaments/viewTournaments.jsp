@@ -59,11 +59,15 @@ for (Tournament t : tournaments) {
   DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
   int numberOfPlayersNeeded=t.getFormat()!=null? t.getMaxPlayers() : -1; 
   boolean hasEnoughPlayers=t.getParticipants().size()==numberOfPlayersNeeded;
-if(hasEnoughPlayers){
+if(t.isStarted()){
+  %>
+  <TR bgcolor="#aec66b">
+  <%
+}else if(hasEnoughPlayers){
 %>
-  <TR bgcolor="#ccff99">
+  <TR bgcolor="#d9ff7c">
 <%}else{ %>
-    <TR bgcolor="#ffff99">
+    <TR bgcolor="#d9ff9f">
     <%} %>
     <%= numberOfPlayersNeeded %>
       <TD><%= df.format(t.getStartDate()) %></TD>
@@ -75,14 +79,14 @@ if(hasEnoughPlayers){
       <TD><%= t.getParticipants().size() %></TD>
       <TD><%= t.getStatus() %></TD>
       <%
-      if(hasEnoughPlayers && t.getStatus().equals(TournamentStatus.NEW)){
+      if(t.isStarted()){
         %>
         <TD>
         <div class="tooltip">
         <a href="startTournament.jsp?name=<%=t.getName() %>">       
-        <img src="../img/start.png" width="25" height="20">
+        <img src="../img/start2.png" width="25" height="20">
         </a>
-        <span class="tooltiptext">Start tournament</span>
+        <span class="tooltiptext">Tournament has already started</span>
 
         </div>
 </TD>
@@ -99,8 +103,8 @@ if(hasEnoughPlayers){
     <%} else {%>
         <TD>
         <div class="tooltip">
-        <img src="../img/start2.png" width="25" height="20">
-        <span class="tooltiptext">Tournament has already started</span>
+        <img src="../img/start.png" width="25" height="20">
+        <span class="tooltiptext">Start tournament</span>
         </div></TD>
     <%} %>
 <% } %>
