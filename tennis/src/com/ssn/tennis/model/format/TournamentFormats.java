@@ -20,6 +20,7 @@ public class TournamentFormats {
     formats.add(new TournamentFormat6Teams());
     formats.add(new TournamentFormat5Teams());
     formats.add(new TournamentFormat4Teams());
+    formats.add(new TournamentFormat3Teams());
   }
 
   public TournamentFormat getTournamentFormatByName(String name) {
