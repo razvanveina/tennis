@@ -125,15 +125,25 @@ public class Tournament implements Serializable {
     });
 
     for (int i = 0; i < participants.size() / type.getPlayersPerTeam(); i++) {
-      Team team = new Team();
+      Team team = null;
       if (type.equals(TournamentType.DOUBLE)) {
-        team.addPlayer(participants.get(i));
-        team.addPlayer(participants.get(participants.size() - i - 1));
+        team = Database.getInstance().getTeamByParticipants(participants.get(i), participants.get(participants.size() - i - 1));
+        if (team == null) {
+          team = new Team();
+          team.addPlayer(participants.get(i));
+          team.addPlayer(participants.get(participants.size() - i - 1));
+        }
       } else {
-        team.addPlayer(participants.get(i));
+        team = Database.getInstance().getTeamByParticipants(participants.get(i));
+        if (team == null) {
+          team = new Team();
+          team.addPlayer(participants.get(i));
+        }
       }
+
       //Team team = this.type.createTeamForParticipantsAndIndex();
       teams.add(team);
+      Database.getInstance().addTeam(team);
     }
 
     MatchFormatDefinition[] matchesStructure = this.getFormat().getMatchesStructure();
@@ -214,6 +224,46 @@ public class Tournament implements Serializable {
       }
     }
     return true;
+  }
+
+  /**
+   * @param team
+   * @return
+   */
+  public int getMatchesWonByTeam(Team team) {
+    int won = 0;
+
+    for (Match m : matches) {
+      if (m.isPlayed()) {
+        if (m.hasTeam(team)) {
+          if (m.isWonByTeam(team)) {
+            won++;
+          }
+        }
+      }
+    }
+
+    return won;
+  }
+
+  /**
+   * @param team
+   * @return
+   */
+  public int getMatchesLostByTeam(Team team) {
+    int lost = 0;
+
+    for (Match m : matches) {
+      if (m.isPlayed()) {
+        if (m.hasTeam(team)) {
+          if (m.isLostByTeam(team)) {
+            lost++;
+          }
+        }
+      }
+    }
+
+    return lost;
   }
 
 }

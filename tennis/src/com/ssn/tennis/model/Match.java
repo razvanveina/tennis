@@ -136,4 +136,17 @@ public class Match implements Serializable {
   public boolean isBetweenTeams(ArrayList<Team> teams) {
     return teams.contains(team1) && teams.contains(team2);
   }
+
+  public boolean hasTeam(Team team) {
+    return team1.equals(team) || team2.equals(team);
+  }
+
+  public boolean isWonByTeam(Team team) {
+    return points1 > points2 && team1.equals(team) || //
+      points2 > points1 && team2.equals(team);
+  }
+
+  public boolean isLostByTeam(Team team) {
+    return !isWonByTeam(team);
+  }
 }

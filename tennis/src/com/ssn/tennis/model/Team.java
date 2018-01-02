@@ -8,6 +8,8 @@ package com.ssn.tennis.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
@@ -39,6 +41,12 @@ public class Team implements Serializable {
    */
   public void addPlayer(User user) {
     players.add(user);
+    Collections.sort(players, new Comparator<User>() {
+      @Override
+      public int compare(User o1, User o2) {
+        return o1.getUser().compareTo(o2.getUser());
+      }
+    });
   }
 
   @Override
@@ -66,4 +74,19 @@ public class Team implements Serializable {
     return true;
   }
 
+  /**
+   * @param part
+   * @return
+   */
+  public boolean hasParticipants(ArrayList<User> part) {
+    return this.players.equals(part);
+  }
+
+  public int getWon() {
+    return Database.getInstance().getMatchesWonByTeam(this);
+  }
+
+  public int getLost() {
+    return Database.getInstance().getMatchesLostByTeam(this);
+  }
 }

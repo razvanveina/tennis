@@ -16,6 +16,8 @@
     Match match = currentMatches.get(i - 1);
     match.setPoints1(Integer.valueOf(score1 != null && score1.length()>0 ? score1 : "0"));
     match.setPoints2(Integer.valueOf(score2 != null && score2.length()>0 ? score2 : "0"));
+    
+    Database.save(Database.getInstance());
     System.out.println(match);
   }
 %>

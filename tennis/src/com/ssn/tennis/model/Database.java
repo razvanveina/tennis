@@ -14,6 +14,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import com.ssn.tennis.common.Utils;
@@ -31,6 +33,7 @@ public class Database implements Serializable {
   private static Database instance = null;
 
   private ArrayList<User> users = new ArrayList<User>();
+  private ArrayList<Team> teams = new ArrayList<Team>();
 
   private ArrayList<Tournament> tournaments = new ArrayList<>();
 
@@ -141,7 +144,7 @@ public class Database implements Serializable {
     save(this);
   }
 
-  private static void save(Database db) {
+  public static void save(Database db) {
     try {
       ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("database.ser"));
       oos.writeObject(db);
@@ -217,4 +220,72 @@ public class Database implements Serializable {
     t.setParticipants(participants);
     save(this);
   }
+
+  public Team getTeamByParticipants(User... participants) {
+    ArrayList<User> part = new ArrayList<User>();
+    Collections.addAll(part, participants);
+    for (Team t : teams) {
+      if (t.hasParticipants(part)) {
+        return t;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * @return the teams
+   */
+  public ArrayList<Team> getTeams() {
+    Collections.sort(teams, new Comparator<Team>() {
+
+      @Override
+      public int compare(Team o1, Team o2) {
+        int mlt1 = Database.getInstance().getMatchesLostByTeam(o1);
+        int mwt1 = Database.getInstance().getMatchesWonByTeam(o1);
+        int mlt2 = Database.getInstance().getMatchesLostByTeam(o2);
+        int mwt2 = Database.getInstance().getMatchesWonByTeam(o2);
+        int rating1 = 1000 * mwt1 / (mwt1 + mlt1);
+        int rating2 = 1000 * mwt2 / (mwt2 + mlt2);
+        return rating2 - rating1;
+      }
+
+    });
+    return teams;
+  }
+
+  /**
+   * @param team
+   * @return
+   */
+  public int getMatchesWonByTeam(Team team) {
+    int won = 0;
+
+    for (Tournament t : tournaments) {
+      won += t.getMatchesWonByTeam(team);
+    }
+
+    return (won);
+  }
+
+  /**
+   * @param team
+   * @return
+   */
+  public int getMatchesLostByTeam(Team team) {
+    int count = 0;
+
+    for (Tournament t : tournaments) {
+      count += t.getMatchesLostByTeam(team);
+    }
+
+    return (count);
+  }
+
+  /**
+   * @param team
+   */
+  public void addTeam(Team team) {
+    teams.add(team);
+  }
+
 }

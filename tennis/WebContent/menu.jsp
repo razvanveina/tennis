@@ -4,12 +4,12 @@
   String rel = Utils.getParentsFromServletPath(request.getServletPath()); 
   User userM = (User)session.getAttribute("user");  
 %> 
-<A href="<%=rel %>info.jsp">Info</A>
 <% 
 	if (userM != null && userM.isAdmin()) {
 %>
 <A href="<%=rel %>users/users.jsp">Users</A>
 <A href="<%=rel %>tournaments/viewTournaments.jsp">Tournaments</A>
+<A href="<%=rel %>users/teams.jsp">Teams</A>
 <%
 	} 
 %>
