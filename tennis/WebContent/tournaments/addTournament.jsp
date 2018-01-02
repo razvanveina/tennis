@@ -13,10 +13,10 @@
   TournamentType type = TournamentType.valueOf(request.getParameter("type"));
   String tourFormat = request.getParameter("format");
 	
-  DateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
+  DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm", Locale.ENGLISH);
   Date date = format.parse(dateS);
   boolean isDuplicate=Database.getInstance().checkDuplicateTournament(name);
-  if(!isDuplicate){
+  if(!isDuplicate && !name.equals("")){
 	  Database.getInstance().addTournament(name, date, type, tourFormat);  
   }else{
     %>

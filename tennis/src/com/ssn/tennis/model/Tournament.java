@@ -108,7 +108,7 @@ public class Tournament implements Serializable {
   }
 
   public boolean isStarted() {
-    return teams.size() > 0;
+    return matches.size() > 0;
   }
 
   public void start() {
@@ -266,4 +266,15 @@ public class Tournament implements Serializable {
     return lost;
   }
 
+  public boolean isFinished() {
+    if (matches.isEmpty()) {
+      return false;
+    }
+    for (Match m : matches) {
+      if (!m.isPlayed()) {
+        return false;
+      }
+    }
+    return true;
+  }
 }

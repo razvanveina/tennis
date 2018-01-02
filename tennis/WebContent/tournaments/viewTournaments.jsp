@@ -59,30 +59,36 @@ for (Tournament t : tournaments) {
   DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
   int numberOfPlayersNeeded=t.getFormat()!=null? t.getMaxPlayers() : -1; 
   boolean hasEnoughPlayers=t.getParticipants().size()==numberOfPlayersNeeded;
-if(t.isStarted()){
+  if(t.isFinished()){
+    %>
+    <TR bgcolor="#acb7a3">
+    <%
+  }else if(t.isStarted()){
   %>
   <TR bgcolor="#aec66b">
   <%
 }else if(hasEnoughPlayers){
 %>
   <TR bgcolor="#d9ff7c">
-<%}else{ %>
+<%}else { %>
     <TR bgcolor="#d9ff9f">
     <%} %>
-    <%= numberOfPlayersNeeded %>
       <TD><%= df.format(t.getStartDate()) %></TD>
       <TD><A href="viewTournamentForm.jsp?name=<%=t.getName() %>"><%= t.getName() %></A></TD>
       <TD><%= t.getType() %></TD>
       <TD><%= t.getFormat().getName() %></TD>
       <TD><%= t.getMaxPlayers() %></TD> 
-      <TD><A href=<%=(t.isStarted() ? "" :"addPlayersToTournamentForm.jsp?name="+t.getName())%>><%= t.getParticipantsAsString()%></A></TD> 
+      <TD><% if(!t.isStarted()){%><A href=<%=(t.isStarted() ? "" :"addPlayersToTournamentForm.jsp?name="+t.getName())%>><%= t.getParticipantsAsString()%></A>
+      <%}else{ %>
+      <%=t.getParticipantsAsString() %>
+      <%} %></TD> 
       <TD><%= t.getParticipants().size() %></TD>
       <TD><%= t.getStatus() %></TD>
       <%
       if(t.isStarted()){
         %>
         <TD>
-        <div class="tooltip">            
+        <div class="tooltip">          
         <img src="../img/start2.png" width="25" height="20">
         <span class="tooltiptext">Tournament has already started</span>
 
