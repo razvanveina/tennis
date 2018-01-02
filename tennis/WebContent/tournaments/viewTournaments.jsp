@@ -75,17 +75,15 @@ if(t.isStarted()){
       <TD><%= t.getType() %></TD>
       <TD><%= t.getFormat().getName() %></TD>
       <TD><%= t.getMaxPlayers() %></TD> 
-      <TD><A href="addPlayersToTournamentForm.jsp?name=<%=t.getName() %>"><%= t.getParticipantsAsString()%></A></TD> 
+      <TD><A href=<%=(t.isStarted() ? "" :"addPlayersToTournamentForm.jsp?name="+t.getName())%>><%= t.getParticipantsAsString()%></A></TD> 
       <TD><%= t.getParticipants().size() %></TD>
       <TD><%= t.getStatus() %></TD>
       <%
       if(t.isStarted()){
         %>
         <TD>
-        <div class="tooltip">
-        <a href="startTournament.jsp?name=<%=t.getName() %>">       
+        <div class="tooltip">            
         <img src="../img/start2.png" width="25" height="20">
-        </a>
         <span class="tooltiptext">Tournament has already started</span>
 
         </div>
@@ -103,7 +101,9 @@ if(t.isStarted()){
     <%} else {%>
         <TD>
         <div class="tooltip">
+         <a href="startTournament.jsp?name=<%=t.getName() %>"> 
         <img src="../img/start.png" width="25" height="20">
+        </a>
         <span class="tooltiptext">Start tournament</span>
         </div></TD>
     <%} %>
