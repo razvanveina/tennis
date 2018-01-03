@@ -194,6 +194,12 @@ public class Tournament implements Serializable {
   }
 
   public TournamentStatus getStatus() {
+    if (isFinished()) {
+      return TournamentStatus.FINISHED;
+    }
+    if (isStarted()) {
+      return TournamentStatus.STARTED;
+    }
     return status;
   }
 
