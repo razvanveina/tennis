@@ -288,4 +288,12 @@ public class Database implements Serializable {
     teams.add(team);
   }
 
+  public void editTournament(String tourName, Date newDate, TournamentType type, String format) {
+    Tournament tour = getTournamentByName(tourName);
+    tour.setStartDate(newDate);
+    tour.setType(type);
+    tour.setFormat(tf.getTournamentFormatByName(format));
+    save(this);
+  }
+
 }

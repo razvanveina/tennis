@@ -7,15 +7,16 @@
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 <title>Add user</title>
 </head>
+
   <style type="text/css">
-  .box1 { 
+  .addBox1 { 
     float: left;
     padding: 15px;
     width:3%;
     line-height:160%;
     
   }
-  .box2   {
+  .addBox2   {
   text-align: left;
   font-size: 30px;
   vertical-align: -50px;
@@ -23,6 +24,7 @@
   float:left;
    width:80%;
   }
+
 .clearfix::after {
     content:"";
     clear: both;
@@ -35,7 +37,8 @@
 <%@include file="../menu.jsp" %> 
 
 <FORM action="addUser.jsp" method="POST">
-<div class="box1">
+<div class="clearfix">
+<div class="addBox1">
 User: <br>
 Password:<br>
 Name:  <br>
@@ -43,7 +46,7 @@ Surname:<br>
 Admin:<br>
 </div>
 
-<div class="box2">
+<div class="addBox2">
 <INPUT type="text" name="user"/><BR/>
 <INPUT type="password" name="pass"/><BR/>
 <INPUT type="text" name="name"/><BR/>
@@ -52,5 +55,5 @@ Admin:<br>
     <br>
 <INPUT type="submit" value="Add user"/>
 </div>
-    
+    </div>
 </FORM>

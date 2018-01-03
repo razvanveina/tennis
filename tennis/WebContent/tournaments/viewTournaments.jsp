@@ -60,6 +60,8 @@ ArrayList<Tournament> tournaments = Database.getInstance().getTournaments();
       <TH>No of players</TH>
       <TH>Status</TH>
       <TH></TH>
+      <TH></TH>
+      <TH></TH>
       <!-- <TH>Email</TH> -->
     </TR>
 
@@ -101,9 +103,17 @@ for (Tournament t : tournaments) {
         <div class="tooltip">          
         <img src="../img/start2.png" width="25" height="20">
         <span class="tooltiptext" flow="right">Tournament has already started</span>
-
         </div>
-</TD>
+        </TD>
+         <TD>        
+         <div class="tooltip">
+         <a href="addTournamentForm.jsp?name=<%=t.getName() %>"> 
+        <img src="../img/edit1.png" width="25" height="20">
+        </a>
+        <span class="tooltiptext">Tournament has already started</span>
+        </div>
+        </TD>
+
      <%
       }else if(!hasEnoughPlayers){
         %>
@@ -111,6 +121,14 @@ for (Tournament t : tournaments) {
         <div class="tooltip">
         <img src="../img/start1.png" width="25" height="20">
         <span class="tooltiptext">Not enough players</span>
+        </div>
+        </TD>
+         <TD>        
+         <div class="tooltip">
+         <a href="addTournamentForm.jsp?name=<%=t.getName() %>"> 
+        <img src="../img/edit.png" width="25" height="20">
+        </a>
+        <span class="tooltiptext">Edit tournament</span>
         </div>
         </TD>
      
@@ -122,8 +140,25 @@ for (Tournament t : tournaments) {
         </a>
         <span class="tooltiptext">Start tournament</span>
         </div></TD>
+        <TD>        
+         <div class="tooltip">
+         <a href="addTournamentForm.jsp?name=<%=t.getName() %>"> 
+        <img src="../img/edit.png" width="25" height="20">
+        </a>
+        <span class="tooltiptext">Edit tournament</span>
+        </div>
+        </TD>
+        
     <%} %>
-<% } %>
+    <TD>
+         <div class="tooltip">
+         <a href="duplicateTournament.jsp?name=<%=t.getName() %>"> 
+        <img src="../img/duplicate.png" width="25" height="20">
+        </a>
+        <span class="tooltiptext">Duplicate tournament</span>
+        </div>
+        </TD>
+<% } %>       
 
 </TABLE>
  <br />

@@ -284,4 +284,9 @@ public class Tournament implements Serializable {
     }
     return true;
   }
+
+  public void setFormat(TournamentFormat format) {
+    this.format = format;
+  }
+
 }
