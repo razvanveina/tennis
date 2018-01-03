@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>View teamss</title>
+<title>View teams</title>
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <BODY> 
@@ -18,7 +18,7 @@ ArrayList<Team> teams = Database.getInstance().getTeams();
 %>
 
 <TABLE>
-    <TR>
+    <TR bgcolor="#cccccc">
       <TH>Team</TH>
       <TH>Team Rating</TH>
       <TH>Won</TH>
@@ -28,8 +28,8 @@ ArrayList<Team> teams = Database.getInstance().getTeams();
 
 <% for (Team team : teams) { %>
 
-    <TR>
-      <TD><%= team.toString() %></TD>
+    <TR bgcolor="#f2f2f2">
+      <TD><b><%= team.toString() %></b></TD>
       <TD><%= 1000*team.getWon()/(team.getWon()+team.getLost()) %></TD>
       <TD><%= team.getWon() %></TD>
       <TD><%= team.getLost() %></TD>

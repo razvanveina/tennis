@@ -11,12 +11,12 @@
 	String surname = request.getParameter("surname");
   String admin = request.getParameter("admin");
 	
- if(user2.equals("") || (Database.getInstance().getUserByUsername(user2)!=null)){ 
+ if(!user2.equals("") && (Database.getInstance().getUserByUsername(user2)==null)){ 
   
 	User newUser = new User(user2, pass, name, surname, admin == null || !admin.equals(""));
 	Database.getInstance().addUser(newUser);
  }else{
 %>
-invalid or used username
+invalid or used username <%=(Database.getInstance().getUserByUsername(user2)==null) %>  <%=!user2.equals("") %> 
 <%} %>
 <%@include file="users.jsp" %> 

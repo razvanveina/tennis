@@ -6,6 +6,7 @@
 .tooltip {
     position: relative;
     display: inline-block;
+    
 }
 
 .tooltip .tooltiptext {
@@ -16,15 +17,23 @@
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
+    content="";
     position: absolute;
     z-index: 1;
     top: -5px;
     left: 105%;
+    opacity: 0;  
+    transition: opacity 5s; 
+    
 }
 
 .tooltip:hover .tooltiptext {
+    opacity: 1;
+    transition-delay: 1s;
     visibility: visible;
 }
+
+
 </style>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -50,6 +59,7 @@ ArrayList<Tournament> tournaments = Database.getInstance().getTournaments();
       <TH>Players</TH>
       <TH>No of players</TH>
       <TH>Status</TH>
+      <TH></TH>
       <!-- <TH>Email</TH> -->
     </TR>
 
@@ -90,7 +100,7 @@ for (Tournament t : tournaments) {
         <TD>
         <div class="tooltip">          
         <img src="../img/start2.png" width="25" height="20">
-        <span class="tooltiptext">Tournament has already started</span>
+        <span class="tooltiptext" flow="right">Tournament has already started</span>
 
         </div>
 </TD>
