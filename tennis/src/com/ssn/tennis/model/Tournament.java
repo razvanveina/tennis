@@ -132,18 +132,19 @@ public class Tournament implements Serializable {
           team = new Team();
           team.addPlayer(participants.get(i));
           team.addPlayer(participants.get(participants.size() - i - 1));
+          Database.getInstance().addTeam(team);
         }
       } else {
         team = Database.getInstance().getTeamByParticipants(participants.get(i));
         if (team == null) {
           team = new Team();
           team.addPlayer(participants.get(i));
+          Database.getInstance().addTeam(team);
         }
       }
 
       //Team team = this.type.createTeamForParticipantsAndIndex();
       teams.add(team);
-      Database.getInstance().addTeam(team);
     }
 
     MatchFormatDefinition[] matchesStructure = this.getFormat().getMatchesStructure();
