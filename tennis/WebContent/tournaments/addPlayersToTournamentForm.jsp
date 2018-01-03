@@ -45,6 +45,15 @@ ArrayList<User> users= Database.getInstance().getUsers();
 ArrayList<User> lastUsers=tournament.getParticipants();
 boolean hasOldParticipants=!lastUsers.isEmpty();
 int checkCount=0;
+Collections.sort(users, new Comparator<User>() {
+  @Override
+  public int compare(User u1, User u2) {
+      String s1 = u1.getUser();
+      String s2 = u2.getUser();
+      return s1.compareToIgnoreCase(s2);
+  }
+
+});
 %>
 <div class="clearfix">
 	<div class="box1">
@@ -55,7 +64,7 @@ int checkCount=0;
       <br>
 			<fieldset>
 				<%       
-        Collections.sort(users);
+        
         for(User user : users){
           boolean isChecked= (hasOldParticipants && lastUsers.contains(user));
           String checked=(isChecked? "checked":"");
