@@ -120,7 +120,7 @@ for (Tournament t : tournaments) {
         <TD> 
         <div class="tooltip">
         <img src="../img/start1.png" width="25" height="20">
-        <span class="tooltiptext">Not enough players</span>
+        <span class="tooltiptext"><%=t.getParticipants().size()>numberOfPlayersNeeded? "Too many players":"Not enough players" %></span>
         </div>
         </TD>
          <TD>        

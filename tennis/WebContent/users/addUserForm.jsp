@@ -27,7 +27,7 @@ Admin:<br>
 <INPUT type="text" name="surname"/><BR/>
 <INPUT type="checkbox" name="admin"/><BR/>
     <br>
-<INPUT type="submit" value="Add user"/>
+<INPUT type="submit" value="Add user" />
 </div>
     </div>
 </FORM>

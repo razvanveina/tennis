@@ -14,9 +14,14 @@
  if(!user2.equals("") && (Database.getInstance().getUserByUsername(user2)==null)){ 
   
 	User newUser = new User(user2, pass, name, surname, admin == null || !admin.equals(""));
-	Database.getInstance().addUser(newUser);
+	Database.getInstance().addUser(newUser);%>
+<%@include file="users.jsp" %> 
+<%
  }else{
 %>
-invalid or used username <%=(Database.getInstance().getUserByUsername(user2)==null) %>  <%=!user2.equals("") %> 
+<script>
+alert("Invalid username");
+</script>
+
+<%@include file="addUserForm.jsp" %> 
 <%} %>
-<%@include file="users.jsp" %> 
