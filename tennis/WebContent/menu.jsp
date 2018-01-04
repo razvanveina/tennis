@@ -6,14 +6,15 @@
 %> 
 <% 
 	if (userM != null && userM.isAdmin()) {
+    //
 %>
-<A href="<%=rel %>users/users.jsp">Users</A>
-<A href="<%=rel %>tournaments/viewTournaments.jsp">Tournaments</A>
-<A href="<%=rel %>users/teams.jsp">Teams</A>
 <%
 	} 
 %>
 <% if (userM != null) { %>
+<A href="<%=rel %>users/users.jsp">Users</A>
+<A href="<%=rel %>tournaments/viewTournaments.jsp">Tournaments</A>
+<A href="<%=rel %>users/teams.jsp">Teams</A>
 <A href="<%=rel %>users/changePwdForm.jsp">Settings</A>
 <A href="<%=rel %>logout.jsp">Logout <%=userM.toString() %></A>
 <% } else { %>

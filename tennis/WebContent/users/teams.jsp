@@ -10,7 +10,6 @@
 <BODY> 
 <%@include file="../checkLogin.jsp" %> 
 <%@include file="../checkAdminRights.jsp" %> 
-<%@include file="../menu.jsp" %>
 
 <%
 ArrayList<Team> teams = Database.getInstance().getTeams();

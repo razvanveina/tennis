@@ -43,8 +43,6 @@
 <BODY> 
 <%@include file="../checkLogin.jsp" %> 
 <%@include file="../checkAdminRights.jsp" %> 
-<%@include file="../menu.jsp" %>
-
 <%
 ArrayList<Tournament> tournaments = Database.getInstance().getTournaments(); 
 %>

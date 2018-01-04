@@ -34,7 +34,6 @@
 <body>
 <%@include file="../checkLogin.jsp" %>
 <%@include file="../checkAdminRights.jsp" %> 
-<%@include file="../menu.jsp" %> 
 
 <FORM action="addUser.jsp" method="POST">
 <div class="clearfix">

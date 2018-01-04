@@ -3,9 +3,6 @@
     <%@page import="com.ssn.tennis.common.*" %>
     <%@page import="java.util.*" %>
     <%@page import="java.text.*" %>
-    
-    <%@include file="../checkLogin.jsp" %>
-
 
 <%
      String[] players = request.getParameterValues("usersArray[]");

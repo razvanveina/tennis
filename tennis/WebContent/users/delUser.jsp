@@ -3,7 +3,6 @@
     <%@page import="com.ssn.tennis.common.*" %>
     
     <%@include file="../checkLogin.jsp" %>
-    <%@include file="../checkAdminRights.jsp" %> 
     
     
 <% 

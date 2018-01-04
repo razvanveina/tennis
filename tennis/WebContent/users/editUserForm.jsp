@@ -16,7 +16,6 @@ User user = Database.getInstance().getUserByUsername(userName);
 
 <%@include file="../checkLogin.jsp" %>
 <%@include file="../checkAdminRights.jsp" %> 
-<%@include file="../menu.jsp" %> 
 
 <FORM action="editUser.jsp" method="POST">
 <INPUT type="hidden" name="olduser" value="<%= user.getUser() %>"/>

@@ -10,7 +10,6 @@
 <BODY> 
 <%@include file="../checkLogin.jsp" %> 
 <%@include file="../checkAdminRights.jsp" %> 
-<%@include file="../menu.jsp" %>
 
 <%
 ArrayList<User> users = Database.getInstance().getUsers();
@@ -43,9 +42,11 @@ Collections.sort(users);
 
 </TABLE>
  <br />
+ <%if(isAdmin){ %>
 <FORM action="addUserForm.jsp" method="POST">
 <INPUT type="submit" value="Add user"/>
 </FORM>
+<%} %>
 
 </BODY>
 </HTML>     

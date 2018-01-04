@@ -38,7 +38,6 @@
 <body>
 <%@include file="../checkLogin.jsp" %>
 <%@include file="../checkAdminRights.jsp" %> 
-<%@include file="../menu.jsp" %> 
 <%SimpleDateFormat dateFormat=new SimpleDateFormat("dd.MM.yyyy-HH:mm ");
 String date=dateFormat.format(new Date(System.currentTimeMillis()));
 Tournament t=null;
