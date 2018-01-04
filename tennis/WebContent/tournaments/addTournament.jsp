@@ -11,6 +11,9 @@
     
 <% 
 	String name = request.getParameter("name");
+if(name==null){
+  name=request.getParameter("tourName");
+}
   String dateS = request.getParameter("date");
   TournamentType type = TournamentType.valueOf(request.getParameter("type"));
   String tourFormat = request.getParameter("format");

@@ -17,13 +17,35 @@ User user = Database.getInstance().getUserByUsername(userName);
 <%@include file="../checkLogin.jsp" %>
 <%@include file="../checkAdminRights.jsp" %> 
 
+<%if(isAdmin){ %>
+<strong> Edit user</strong> 
+<%}else{ %>
+<strong> View user</strong> 
+<%} %>
+<div class="clearfix">
+<div class="addBox1">
+User:  <br>
+Name:  <br>
+Surname:<br>
+<%if(isAdmin){ %>
+Admin:<br>
+<br>
+<A href="delUser.jsp?name=<%= user.getUser() %>" onclick="return confirmDelete()"><button>Delete</button></A>
+<%} %>
+</div>
+
+<div class="addBox2">
 <FORM action="editUser.jsp" method="POST">
-<INPUT type="hidden" name="olduser" value="<%= user.getUser() %>"/>
-User: <INPUT type="text" name="user" value="<%= user.getUser() %>"/><BR/>
-Password: <INPUT type="password" name="pass" value="<%= user.getPassword() %>"/><BR/>
-Name: <INPUT type="text" name="name" value="<%= user.getName() %>"/><BR/>
-Surname: <INPUT type="text" name="surname" value="<%= user.getSurname() %>"/><BR/>
-Admin: <INPUT type="checkbox" name="email" <%= user.isAdmin()?"checked":""%>/><BR/>
+<INPUT type="hidden" name="olduser" value="<%= user.getUser() %>" />
+<INPUT type="text" name="user" value="<%= user.getUser() %>" <%=!isAdmin? " disabled":""%>/><BR/>
+<INPUT type="text" name="name" value="<%= user.getName() %>" <%=!isAdmin? " disabled":""%>/><BR/>
+<INPUT type="text" name="surname" value="<%= user.getSurname() %>" <%=!isAdmin? " disabled":""%>/><BR/>
+<%if(isAdmin){ %>
+<INPUT type="checkbox" name="email" <%= user.isAdmin()?"checked":""%>/><BR/>
+ <br>
 <INPUT type="submit" value="Save Changes"/>
-<A href="delUser.jsp?name=<%= user.getUser() %>" onclick="return confirmDelete()">Delete user</A>
+
+<%} %>
+
 </FORM>
+</div>

@@ -36,7 +36,7 @@ public class Match implements Serializable {
   }
 
   public boolean isPlayed() {
-    return points1 > 0 || points2 > 0;
+    return points1 > 10 || points2 > 10;
   }
 
   public boolean hasPlayer(String name) {

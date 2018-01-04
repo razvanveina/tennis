@@ -9,7 +9,18 @@
 	String oldPass = request.getParameter("oldpass");
   String newPass = request.getParameter("newpass");
 	
-  Database.getInstance().changePassword(oldUser, oldPass, newPass);  
+  boolean changed=Database.getInstance().changePassword(oldUser, oldPass, newPass);  
+if (changed){
 %>
-Password changed successfully. <BR/>
+<script>
+alert("Password changed successfully.");
+</script>
+ <BR/>
+<%
+}else{
+%>
+<script>
+alert("Invalid password");
+</script>
+<%} %>
 <%@include file="changePwdForm.jsp" %>

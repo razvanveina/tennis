@@ -28,7 +28,7 @@ public class User implements Serializable, Comparable<User> {
 
   @Override
   public String toString() {
-    return user + "(" + getRating() + ")";
+    return user + " (" + getRating() + ")";
   }
 
   @Override

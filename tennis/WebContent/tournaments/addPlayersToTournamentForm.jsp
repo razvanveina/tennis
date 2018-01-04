@@ -80,7 +80,10 @@ Collections.sort(users, new Comparator<User>() {
 				<INPUT type="submit" value="Add"/>
 		</FORM>
 	</div>
-  <div class="box2"> Players selected: <p id="checkedPlayers" align=center><%=lastUsers.size() %>
+  <div class="box2">
+   Players selected: <p id="checkedPlayers" align=center><%=lastUsers.size() %></p><br>
+   Players needed: <p ><%=tournament.getMaxPlayers() %>
+  
 </p></div>
   </div>
   <script language="JavaScript" type="text/javascript">

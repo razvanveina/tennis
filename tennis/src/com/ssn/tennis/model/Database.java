@@ -131,12 +131,14 @@ public class Database implements Serializable {
     save(instance);
   }
 
-  public void changePassword(String oldUser, String oldPass, String newPass) {
+  public boolean changePassword(String oldUser, String oldPass, String newPass) {
     User tempUser = checkLogin(oldUser, oldPass);
     if (tempUser != null) {
       tempUser.setPassword(Utils.encrypt(newPass));
+      save(instance);
+      return true;
     }
-    save(instance);
+    return false;
   }
 
   public void addTournament(String name, Date date, TournamentType type, String tournamentFormat) {
@@ -293,6 +295,11 @@ public class Database implements Serializable {
     tour.setStartDate(newDate);
     tour.setType(type);
     tour.setFormat(tf.getTournamentFormatByName(format));
+    save(this);
+  }
+
+  public void removeTournament(Tournament tour) {
+    tournaments.remove(tour);
     save(this);
   }
 

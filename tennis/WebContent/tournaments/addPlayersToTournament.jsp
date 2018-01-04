@@ -9,7 +9,7 @@
      ArrayList<User> usersToAdd = new ArrayList<User>();
      String tournamentName = request.getParameter("name");
      Tournament tournament = Database.getInstance().getTournamentByName(tournamentName);
-   %><%=tournament.getName()%>
+   %>
 <%
   if (players != null) {
     for (String player : players) { 

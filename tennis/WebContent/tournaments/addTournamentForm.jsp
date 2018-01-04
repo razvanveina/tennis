@@ -12,29 +12,7 @@
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 <title>Add tournament</title>
 </head>
-  <style type="text/css">
-  .addBox1 { 
-    float: left;
-    padding: 15px;
-    width:3%;
-    line-height:160%;
-    
-  }
-  .addBox2   {
-  text-align: center;
-  font-size: 30px;
-  vertical-align: -50px;
-   padding: 15px;
-  float:left;
-   width:10%;
-  }
 
-.clearfix::after {
-    content:"";
-    clear: both;
-    display: table;
-}
-</style>
 <body>
 <%@include file="../checkLogin.jsp" %>
 <%@include file="../checkAdminRights.jsp" %> 
@@ -56,7 +34,7 @@ Type:<br>
 Format:<br>
 </div>
 <div class="addBox2">
- <INPUT type="text" name="name"/ value=<%=edit? t.getName() + " disabled":""%>><BR/>
+ <INPUT type="text" name="name" value=<%=edit? t.getName() + " disabled":""%>/><BR/>
  <INPUT type="text" name="date" value=<%=edit? dateFormat.format(t.getStartDate()):date%>/><BR/>
  <select name="type">
   <option value="DOUBLE" <%=(edit && t.getType()==TournamentType.DOUBLE)? "selected=\"selected\"":"" %>>DOUBLE</option>
@@ -68,7 +46,8 @@ Format:<br>
   <% } %>
 </select><BR/>
 <br>
-<INPUT type="hidden" name=edit value=<%=edit%>/>
+<INPUT type="hidden" name=edit value=<%=edit%>>
+<INPUT type="hidden" name=tourName value=<%=t.getName()%>>
 <INPUT type="submit" value="Add"/>
 </div>
 </div>

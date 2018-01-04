@@ -11,8 +11,8 @@
 	String name = request.getParameter("name");
 	String surname = request.getParameter("surname");
 	String admin = request.getParameter("admin");
-	
-	Database.getInstance().editUser(oldUser, user2, pass, name, surname, !admin.equals(""));
+ 
+	Database.getInstance().editUser(oldUser, user2, pass, name, surname, admin!=null);
 %>
 
 <%@include file="users.jsp" %>

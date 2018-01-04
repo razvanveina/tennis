@@ -61,3 +61,26 @@ p
 {
   background-color: #ffcccc;
 }
+
+
+  .addBox1 { 
+    float: left;
+    padding: 15px;
+    width:3%;
+    line-height:160%;
+    
+  }
+  .addBox2   {
+  text-align: center;
+  vertical-align: -50px;
+  line-height:140%;
+   padding: 15px;
+  float:left;
+   width:10%;
+  }
+
+.clearfix::after {
+    content:"";
+    clear: both;
+    display: table;
+}

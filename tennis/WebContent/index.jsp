@@ -13,9 +13,18 @@ if (user == null) {
 %>
 <%@include file="menu.jsp" %>  
 <FORM action="login.jsp" method="POST">
-User: <INPUT type="text" name="user"/><BR/>
-Password: <INPUT type="password" name="pass"/>
+<div class="clearfix">
+<div class="addBox1">
+User: <br>
+Password: <br>
+<br>
 <INPUT type="submit" value="Login"/>
+</div>
+<div class="addBox2">
+<INPUT type="text" name="user"/><BR/>
+<INPUT type="password" name="pass"/>
+</div>
+</div>
 </FORM>
 <%
 } else {

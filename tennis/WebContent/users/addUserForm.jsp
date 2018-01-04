@@ -6,31 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 <title>Add user</title>
-</head>
-
-  <style type="text/css">
-  .addBox1 { 
-    float: left;
-    padding: 15px;
-    width:3%;
-    line-height:160%;
-    
-  }
-  .addBox2   {
-  text-align: left;
-  font-size: 30px;
-  vertical-align: -50px;
-   padding: 15px;
-  float:left;
-   width:80%;
-  }
-
-.clearfix::after {
-    content:"";
-    clear: both;
-    display: table;
-}
-</style>
 <body>
 <%@include file="../checkLogin.jsp" %>
 <%@include file="../checkAdminRights.jsp" %> 

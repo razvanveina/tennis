@@ -15,6 +15,7 @@
 ArrayList<User> users = Database.getInstance().getUsers();
 Collections.sort(users);
 %>
+<br>
 
 <TABLE>
     <TR>

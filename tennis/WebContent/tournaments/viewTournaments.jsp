@@ -57,9 +57,11 @@ ArrayList<Tournament> tournaments = Database.getInstance().getTournaments();
       <TH>Players</TH>
       <TH>No of players</TH>
       <TH>Status</TH>
-      <TH></TH>
-      <TH></TH>
-      <TH></TH>
+      <TH width="30"></TH>
+      <TH width="30"></TH>
+      <TH width="30"></TH>
+      <TH width="30"></TH>
+
       <!-- <TH>Email</TH> -->
     </TR>
 
@@ -156,6 +158,16 @@ for (Tournament t : tournaments) {
         <span class="tooltiptext">Duplicate tournament</span>
         </div>
         </TD>
+        
+            <TD>
+         <div class="tooltip">
+         <a href="deleteTournament.jsp?name=<%=t.getName() %>"> 
+        <img src="../img/delete.png" width="25" height="20">
+        </a>
+        <span class="tooltiptext">Delete tournament</span>
+        </div>
+        </TD>
+        
 <% } %>       
 
 </TABLE>

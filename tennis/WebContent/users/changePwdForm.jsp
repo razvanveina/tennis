@@ -8,6 +8,15 @@
 <script src="../js/functions.js"></script>
 <title>Settings</title>
 </head>
+<style>
+  .addBox1 { 
+    float: left;
+    padding: 15px;
+    width:6%;
+    line-height:160%;
+    
+  }
+  </style>
 <body>
 
 <%@include file="../checkLogin.jsp" %>
@@ -19,7 +28,18 @@ User user = (User) session.getAttribute("user");
 <B>Change password</B>
 <FORM action="changePwd.jsp" method="POST">
 <INPUT type="hidden" name="olduser" value="<%= user.getUser() %>"/>
-Old password: <INPUT type="password" name="oldpass" /><BR/>
-New password: <INPUT type="password" name="newpass" /><BR/>
+
+<div class="clearfix">
+<div class="addBox1">
+Old password:<br>
+New password:<br>
+<br>
 <INPUT type="submit" value="Change password"/>
+</div>
+<div class="addBox2">
+ <INPUT type="password" name="oldpass" /><BR/>
+ <INPUT type="password" name="newpass" /><BR/>
+ </div>
 </FORM>
+</div>
+</body>
