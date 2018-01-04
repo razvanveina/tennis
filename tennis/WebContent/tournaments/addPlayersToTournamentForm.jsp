@@ -38,7 +38,6 @@ Tournament tournament = Database.getInstance().getTournamentByName(name);
 %>
 <%@include file="../checkLogin.jsp" %>
 <%@include file="../checkAdminRights.jsp" %> 
-<%@include file="../menu.jsp" %> 
 
 <%
 ArrayList<User> users= Database.getInstance().getUsers();

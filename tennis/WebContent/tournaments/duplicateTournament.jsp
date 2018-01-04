@@ -48,7 +48,8 @@ while(!nameValid){
  TournamentType type = tour.getType();
  String tourFormat=tour.getFormat().getName();
 Database.getInstance().addTournament(name, date, type, tourFormat);
-
+Tournament tx=Database.getInstance().getTournamentByName(name);
+tx.setParticipants(tour.getParticipants());
 
 %>
 
