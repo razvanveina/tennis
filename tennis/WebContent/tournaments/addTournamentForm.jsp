@@ -34,11 +34,11 @@ Type:<br>
 Format:<br>
 </div>
 <div class="addBox2">
- <INPUT type="text" name="name" value=<%=edit? t.getName() + " disabled":""%>/><BR/>
- <INPUT type="text" name="date" value=<%=edit? dateFormat.format(t.getStartDate()):date%>/><BR/>
+ <INPUT type="text" name="name" value=<%=edit ? "\"" + t.getName() + "\" disabled":""%>/><BR/>
+ <INPUT type="text" name="date" value="<%=edit ? dateFormat.format(t.getStartDate()):date%>"/><BR/>
  <select name="type">
-  <option value="DOUBLE" <%=(edit && t.getType()==TournamentType.DOUBLE)? "selected=\"selected\"":"" %>>DOUBLE</option>
-  <option value="SINGLE" <%=(edit && t.getType()==TournamentType.SINGLE)? "selected=\"selected\"":"" %>>SINGLE</option>
+  <option value="DOUBLE" <%=(edit && t.getType()==TournamentType.DOUBLE)? "selected=\"selected\"":"" %> >DOUBLE</option>
+  <option value="SINGLE" <%=(edit && t.getType()==TournamentType.SINGLE)? "selected=\"selected\"":"" %> >SINGLE</option>
 </select><BR/>
  <select name="format">
 <% for (TournamentFormat tf : new TournamentFormats().getFormats()) { %> 
@@ -46,8 +46,8 @@ Format:<br>
   <% } %>
 </select><BR/>
 <br>
-<INPUT type="hidden" name=edit value=<%=edit%>>
-<INPUT type="hidden" name=tourName value=<%=t.getName()%>>
+<INPUT type="hidden" name="edit" value="<%=edit%>"/>
+<INPUT type="hidden" name="tourName" value="<%=t != null ? t.getName() : ""%>"/>
 <INPUT type="submit" value="Add"/>
 </div>
 </div>

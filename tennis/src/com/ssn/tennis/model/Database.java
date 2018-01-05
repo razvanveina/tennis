@@ -246,8 +246,9 @@ public class Database implements Serializable {
         int mwt1 = Database.getInstance().getMatchesWonByTeam(o1);
         int mlt2 = Database.getInstance().getMatchesLostByTeam(o2);
         int mwt2 = Database.getInstance().getMatchesWonByTeam(o2);
-        int rating1 = 1000 * mwt1 / (mwt1 + mlt1);
-        int rating2 = 1000 * mwt2 / (mwt2 + mlt2);
+
+        int rating1 = (mwt1 + mlt1) != 0 ? 1000 * mwt1 / (mwt1 + mlt1) : 0;
+        int rating2 = (mwt2 + mlt2) != 0 ? 1000 * mwt2 / (mwt2 + mlt2) : 0;
         return rating2 - rating1;
       }
 
