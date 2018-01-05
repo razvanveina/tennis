@@ -126,7 +126,9 @@ public class Database implements Serializable {
     tempUser.setUser(user);
     tempUser.setName(name);
     tempUser.setSurname(surname);
-    tempUser.setPassword(pass);
+    if (pass != null && !pass.equals("")) {
+      tempUser.setPassword(Utils.encrypt(pass));
+    }
     tempUser.setAdmin(admin);
     save(instance);
   }
