@@ -13,7 +13,11 @@
 
 <%
 ArrayList<Team> teams = Database.getInstance().getTeams();
-
+HashMap<String, Team> teamsMap=new HashMap<String, Team>();
+for(Team t:teams){
+  teamsMap.put(t.toString(), t);
+}
+teams=new ArrayList(teamsMap.values());
 %>
 
 <TABLE>
