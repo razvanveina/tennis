@@ -34,7 +34,7 @@ Type:<br>
 Format:<br>
 </div>
 <div class="addBox2">
- <INPUT type="text" name="name" value=<%=edit ? "\"" + t.getName() + "\" disabled":""%>/><BR/>
+ <INPUT type="text" name="name" value="<%=edit ? t.getName():""%>" <%=edit ? "disabled":""%>    /><BR/>
  <INPUT type="text" name="date" value="<%=edit ? dateFormat.format(t.getStartDate()):date%>"/><BR/>
  <select name="type">
   <option value="DOUBLE" <%=(edit && t.getType()==TournamentType.DOUBLE)? "selected=\"selected\"":"" %> >DOUBLE</option>

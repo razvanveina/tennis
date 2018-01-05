@@ -178,6 +178,7 @@ for (int i = tournaments.size() - 1; i >= 0; i--) {
         </div>
         <% } %>
         </TD>
+        <TD><%=t.getWinner()!=null? t.getWinner():"" %></TD>
         
 <% } %>       
 

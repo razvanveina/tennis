@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.Date;
 
 import com.ssn.tennis.model.classification.Classification;
+import com.ssn.tennis.model.enums.MatchType;
 import com.ssn.tennis.model.enums.TournamentStatus;
 import com.ssn.tennis.model.enums.TournamentType;
 import com.ssn.tennis.model.format.TournamentFormat;
@@ -287,6 +288,21 @@ public class Tournament implements Serializable {
 
   public void setFormat(TournamentFormat format) {
     this.format = format;
+  }
+
+  public Team getWinner() {
+    Team winner = null;
+    if (isFinished()) {
+      for (Match m : matches) {
+        if (m.getFormat().getType().equals(MatchType.FINAL)) {
+          winner = m.getWinningTeam();
+        }
+      }
+      if (winner == null) {
+        winner = getClassification("A").getCls().get(0).getTeam();
+      }
+    }
+    return winner;
   }
 
 }
