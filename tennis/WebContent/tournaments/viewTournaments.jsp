@@ -106,12 +106,15 @@ for (Tournament t : tournaments) {
         </div>
         </TD>
          <TD>        
+                     <% if (t.getStatus() != TournamentStatus.FINISHED) { %>
+         
          <div class="tooltip">
          <a href="addTournamentForm.jsp?name=<%=t.getName() %>"> 
         <img src="../img/edit1.png" width="25" height="20">
         </a>
         <span class="tooltiptext">Tournament has already started</span>
         </div>
+        <% } %>
         </TD>
 
      <%
@@ -123,13 +126,16 @@ for (Tournament t : tournaments) {
         <span class="tooltiptext"><%=t.getParticipants().size()>numberOfPlayersNeeded? "Too many players":"Not enough players" %></span>
         </div>
         </TD>
-         <TD>        
+         <TD>
+            <% if (t.getStatus() != TournamentStatus.FINISHED) { %>
+                 
          <div class="tooltip">
          <a href="addTournamentForm.jsp?name=<%=t.getName() %>"> 
         <img src="../img/edit.png" width="25" height="20">
         </a>
         <span class="tooltiptext">Edit tournament</span>
         </div>
+        <% } %>
         </TD>
      
     <%} else {%>
@@ -140,13 +146,15 @@ for (Tournament t : tournaments) {
         </a>
         <span class="tooltiptext">Start tournament</span>
         </div></TD>
-        <TD>        
+        <TD>
+         <% if (t.getStatus() != TournamentStatus.FINISHED) { %>                
          <div class="tooltip">
          <a href="addTournamentForm.jsp?name=<%=t.getName() %>"> 
         <img src="../img/edit.png" width="25" height="20">
         </a>
         <span class="tooltiptext">Edit tournament</span>
         </div>
+        <% } %>
         </TD>
         
     <%} %>
@@ -160,12 +168,14 @@ for (Tournament t : tournaments) {
         </TD>
         
             <TD>
+            <% if (t.getStatus() != TournamentStatus.FINISHED) { %>
          <div class="tooltip">
          <a href="deleteTournament.jsp?name=<%=t.getName() %>"> 
         <img src="../img/delete.png" width="25" height="20">
         </a>
         <span class="tooltiptext">Delete tournament</span>
         </div>
+        <% } %>
         </TD>
         
 <% } %>       
