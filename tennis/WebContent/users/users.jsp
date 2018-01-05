@@ -41,8 +41,14 @@ Collections.sort(users);
       <TD><%= user.getWon() %></TD>
       <TD><%= user.getLost() %></TD>
       <TD align="center">
-     
-      <%for(int i=0; i<stars; i++){ %>
+      <% 
+     while(stars>=10){
+       %>
+       <img src="../img/star10.png" width="20" height="20"> 
+    <%
+    stars=stars-10;
+     }      
+      for(int i=0; i<stars; i++){ %>
       <img src="../img/star.png" width="10" height="10">
       <%} %>
       </TD>

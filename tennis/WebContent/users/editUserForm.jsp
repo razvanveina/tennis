@@ -6,7 +6,7 @@
   .addBox { 
     float: left;
     padding: 15px;
-    width:6%;
+    width:7%;
     line-height:160%;
     
   }
