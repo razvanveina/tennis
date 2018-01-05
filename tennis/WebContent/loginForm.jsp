@@ -12,9 +12,9 @@ Password: <br>
 </div>
 <div class="addBox1">
 <strong> &nbsp</strong>
+<FORM action="<%=relLF %>login.jsp" method="POST">
 <INPUT type="text" name="user"/><BR/>
 <INPUT type="password" name="pass"/><br>
-<FORM action="<%=relLF %>login.jsp" method="POST">
 <br>
 <INPUT type="submit" value="Login"/>
 </FORM>
