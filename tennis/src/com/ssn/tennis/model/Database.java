@@ -316,4 +316,15 @@ public class Database implements Serializable {
     return counter;
   }
 
+  public int getTeamStars(Team tim) {
+
+    int counter = 0;
+    for (Tournament t : tournaments) {
+      if (t.isFinished() && t.getWinner().toString().equals(tim.toString())) {
+        counter++;
+      }
+    }
+    return counter;
+  }
+
 }

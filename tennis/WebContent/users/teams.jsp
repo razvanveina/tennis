@@ -22,6 +22,7 @@ ArrayList<Team> teams = Database.getInstance().getTeams();
       <TH>Team Rating</TH>
       <TH>Won</TH>
       <TH>Lost</TH>
+      <TH>Stars</TH>
       <!-- <TH>Email</TH> -->
     </TR>
 
@@ -33,6 +34,19 @@ ArrayList<Team> teams = Database.getInstance().getTeams();
       <TD><%= sum != 0 ? 1000*team.getWon()/(team.getWon()+team.getLost()) : "--" %></TD>
       <TD><%= team.getWon() %></TD>
       <TD><%= team.getLost() %></TD>
+       <TD align="center">
+      <% 
+      int stars=Database.getInstance().getTeamStars(team);
+     while(stars>=10){
+       %>
+       <img src="../img/star10.png" width="20" height="20"> 
+    <%
+    stars=stars-10;
+     }      
+      for(int i=0; i<stars; i++){ %>
+      <img src="../img/star.png" width="10" height="10">
+      <%} %>
+      </TD>
 <%--       <TD><A href="mailto:<%= user.getEmail() %>"><%= user.getEmail() %></A></TD> --%>    
     </TR>
 <% } %>
