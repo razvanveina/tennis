@@ -304,4 +304,14 @@ public class Database implements Serializable {
     save(this);
   }
 
+  public int getUserStars(User user) {
+    int counter = 0;
+    for (Tournament t : tournaments) {
+      if (t.isFinished() && t.getWinner().hasPlayer(user.getUser())) {
+        counter++;
+      }
+    }
+    return counter;
+  }
+
 }

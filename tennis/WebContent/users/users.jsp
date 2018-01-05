@@ -25,10 +25,13 @@ Collections.sort(users);
       <TH>Rating</TH>
       <TH>Won</TH>
       <TH>Lost</TH>
+      <TH>Stars</TH>
       <!-- <TH>Email</TH> -->
     </TR>
 
-<% for (User user : users) { %>
+<% for (User user : users) {
+  int stars=Database.getInstance().getUserStars(user);
+  %>
 
     <TR>
       <TD><A href="editUserForm.jsp?name=<%=user.getUser() %>"><%= user.getUser() %></A></TD>
@@ -37,6 +40,7 @@ Collections.sort(users);
       <TD><%= user.getRating() %></TD>
       <TD><%= user.getWon() %></TD>
       <TD><%= user.getLost() %></TD>
+      <TD><%= stars%></TD>
 <%--       <TD><A href="mailto:<%= user.getEmail() %>"><%= user.getEmail() %></A></TD> --%>    
     </TR>
 <% } %>

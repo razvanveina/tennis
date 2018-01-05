@@ -23,7 +23,7 @@
     top: -5px;
     left: 105%;
     opacity: 0;  
-    transition: opacity 5s; 
+    transition: opacity 2s; 
     
 }
 
@@ -61,7 +61,7 @@ ArrayList<Tournament> tournaments = Database.getInstance().getTournaments();
       <TH width="30"></TH>
       <TH width="30"></TH>
       <TH width="30"></TH>
-
+      <TH>Winner</TH>
       <!-- <TH>Email</TH> -->
     </TR>
 
@@ -107,15 +107,10 @@ for (int i = tournaments.size() - 1; i >= 0; i--) {
         </div>
         </TD>
          <TD>        
-                     <% if (t.getStatus() != TournamentStatus.FINISHED) { %>
-         
-         <div class="tooltip">
-         <a href="addTournamentForm.jsp?name=<%=t.getName() %>"> 
+                   
         <img src="../img/edit1.png" width="25" height="20">
-        </a>
-        <span class="tooltiptext">Tournament has already started</span>
-        </div>
-        <% } %>
+
+       
         </TD>
 
      <%
@@ -176,7 +171,9 @@ for (int i = tournaments.size() - 1; i >= 0; i--) {
         </a>
         <span class="tooltiptext">Delete tournament</span>
         </div>
-        <% } %>
+        <% }else{ %>
+        <img src="../img/delete1.png" width="25" height="20">
+        <%} %>
         </TD>
         <TD><%=t.getWinner()!=null? t.getWinner():"" %></TD>
         
