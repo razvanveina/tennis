@@ -40,9 +40,14 @@ Collections.sort(users);
       <TD><%= user.getRating() %></TD>
       <TD><%= user.getWon() %></TD>
       <TD><%= user.getLost() %></TD>
-      <TD><%= stars%></TD>
+      <TD align="center">
+     
+      <%for(int i=0; i<stars; i++){ %>
+      <img src="../img/star.png" width="10" height="10">
+      <%} %>
+      </TD>
 <%--       <TD><A href="mailto:<%= user.getEmail() %>"><%= user.getEmail() %></A></TD> --%>    
-    </TR>
+  
 <% } %>
 
 </TABLE>
