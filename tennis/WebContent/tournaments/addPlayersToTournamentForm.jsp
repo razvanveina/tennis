@@ -68,9 +68,8 @@ Collections.sort(users, new Comparator<User>() {
           boolean isChecked= (hasOldParticipants && lastUsers.contains(user));
           String checked=(isChecked? "checked":"");
           %>
-				<INPUT type="checkbox" name="usersArray[]"
-					value="<%=user.getUser() %>" <%= checked %> onchange='checkboxes()'/>
-			<b>(<%=user.getUser()%>)</b> <%=user.getName()%> <%=user.getSurname()%> 
+				<label><INPUT type="checkbox" name="usersArray[]"
+					value="<%=user.getUser() %>" <%= checked %> onchange='checkboxes()'><%=user.getName()%> <%=user.getSurname()%> </label>
 				<BR />
         
 
