@@ -67,7 +67,8 @@ ArrayList<Tournament> tournaments = Database.getInstance().getTournaments();
 
 <% 
 int playersChosen=0;
-for (Tournament t : tournaments) { 
+for (int i = tournaments.size() - 1; i >= 0; i--) { 
+  Tournament t = tournaments.get(i);
   DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
   int numberOfPlayersNeeded=t.getFormat()!=null? t.getMaxPlayers() : -1; 
   boolean hasEnoughPlayers=t.getParticipants().size()==numberOfPlayersNeeded;
