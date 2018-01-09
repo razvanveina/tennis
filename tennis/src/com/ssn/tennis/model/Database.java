@@ -327,4 +327,13 @@ public class Database implements Serializable {
     return counter;
   }
 
+  public void cleanup() {
+    //    Iterator<Tournament> iterator = tournaments.iterator();
+    //    while (iterator.hasNext()) {
+    //      Tournament next = iterator.next();
+    //      if (next.getName().contains("+") || next.getName().contains(" ")) {
+    //        iterator.remove();
+    //      }
+    //    }
+  }
 }

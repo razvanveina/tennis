@@ -17,6 +17,8 @@ public class TournamentFormats {
   private ArrayList<TournamentFormat> formats = new ArrayList<>();
 
   public TournamentFormats() {
+    formats.add(new TournamentFormat8Teams());
+    formats.add(new TournamentFormat7Teams());
     formats.add(new TournamentFormat6Teams());
     formats.add(new TournamentFormat5Teams());
     formats.add(new TournamentFormat4Teams());

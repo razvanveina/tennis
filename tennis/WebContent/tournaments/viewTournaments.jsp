@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="com.ssn.tennis.common.*, com.ssn.tennis.model.enums.*, java.util.*, java.text.*"%>
+    pageEncoding="ISO-8859-1" import="com.ssn.tennis.common.*, com.ssn.tennis.model.enums.*, java.util.*, java.text.*, java.net.*, java.nio.charset.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <style>
@@ -47,6 +47,10 @@
 ArrayList<Tournament> tournaments = Database.getInstance().getTournaments(); 
 %>
 
+<FORM action="addTournamentForm.jsp" method="POST">
+<INPUT type="submit" value="Add tournament"/>
+</FORM>
+
 <TABLE>
     <TR>
       <TH>Date</TH>
@@ -91,7 +95,7 @@ for (int i = tournaments.size() - 1; i >= 0; i--) {
       <TD><%= t.getType() %></TD>
       <TD><%= t.getFormat().getName() %></TD>
       <TD><%= t.getMaxPlayers() %></TD> 
-      <TD><% if(!t.isStarted()){%><A href=<%=(t.isStarted() ? "" :"addPlayersToTournamentForm.jsp?name="+t.getName())%>><%= t.getParticipantsAsString()%></A>
+      <TD><% if(!t.isStarted()){%><A href=<%=(t.isStarted() ? "" :"addPlayersToTournamentForm.jsp?name="+URLEncoder.encode(t.getName(), StandardCharsets.UTF_8.toString()))%>><%= t.getParticipantsAsString()%></A>
       <%}else{ %>
       <%=t.getParticipantsAsString() %>
       <%} %></TD> 
@@ -126,7 +130,7 @@ for (int i = tournaments.size() - 1; i >= 0; i--) {
             <% if (t.getStatus() != TournamentStatus.FINISHED) { %>
                  
          <div class="tooltip">
-         <a href="addTournamentForm.jsp?name=<%=t.getName() %>"> 
+         <a href="addTournamentForm.jsp?name=<%= URLEncoder.encode(t.getName(), StandardCharsets.UTF_8.toString()) %>"> 
         <img src="../img/edit.png" width="25" height="20">
         </a>
         <span class="tooltiptext">Edit tournament</span>
@@ -137,7 +141,7 @@ for (int i = tournaments.size() - 1; i >= 0; i--) {
     <%} else {%>
         <TD>
         <div class="tooltip">
-         <a href="startTournament.jsp?name=<%=t.getName() %>"> 
+         <a href="startTournament.jsp?name=<%= URLEncoder.encode(t.getName(), StandardCharsets.UTF_8.toString()) %>"> 
         <img src="../img/start.png" width="25" height="20">
         </a>
         <span class="tooltiptext">Start tournament</span>
@@ -145,7 +149,7 @@ for (int i = tournaments.size() - 1; i >= 0; i--) {
         <TD>
          <% if (t.getStatus() != TournamentStatus.FINISHED) { %>                
          <div class="tooltip">
-         <a href="addTournamentForm.jsp?name=<%=t.getName() %>"> 
+         <a href="addTournamentForm.jsp?name=<%= URLEncoder.encode(t.getName(), StandardCharsets.UTF_8.toString()) %>"> 
         <img src="../img/edit.png" width="25" height="20">
         </a>
         <span class="tooltiptext">Edit tournament</span>
@@ -156,7 +160,7 @@ for (int i = tournaments.size() - 1; i >= 0; i--) {
     <%} %>
     <TD>
          <div class="tooltip">
-         <a href="duplicateTournament.jsp?name=<%=t.getName() %>"> 
+         <a href="duplicateTournament.jsp?name=<%= URLEncoder.encode(t.getName(), StandardCharsets.UTF_8.toString()) %>"> 
         <img src="../img/duplicate.png" width="25" height="20">
         </a>
         <span class="tooltiptext">Duplicate tournament</span>
@@ -166,7 +170,7 @@ for (int i = tournaments.size() - 1; i >= 0; i--) {
             <TD>
             <% if (t.getStatus() != TournamentStatus.FINISHED) { %>
          <div class="tooltip">
-         <a href="deleteTournament.jsp?name=<%=t.getName() %>"> 
+         <a href="deleteTournament.jsp?name=<%= URLEncoder.encode(t.getName(), StandardCharsets.UTF_8.toString()) %>"> 
         <img src="../img/delete.png" width="25" height="20">
         </a>
         <span class="tooltiptext">Delete tournament</span>
@@ -182,8 +186,5 @@ for (int i = tournaments.size() - 1; i >= 0; i--) {
 </TABLE>
  <br />
 
-<FORM action="addTournamentForm.jsp" method="POST">
-<INPUT type="submit" value="Add tournament"/>
-</FORM>
 </BODY>
 </HTML>     
