@@ -49,7 +49,9 @@ for (Match match: matches) {
 
 </TABLE>
  <br />
+ <%if(!tournament.isFinished()){ %>
 <INPUT type="submit" value="Save"/>
+<%} %>
 </FORM>
 
  <br />
