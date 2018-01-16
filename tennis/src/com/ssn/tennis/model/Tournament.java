@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import com.ssn.tennis.model.classification.Classification;
 import com.ssn.tennis.model.enums.MatchType;
@@ -113,6 +114,9 @@ public class Tournament implements Serializable {
   }
 
   public void start() {
+    if (this.isStarted()) {
+      return;
+    }
     buildTeams();
     status = TournamentStatus.STARTED;
   }
@@ -124,6 +128,15 @@ public class Tournament implements Serializable {
         return o1.getRating() - o2.getRating();
       }
     });
+
+    List<User> topHalf = new ArrayList<>(participants.subList(0, participants.size() / 2));
+    List<User> bottomHalf = new ArrayList<>(participants.subList(participants.size() / 2, participants.size()));
+    Collections.shuffle(topHalf);
+    Collections.shuffle(bottomHalf);
+
+    participants.clear();
+    participants.addAll(topHalf);
+    participants.addAll(bottomHalf);
 
     for (int i = 0; i < participants.size() / type.getPlayersPerTeam(); i++) {
       Team team = null;
