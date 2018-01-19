@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="com.ssn.tennis.common.*, java.util.*"%>
+    pageEncoding="ISO-8859-1" import="com.ssn.tennis.common.*, java.util.*, com.ssn.core.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,7 +12,7 @@
 <%@include file="../checkAdminRights.jsp" %> 
 
 <%
-ArrayList<User> users = Database.getInstance().getUsers();
+ArrayList<User> users = ApplicationFactory.getInstance().getDatabase().getUsers();
 Collections.sort(users);
 %>
 <br>
@@ -30,7 +30,7 @@ Collections.sort(users);
     </TR>
 
 <% for (User user : users) {
-  int stars=Database.getInstance().getUserStars(user);
+  int stars=ApplicationFactory.getInstance().getDatabase().getUserStars(user);
   %>
 
     <TR>

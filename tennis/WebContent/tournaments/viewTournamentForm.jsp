@@ -41,6 +41,10 @@ for (Match match: matches) {
     <%} %>
       <TD><INPUT type="hidden" name=id<%=matchNumber%>/><%=matchNumber%></TD>
       <TD><INPUT type="hidden" name="group"+<%=matchNumber%>/><b><%= match.getFormat().getStageInfo() %></b></TD>
+      <%
+      Team team1 = match.getTeam1();
+      Team team2 = match.getTeam2();
+      %>
       <TD><INPUT type="hidden" name="players"+<%=matchNumber%>><b><%= match.toString()%></b></TD>
       <TD><INPUT type="text" name="sc1_<%=matchNumber%>" value="<%=match.getPoints1()%>" autocomplete="off" <%=tournament.isFinished()? " disabled":""%>/> </TD>
       <TD><INPUT type="text" name="sc2_<%=matchNumber%>" value="<%=match.getPoints2()%>" autocomplete="off" <%=tournament.isFinished()? " disabled":""%>/> </TD>

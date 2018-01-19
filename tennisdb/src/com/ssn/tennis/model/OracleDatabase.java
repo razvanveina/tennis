@@ -15,6 +15,7 @@ import org.hibernate.Session;
 
 import com.ssn.core.persistence.WithSessionAndTransaction;
 import com.ssn.tennis.common.Utils;
+import com.ssn.tennis.controller.TennisManager;
 import com.ssn.tennis.model.enums.TournamentType;
 
 /**
@@ -32,14 +33,26 @@ public class OracleDatabase implements Database {
 
   @Override
   public void addUser(User user) {
-    // TODO Auto-generated method stub
+    new WithSessionAndTransaction<User>() {
 
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        session.save(user);
+      }
+
+    }.run();
   }
 
   @Override
   public void removeUser(User user) {
-    // TODO Auto-generated method stub
+    new WithSessionAndTransaction<User>() {
 
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        session.delete(user);
+      }
+
+    }.run();
   }
 
   @Override
@@ -63,8 +76,15 @@ public class OracleDatabase implements Database {
 
   @Override
   public User getUserByUsername(String user) {
-    // TODO Auto-generated method stub
-    return null;
+    return new WithSessionAndTransaction<User>() {
+
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        TennisManager tm = new TennisManager(session);
+        setReturnValue(tm.findUserByUserName(user));
+      }
+
+    }.run();
   }
 
   @Override
@@ -75,14 +95,37 @@ public class OracleDatabase implements Database {
 
   @Override
   public ArrayList<User> getUsers() {
-    // TODO Auto-generated method stub
-    return null;
+    return new WithSessionAndTransaction<ArrayList<User>>() {
+
+      @SuppressWarnings("unchecked")
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        Query query = session.createQuery("from User");
+        List result = query.list();
+        setReturnValue(new ArrayList<User>(result));
+      }
+
+    }.run();
+
   }
 
   @Override
   public void editUser(String oldUser, String user, String pass, String name, String surname, boolean admin) {
-    // TODO Auto-generated method stub
+    new WithSessionAndTransaction<User>() {
 
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        TennisManager tm = new TennisManager(session);
+        User userDB = tm.findUserByUserName(oldUser);
+        userDB.setUser(user);
+        userDB.setPassword(pass);
+        userDB.setName(name);
+        userDB.setSurname(surname);
+        userDB.setAdmin(admin);
+        session.update(userDB);
+      }
+
+    }.run();
   }
 
   @Override

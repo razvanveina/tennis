@@ -5,7 +5,10 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.ssn.tennis.common.Utils;
@@ -16,6 +19,9 @@ public class User implements Serializable, Comparable<User> {
   private static final long serialVersionUID = 1L;
 
   @Id
+  @Column(name = "ID")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
+  @SequenceGenerator(initialValue = 1, sequenceName = "seq_gen", name = "gen")
   private long id;
 
   @Column(name = "username")

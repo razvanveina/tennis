@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@page import="com.ssn.tennis.common.*" %>
+    <%@page import="com.ssn.tennis.common.*, com.ssn.core.*" %>
     
     <%@include file="../checkLogin.jsp" %>
     
@@ -8,8 +8,8 @@
 <% 
 	String userName = request.getParameter("name");
 
-	User user2 = Database.getInstance().getUserByUsername(userName);
-	Database.getInstance().removeUser(user2);
+	User user2 = ApplicationFactory.getInstance().getDatabase().getUserByUsername(userName);
+	ApplicationFactory.getInstance().getDatabase().removeUser(user2);
 %>
 
-<%@include file="users.jsp" %>  
+<%@include file="users.jsp" %>   
