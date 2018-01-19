@@ -6,8 +6,6 @@
 	String pass = request.getParameter("pass");
 	User userLogin = Database.getInstance().checkLogin(userS, pass);
   
-  Database.getInstance().cleanup();
-  
 	if (userLogin != null) {
 		session.setAttribute("user", userLogin);
 	} else {

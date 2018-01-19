@@ -27,7 +27,7 @@ import com.ssn.tennis.model.format.TournamentFormats;
  * @version $Revision: $, $Date: $, $Author: $
  */
 
-public class Database implements Serializable {
+public class Database implements Serializable, DatabaseInterface {
   private static final long serialVersionUID = 1L;
 
   private static Database instance = null;
