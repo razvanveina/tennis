@@ -8,7 +8,13 @@ package com.ssn.tennis.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import com.ssn.core.persistence.WithSessionAndTransaction;
+import com.ssn.tennis.common.Utils;
 import com.ssn.tennis.model.enums.TournamentType;
 
 /**
@@ -17,6 +23,12 @@ import com.ssn.tennis.model.enums.TournamentType;
  */
 
 public class OracleDatabase implements Database {
+
+  private static Database instance = null;
+
+  private OracleDatabase() {
+    init();
+  }
 
   @Override
   public void addUser(User user) {
@@ -32,8 +44,21 @@ public class OracleDatabase implements Database {
 
   @Override
   public User checkLogin(String user, String password) {
-    // TODO Auto-generated method stub
-    return null;
+    return new WithSessionAndTransaction<User>() {
+
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        Query query = session.createQuery("from User where user = :user and password = :password");
+        query.setParameter("user", user);
+        query.setParameter("password", Utils.encrypt(password));
+        List result = query.list();
+
+        if (result.size() > 0) {
+          setReturnValue((User) result.get(0));
+        }
+      }
+
+    }.run();
   }
 
   @Override
@@ -170,8 +195,23 @@ public class OracleDatabase implements Database {
 
   @Override
   public void init() {
-    // TODO Auto-generated method stub
+    new WithSessionAndTransaction<User>() {
 
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        User raz = new User("raz", "qwe", "Razvan", "Veina", true);
+        session.save(raz);
+      }
+
+    }.run();
+  }
+
+  public static Database getInstance() {
+    if (instance == null) {
+      instance = new OracleDatabase();
+    }
+
+    return instance;
   }
 
 }

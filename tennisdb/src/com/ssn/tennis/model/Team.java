@@ -11,14 +11,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
  * @version $Revision: $, $Date: $, $Author: $
  */
 
+@Entity
 public class Team implements Serializable {
   private static final long serialVersionUID = 1L;
   private ArrayList<User> players = new ArrayList<User>();
+
+  @Id
+  private long id;
 
   public boolean hasPlayer(String name) {
     for (User u : players) {
@@ -88,5 +95,21 @@ public class Team implements Serializable {
 
   public int getLost() {
     return FileDatabase.getInstance().getMatchesLostByTeam(this);
+  }
+
+  public ArrayList<User> getPlayers() {
+    return players;
+  }
+
+  public void setPlayers(ArrayList<User> players) {
+    this.players = players;
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
   }
 }

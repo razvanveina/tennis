@@ -13,6 +13,9 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import com.ssn.tennis.model.classification.Classification;
 import com.ssn.tennis.model.enums.MatchType;
 import com.ssn.tennis.model.enums.TournamentStatus;
@@ -25,8 +28,12 @@ import com.ssn.tennis.model.matchdef.MatchFormatDefinition;
  * @version $Revision: $, $Date: $, $Author: $
  */
 
+@Entity
 public class Tournament implements Serializable {
   private static final long serialVersionUID = 1L;
+
+  @Id
+  private long id;
 
   private String name;
   private Date startDate;
@@ -316,6 +323,28 @@ public class Tournament implements Serializable {
       }
     }
     return winner;
+  }
+
+  /**
+   * @return the id
+   */
+  public long getId() {
+    return id;
+  }
+
+  /**
+   * @param id the id to set
+   */
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public void setMatches(ArrayList<Match> matches) {
+    this.matches = matches;
+  }
+
+  public void setStatus(TournamentStatus status) {
+    this.status = status;
   }
 
 }

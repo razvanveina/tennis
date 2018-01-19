@@ -8,10 +8,14 @@
         <property name="hibernate.connection.password">qwe</property>
         <property name="hibernate.connection.url">jdbc:oracle:thin:@172.28.146.186:1521:orcl</property>
         <property name="hibernate.connection.username">test_rve</property>
-        <property name="dialect">org.hibernate.dialect.OracleDialect</property>
+        <property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">create</property>
         
         <mapping class="com.ssn.Message"/>
+        <mapping class="com.ssn.tennis.model.User"/>
+        <mapping class="com.ssn.tennis.model.Match"/>
+        <mapping class="com.ssn.tennis.model.Team"/>
+        <mapping class="com.ssn.tennis.model.Tournament"/>
     </session-factory>
 </hibernate-configuration>

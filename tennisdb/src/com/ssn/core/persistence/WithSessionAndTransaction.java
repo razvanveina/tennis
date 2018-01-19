@@ -34,7 +34,7 @@ public abstract class WithSessionAndTransaction<T> {
 
   protected abstract void executeBusinessLogic(Session session);
 
-  protected void setReturnType(T returnValue) {
+  protected void setReturnValue(T returnValue) {
     this.returnValue = returnValue;
   }
 }

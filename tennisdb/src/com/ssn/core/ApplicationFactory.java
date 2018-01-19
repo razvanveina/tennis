@@ -7,7 +7,7 @@
 package com.ssn.core;
 
 import com.ssn.tennis.model.Database;
-import com.ssn.tennis.model.FileDatabase;
+import com.ssn.tennis.model.OracleDatabase;
 
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
@@ -29,6 +29,6 @@ public class ApplicationFactory {
   }
 
   public Database getDatabase() {
-    return FileDatabase.getInstance();
+    return OracleDatabase.getInstance();
   }
 }

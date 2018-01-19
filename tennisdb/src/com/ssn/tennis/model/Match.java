@@ -9,6 +9,9 @@ package com.ssn.tennis.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import com.ssn.tennis.model.classification.ClassificationLine;
 import com.ssn.tennis.model.matchdef.GroupMatchFormatDefinition;
 import com.ssn.tennis.model.matchdef.MatchFormatDefinition;
@@ -18,8 +21,12 @@ import com.ssn.tennis.model.matchdef.MatchFormatDefinition;
  * @version $Revision: $, $Date: $, $Author: $
  */
 
+@Entity
 public class Match implements Serializable {
   private static final long serialVersionUID = 1L;
+
+  @Id
+  private long id;
 
   Team team1;
   Team team2;
@@ -148,5 +155,25 @@ public class Match implements Serializable {
 
   public boolean isLostByTeam(Team team) {
     return !isWonByTeam(team);
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public void setTeam1(Team team1) {
+    this.team1 = team1;
+  }
+
+  public void setTeam2(Team team2) {
+    this.team2 = team2;
+  }
+
+  public void setFormat(MatchFormatDefinition format) {
+    this.format = format;
   }
 }

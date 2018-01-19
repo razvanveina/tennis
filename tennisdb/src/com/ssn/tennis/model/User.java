@@ -3,16 +3,31 @@ package com.ssn.tennis.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.ssn.tennis.common.Utils;
 
+@Entity
+@Table(name = "PLAYER")
 public class User implements Serializable, Comparable<User> {
   private static final long serialVersionUID = 1L;
-  private int id;
+
+  @Id
+  private long id;
+
+  @Column(name = "username")
   private String user;
   private String password;
   private String name;
   private String surname;
   private boolean admin;
+
+  public User() {
+    //
+  }
 
   public User(String user, String password, String name, String surname, boolean admin) {
     this.user = user;
@@ -22,8 +37,12 @@ public class User implements Serializable, Comparable<User> {
     this.admin = admin;
   }
 
-  public boolean hasName(String name) {
-    return user.equals(name);
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public boolean hasName(String pname) {
+    return user.equals(pname);
   }
 
   @Override
@@ -92,7 +111,7 @@ public class User implements Serializable, Comparable<User> {
     this.name = name;
   }
 
-  public int getId() {
+  public long getId() {
     return id;
   }
 
@@ -109,7 +128,7 @@ public class User implements Serializable, Comparable<User> {
   }
 
   public int getRating() {
-    return FileDatabase.getInstance().getUserRatingByName(user);
+    return OracleDatabase.getInstance().getUserRatingByName(user);
   }
 
   @Override
@@ -118,10 +137,10 @@ public class User implements Serializable, Comparable<User> {
   }
 
   public int getWon() {
-    return FileDatabase.getInstance().getMatchesWonByUsername(this.user);
+    return OracleDatabase.getInstance().getMatchesWonByUsername(this.user);
   }
 
   public int getLost() {
-    return FileDatabase.getInstance().getMatchesLostByUsername(this.user);
+    return OracleDatabase.getInstance().getMatchesLostByUsername(this.user);
   }
 }
