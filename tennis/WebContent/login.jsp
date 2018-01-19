@@ -4,6 +4,7 @@
 <% 
 	String userS = request.getParameter("user");
 	String pass = request.getParameter("pass");
+  
 	User userLogin = Database.getInstance().checkLogin(userS, pass);
   
 	if (userLogin != null) {
