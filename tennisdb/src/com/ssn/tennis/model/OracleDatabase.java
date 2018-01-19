@@ -168,4 +168,10 @@ public class OracleDatabase implements Database {
     return 0;
   }
 
+  @Override
+  public void init() {
+    // TODO Auto-generated method stub
+
+  }
+
 }

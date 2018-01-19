@@ -57,7 +57,8 @@ public class FileDatabase implements Serializable, Database {
     return instance;
   }
 
-  private void init() {
+  @Override
+  public void init() {
     users.add(new User("raz", "raz", "Razvan", "Veina", true));
     users.add(new User("cni", "cni", "Catalin", "Nichifor", true));
     users.add(new User("dst", "dst", "Dana", "Stan", true));

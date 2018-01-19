@@ -4,7 +4,7 @@
  * $Header: $
  */
 
-package com.ssn.persistence;
+package com.ssn.core.persistence;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

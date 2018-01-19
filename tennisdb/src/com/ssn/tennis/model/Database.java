@@ -67,4 +67,6 @@ public interface Database {
   public int getUserStars(User user);
 
   public int getTeamStars(Team tim);
+
+  void init();
 }
