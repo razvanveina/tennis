@@ -109,7 +109,7 @@ public class User implements Serializable, Comparable<User> {
   }
 
   public int getRating() {
-    return Database.getInstance().getUserRatingByName(user);
+    return FileDatabase.getInstance().getUserRatingByName(user);
   }
 
   @Override
@@ -118,10 +118,10 @@ public class User implements Serializable, Comparable<User> {
   }
 
   public int getWon() {
-    return Database.getInstance().getMatchesWonByUsername(this.user);
+    return FileDatabase.getInstance().getMatchesWonByUsername(this.user);
   }
 
   public int getLost() {
-    return Database.getInstance().getMatchesLostByUsername(this.user);
+    return FileDatabase.getInstance().getMatchesLostByUsername(this.user);
   }
 }

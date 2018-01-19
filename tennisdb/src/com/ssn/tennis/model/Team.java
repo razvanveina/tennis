@@ -83,10 +83,10 @@ public class Team implements Serializable {
   }
 
   public int getWon() {
-    return Database.getInstance().getMatchesWonByTeam(this);
+    return FileDatabase.getInstance().getMatchesWonByTeam(this);
   }
 
   public int getLost() {
-    return Database.getInstance().getMatchesLostByTeam(this);
+    return FileDatabase.getInstance().getMatchesLostByTeam(this);
   }
 }

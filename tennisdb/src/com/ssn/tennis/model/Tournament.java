@@ -70,7 +70,7 @@ public class Tournament implements Serializable {
 
   //  public void addParticipant(String userName) {
   //
-  //    participants.add(Database.getInstance().getUserByUsername(userName));
+  //    participants.add(FileDatabase.getInstance().getUserByUsername(userName));
   //  }
 
   public TournamentType getType() {
@@ -141,19 +141,19 @@ public class Tournament implements Serializable {
     for (int i = 0; i < participants.size() / type.getPlayersPerTeam(); i++) {
       Team team = null;
       if (type.equals(TournamentType.DOUBLE)) {
-        team = Database.getInstance().getTeamByParticipants(participants.get(i), participants.get(participants.size() - i - 1));
+        team = FileDatabase.getInstance().getTeamByParticipants(participants.get(i), participants.get(participants.size() - i - 1));
         if (team == null) {
           team = new Team();
           team.addPlayer(participants.get(i));
           team.addPlayer(participants.get(participants.size() - i - 1));
-          Database.getInstance().addTeam(team);
+          FileDatabase.getInstance().addTeam(team);
         }
       } else {
-        team = Database.getInstance().getTeamByParticipants(participants.get(i));
+        team = FileDatabase.getInstance().getTeamByParticipants(participants.get(i));
         if (team == null) {
           team = new Team();
           team.addPlayer(participants.get(i));
-          Database.getInstance().addTeam(team);
+          FileDatabase.getInstance().addTeam(team);
         }
       }
 

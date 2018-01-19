@@ -16,7 +16,7 @@ import com.ssn.tennis.model.enums.TournamentType;
  * @version $Revision: $, $Date: $, $Author: $
  */
 
-public class OracleDatabase implements DatabaseInterface {
+public class OracleDatabase implements Database {
 
   @Override
   public void addUser(User user) {

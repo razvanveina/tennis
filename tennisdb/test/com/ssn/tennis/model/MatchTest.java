@@ -22,7 +22,7 @@ import com.ssn.tennis.model.enums.TournamentType;
 public class MatchTest {
   @Test
   public void testHasPlayer() {
-    Database db = Database.getInstance();
+    FileDatabase db = FileDatabase.getInstance();
     for (int i = 0; i < 12; i++) {
       db.addUser(new User("" + i, "" + i, "" + i, "" + i, false));
     }
