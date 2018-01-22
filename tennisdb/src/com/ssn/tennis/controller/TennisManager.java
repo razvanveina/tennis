@@ -11,7 +11,6 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import com.ssn.core.persistence.WithSessionAndTransaction;
 import com.ssn.tennis.model.User;
 
 /**
@@ -27,21 +26,11 @@ public class TennisManager {
   }
 
   public User findUserByUserName(String user) {
-    return new WithSessionAndTransaction<User>() {
+    Query query = hibernateSession.createQuery("from User where user = :user");
+    query.setParameter("user", user);
+    List result = query.list();
 
-      @Override
-      protected void executeBusinessLogic(Session session) {
-        Query query = session.createQuery("from User where user = :user");
-        query.setParameter("user", user);
-        List result = query.list();
-
-        if (result.size() > 0) {
-          setReturnValue((User) result.get(0));
-        }
-
-      }
-    }.run();
-
+    return (User) result.get(0);
   }
 
 }

@@ -10,9 +10,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
@@ -22,10 +27,17 @@ import javax.persistence.Id;
 @Entity
 public class Team implements Serializable {
   private static final long serialVersionUID = 1L;
-  private ArrayList<User> players = new ArrayList<User>();
-
   @Id
   private long id;
+
+  @ManyToMany(cascade = { CascadeType.ALL })
+  @JoinTable(name = "team_player", //
+  joinColumns = { @JoinColumn(name = "team_id") }, //
+  inverseJoinColumns = { @JoinColumn(name = "player_id") })
+  private List<User> players = new ArrayList<User>();
+
+  @ManyToMany(mappedBy = "teams")
+  private List<Tournament> tournaments = new ArrayList<Tournament>();
 
   public boolean hasPlayer(String name) {
     for (User u : players) {
@@ -97,7 +109,7 @@ public class Team implements Serializable {
     return FileDatabase.getInstance().getMatchesLostByTeam(this);
   }
 
-  public ArrayList<User> getPlayers() {
+  public List<User> getPlayers() {
     return players;
   }
 
@@ -111,5 +123,19 @@ public class Team implements Serializable {
 
   public void setId(long id) {
     this.id = id;
+  }
+
+  /**
+   * @return the tournaments
+   */
+  public List<Tournament> getTournaments() {
+    return tournaments;
+  }
+
+  /**
+   * @param tournaments the tournaments to set
+   */
+  public void setTournaments(List<Tournament> tournaments) {
+    this.tournaments = tournaments;
   }
 }

@@ -2,12 +2,15 @@
 package com.ssn.tennis.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -30,6 +33,12 @@ public class User implements Serializable, Comparable<User> {
   private String name;
   private String surname;
   private boolean admin;
+
+  @ManyToMany(mappedBy = "players")
+  private List<Team> teams = new ArrayList<>();
+
+  @ManyToMany(mappedBy = "participants")
+  private List<Tournament> tournaments = new ArrayList<>();
 
   public User() {
     //
@@ -149,4 +158,33 @@ public class User implements Serializable, Comparable<User> {
   public int getLost() {
     return OracleDatabase.getInstance().getMatchesLostByUsername(this.user);
   }
+
+  /**
+   * @return the teams
+   */
+  public List<Team> getTeams() {
+    return teams;
+  }
+
+  /**
+   * @param teams the teams to set
+   */
+  public void setTeams(ArrayList<Team> teams) {
+    this.teams = teams;
+  }
+
+  /**
+   * @return the tournaments
+   */
+  public List<Tournament> getTournaments() {
+    return tournaments;
+  }
+
+  /**
+   * @param tournaments the tournaments to set
+   */
+  public void setTournaments(List<Tournament> tournaments) {
+    this.tournaments = tournaments;
+  }
+
 }

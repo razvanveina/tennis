@@ -31,9 +31,9 @@ public class KnockoutFromKnockoutMatchFormatDefinition extends MatchFormatDefini
   }
 
   @Override
-  public Match createMatch(Tournament tournament) {
-    return new Match(new MatchWinnerTeamProxy(this.team1MatchId, this.winners, tournament), //
-      new MatchWinnerTeamProxy(this.team2MatchId, this.winners, tournament), this);
+  public Match createMatch(int number, Tournament tournament) {
+    return new Match(number, new MatchWinnerTeamProxy(this.team1MatchId, this.winners, tournament), //
+      new MatchWinnerTeamProxy(this.team2MatchId, this.winners, tournament), tournament);
   }
 
 }

@@ -16,7 +16,6 @@ import com.ssn.tennis.model.proxy.MatchWinnerTeamProxy;
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
  * @version $Revision: $, $Date: $, $Author: $
  */
-
 public class KnockoutFromGroupMatchAndKnockoutFormatDefinition extends MatchFormatDefinition {
 
   private static final long serialVersionUID = 1L;
@@ -34,9 +33,9 @@ public class KnockoutFromGroupMatchAndKnockoutFormatDefinition extends MatchForm
   }
 
   @Override
-  public Match createMatch(Tournament tournament) {
-    return new Match(new GroupPositionTeamProxy(this.team1Group, this.team1GroupPosition, tournament), //
-      new MatchWinnerTeamProxy(this.team2MatchId, winner, tournament), this);
+  public Match createMatch(int number, Tournament tournament) {
+    return new Match(number, new GroupPositionTeamProxy(this.team1Group, this.team1GroupPosition, tournament), //
+      new MatchWinnerTeamProxy(this.team2MatchId, winner, tournament), tournament);
   }
 
 }

@@ -16,9 +16,10 @@ import com.ssn.tennis.model.enums.MatchType;
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
  * @version $Revision: $, $Date: $, $Author: $
  */
-
 public abstract class MatchFormatDefinition implements Serializable {
   private static final long serialVersionUID = 1L;
+  protected long id;
+
   protected int number;
   private MatchType type;
 
@@ -44,9 +45,19 @@ public abstract class MatchFormatDefinition implements Serializable {
     return type.name();
   }
 
+  public abstract Match createMatch(int number, Tournament tournament);
+
   /**
-   * @param teams
-   * @return
+   * @return the id
    */
-  public abstract Match createMatch(Tournament tournament);
+  public long getId() {
+    return id;
+  }
+
+  /**
+   * @param id the id to set
+   */
+  public void setId(long id) {
+    this.id = id;
+  }
 }

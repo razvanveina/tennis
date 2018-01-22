@@ -244,6 +244,10 @@ public class OracleDatabase implements Database {
       protected void executeBusinessLogic(Session session) {
         User raz = new User("raz", "qwe", "Razvan", "Veina", true);
         session.save(raz);
+        User dst = new User("dst", "dst", "Dana", "Stan", true);
+        session.save(dst);
+        User cni = new User("cni", "cni", "Catalin", "Nichifor", true);
+        session.save(cni);
       }
 
     }.run();

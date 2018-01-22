@@ -8,13 +8,16 @@ package com.ssn.tennis.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.ssn.tennis.model.classification.Classification;
 import com.ssn.tennis.model.enums.MatchType;
@@ -37,12 +40,24 @@ public class Tournament implements Serializable {
 
   private String name;
   private Date startDate;
-  private ArrayList<User> participants = new ArrayList<User>();
   private TournamentType type = TournamentType.DOUBLE;
-  private ArrayList<Team> teams = new ArrayList<Team>();
-  private ArrayList<Match> matches = new ArrayList<Match>();
   private TournamentStatus status = TournamentStatus.NEW;
   private TournamentFormat format;
+
+  @ManyToMany(cascade = { CascadeType.ALL })
+  @JoinTable(name = "tournament_player", //
+  joinColumns = { @JoinColumn(name = "tournament_id") }, //
+  inverseJoinColumns = { @JoinColumn(name = "player_id") })
+  private List<User> participants = new ArrayList<User>();
+
+  @ManyToMany(cascade = { CascadeType.ALL })
+  @JoinTable(name = "tournament_team", //
+  joinColumns = { @JoinColumn(name = "tournament_id") }, //
+  inverseJoinColumns = { @JoinColumn(name = "team_id") })
+  private List<Team> teams = new ArrayList<Team>();
+
+  @OneToMany(mappedBy = "tournament")
+  private List<Match> matches = new ArrayList<Match>();
 
   public Tournament(String name, Date date, TournamentType type, TournamentFormat format) {
     this.name = name;
@@ -67,7 +82,7 @@ public class Tournament implements Serializable {
     this.startDate = startDate;
   }
 
-  public ArrayList<User> getParticipants() {
+  public List<User> getParticipants() {
     return participants;
   }
 
@@ -88,7 +103,7 @@ public class Tournament implements Serializable {
     this.type = type;
   }
 
-  public ArrayList<Team> getTeams() {
+  public List<Team> getTeams() {
     return teams;
   }
 
@@ -129,37 +144,38 @@ public class Tournament implements Serializable {
   }
 
   private void buildTeams() {
-    Collections.sort(participants, new Comparator<User>() {
-      @Override
-      public int compare(User o1, User o2) {
-        return o1.getRating() - o2.getRating();
-      }
-    });
+    List<User> participantsCopy = participants; //new ArrayList<>(participants);
+    //    Collections.sort(participantsCopy, new Comparator<User>() {
+    //      @Override
+    //      public int compare(User o1, User o2) {
+    //        return o1.getRating() - o2.getRating();
+    //      }
+    //    });
+    //
+    //    List<User> topHalf = new ArrayList<>(participantsCopy.subList(0, participantsCopy.size() / 2));
+    //    List<User> bottomHalf = new ArrayList<>(participantsCopy.subList(participantsCopy.size() / 2, participantsCopy.size()));
+    //    Collections.shuffle(topHalf);
+    //    Collections.shuffle(bottomHalf);
+    //
+    //    participantsCopy.clear();
+    //    participantsCopy.addAll(topHalf);
+    //    participantsCopy.addAll(bottomHalf);
 
-    List<User> topHalf = new ArrayList<>(participants.subList(0, participants.size() / 2));
-    List<User> bottomHalf = new ArrayList<>(participants.subList(participants.size() / 2, participants.size()));
-    Collections.shuffle(topHalf);
-    Collections.shuffle(bottomHalf);
-
-    participants.clear();
-    participants.addAll(topHalf);
-    participants.addAll(bottomHalf);
-
-    for (int i = 0; i < participants.size() / type.getPlayersPerTeam(); i++) {
+    for (int i = 0; i < participantsCopy.size() / type.getPlayersPerTeam(); i++) {
       Team team = null;
       if (type.equals(TournamentType.DOUBLE)) {
-        team = FileDatabase.getInstance().getTeamByParticipants(participants.get(i), participants.get(participants.size() - i - 1));
+        team = FileDatabase.getInstance().getTeamByParticipants(participantsCopy.get(i), participantsCopy.get(participantsCopy.size() - i - 1));
         if (team == null) {
           team = new Team();
-          team.addPlayer(participants.get(i));
-          team.addPlayer(participants.get(participants.size() - i - 1));
+          team.addPlayer(participantsCopy.get(i));
+          team.addPlayer(participantsCopy.get(participantsCopy.size() - i - 1));
           FileDatabase.getInstance().addTeam(team);
         }
       } else {
-        team = FileDatabase.getInstance().getTeamByParticipants(participants.get(i));
+        team = FileDatabase.getInstance().getTeamByParticipants(participantsCopy.get(i));
         if (team == null) {
           team = new Team();
-          team.addPlayer(participants.get(i));
+          team.addPlayer(participantsCopy.get(i));
           FileDatabase.getInstance().addTeam(team);
         }
       }
@@ -171,15 +187,12 @@ public class Tournament implements Serializable {
     MatchFormatDefinition[] matchesStructure = this.getFormat().getMatchesStructure();
     for (int i = 0; i < matchesStructure.length; i++) {
       MatchFormatDefinition def = matchesStructure[i];
-      Match match = def.createMatch(this);
-      //      Team team1 = teams.get(def.getTeam1() - 1);
-      //      Team team2 = teams.get(def.getTeam2() - 1);
-      //      Match match = new Match(team1, team2, def);
+      Match match = def.createMatch(i + 1, this);
       matches.add(match);
     }
   }
 
-  public ArrayList<Match> getMatches() {
+  public List<Match> getMatches() {
     return matches;
   }
 
@@ -345,6 +358,40 @@ public class Tournament implements Serializable {
 
   public void setStatus(TournamentStatus status) {
     this.status = status;
+  }
+
+  public MatchFormatDefinition getMatchFormatDefinition(int number) {
+    for (Match m : matches) {
+      if (m.getNumber() == number) {
+        return format.getMatchesStructure()[number - 1];
+      }
+    }
+    return null;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Tournament other = (Tournament) obj;
+    if (name == null) {
+      if (other.name != null)
+        return false;
+    } else if (!name.equals(other.name))
+      return false;
+    return true;
   }
 
 }

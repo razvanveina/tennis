@@ -34,9 +34,9 @@ public class KnockoutFromKnockoutMatchAndTeamFormatDefinition extends MatchForma
   private static final long serialVersionUID = 1L;
 
   @Override
-  public Match createMatch(Tournament tournament) {
-    return new Match(new MatchWinnerTeamProxy(this.team1Match, true, tournament), //
-      tournament.getTeams().get(team2), this);
+  public Match createMatch(int number, Tournament tournament) {
+    return new Match(number, new MatchWinnerTeamProxy(this.team1Match, true, tournament), //
+      tournament.getTeams().get(team2), tournament);
   }
 
 }

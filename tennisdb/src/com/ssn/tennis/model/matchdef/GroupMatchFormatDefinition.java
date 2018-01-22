@@ -65,9 +65,9 @@ public class GroupMatchFormatDefinition extends MatchFormatDefinition {
   }
 
   @Override
-  public Match createMatch(Tournament tournament) {
+  public Match createMatch(int number, Tournament tournament) {
     Team t1 = tournament.getTeams().get(getTeam1() - 1);
     Team t2 = tournament.getTeams().get(getTeam2() - 1);
-    return new Match(t1, t2, this);
+    return new Match(number, t1, t2, tournament);
   }
 }

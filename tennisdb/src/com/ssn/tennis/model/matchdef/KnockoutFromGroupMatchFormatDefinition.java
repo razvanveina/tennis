@@ -33,9 +33,9 @@ public class KnockoutFromGroupMatchFormatDefinition extends MatchFormatDefinitio
   }
 
   @Override
-  public Match createMatch(Tournament tournament) {
-    return new Match(new GroupPositionTeamProxy(this.team1Group, this.team1GroupPosition, tournament), //
-      new GroupPositionTeamProxy(this.team2Group, this.team2GroupPosition, tournament), this);
+  public Match createMatch(int number, Tournament tournament) {
+    return new Match(number, new GroupPositionTeamProxy(this.team1Group, this.team1GroupPosition, tournament), //
+      new GroupPositionTeamProxy(this.team2Group, this.team2GroupPosition, tournament), tournament);
   }
 
 }

@@ -9,11 +9,11 @@ package com.ssn.tennis.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import com.ssn.tennis.model.classification.ClassificationLine;
-import com.ssn.tennis.model.matchdef.GroupMatchFormatDefinition;
 import com.ssn.tennis.model.matchdef.MatchFormatDefinition;
 
 /**
@@ -28,18 +28,22 @@ public class Match implements Serializable {
   @Id
   private long id;
 
-  Team team1;
-  Team team2;
+  @Column(name = "match_number")
+  private int number;
 
-  int points1;
-  int points2;
+  private Team team1;
+  private Team team2;
 
-  private MatchFormatDefinition format;
+  private int points1;
+  private int points2;
 
-  public Match(Team team1, Team team2, MatchFormatDefinition def) {
+  private Tournament tournament;
+
+  public Match(int number, Team team1, Team team2, Tournament tournament) {
+    this.number = number;
     this.team1 = team1;
     this.team2 = team2;
-    this.format = def;
+    this.tournament = tournament;
   }
 
   public boolean isPlayed() {
@@ -60,11 +64,7 @@ public class Match implements Serializable {
   }
 
   public MatchFormatDefinition getFormat() {
-    return format;
-  }
-
-  public void setFormat(GroupMatchFormatDefinition format) {
-    this.format = format;
+    return tournament.getMatchFormatDefinition(number);
   }
 
   public Team getTeam1() {
@@ -122,7 +122,7 @@ public class Match implements Serializable {
   }
 
   public boolean isGroupMatch(String group) {
-    return format.isGroupMatch(group);
+    return getFormat().isGroupMatch(group);
   }
 
   /**
@@ -173,7 +173,60 @@ public class Match implements Serializable {
     this.team2 = team2;
   }
 
-  public void setFormat(MatchFormatDefinition format) {
-    this.format = format;
+  /**
+   * @return the number
+   */
+  public int getNumber() {
+    return number;
   }
+
+  /**
+   * @param number the number to set
+   */
+  public void setNumber(int number) {
+    this.number = number;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + number;
+    result = prime * result + ((tournament == null) ? 0 : tournament.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Match other = (Match) obj;
+    if (number != other.number)
+      return false;
+    if (tournament == null) {
+      if (other.tournament != null)
+        return false;
+    } else if (!tournament.equals(other.tournament))
+      return false;
+    return true;
+  }
+
+  /**
+   * @return the tournament
+   */
+  public Tournament getTournament() {
+    return tournament;
+  }
+
+  /**
+   * @param tournament the tournament to set
+   */
+  public void setTournament(Tournament tournament) {
+    this.tournament = tournament;
+  }
+
 }
