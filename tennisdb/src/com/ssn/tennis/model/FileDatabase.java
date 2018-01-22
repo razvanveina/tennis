@@ -37,8 +37,6 @@ public class FileDatabase implements Serializable, Database {
 
   private ArrayList<Tournament> tournaments = new ArrayList<>();
 
-  private transient TournamentFormats tf = new TournamentFormats();
-
   public static FileDatabase getInstance() {
     if (instance == null) {
       try {
@@ -46,7 +44,6 @@ public class FileDatabase implements Serializable, Database {
         if (instance.tournaments == null) {
           instance.tournaments = new ArrayList<>();
         }
-        instance.tf = new TournamentFormats();
       } catch (FileNotFoundException e) {
         System.out.println("FileDatabase not found, continue...");
         instance = new FileDatabase();
@@ -145,7 +142,7 @@ public class FileDatabase implements Serializable, Database {
   }
 
   public void addTournament(String name, Date date, TournamentType type, String tournamentFormat) {
-    tournaments.add(new Tournament(name, date, type, tf.getTournamentFormatByName(tournamentFormat)));
+    tournaments.add(new Tournament(name, date, type, TournamentFormats.getTournamentFormatsByName(tournamentFormat)));
     save(this);
   }
 
@@ -298,7 +295,7 @@ public class FileDatabase implements Serializable, Database {
     Tournament tour = getTournamentByName(tourName);
     tour.setStartDate(newDate);
     tour.setType(type);
-    tour.setFormat(tf.getTournamentFormatByName(format));
+    tour.setFormat(TournamentFormats.getTournamentFormatsByName(format));
     save(this);
   }
 

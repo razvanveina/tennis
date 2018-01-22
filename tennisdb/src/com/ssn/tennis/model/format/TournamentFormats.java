@@ -6,36 +6,45 @@
 
 package com.ssn.tennis.model.format;
 
-import java.util.ArrayList;
-
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
  * @version $Revision: $, $Date: $, $Author: $
  */
 
-public class TournamentFormats {
-  private ArrayList<TournamentFormat> formats = new ArrayList<>();
+public enum TournamentFormats {
+    TF8(new TournamentFormat8Teams()), //
+    TF7(new TournamentFormat7Teams()), //
+    TF6(new TournamentFormat6Teams()), // 
+    TF5(new TournamentFormat5Teams()), //
+    TF4(new TournamentFormat4Teams()), //
+    TF3(new TournamentFormat3Teams()); //
 
-  public TournamentFormats() {
-    formats.add(new TournamentFormat8Teams());
-    formats.add(new TournamentFormat7Teams());
-    formats.add(new TournamentFormat6Teams());
-    formats.add(new TournamentFormat5Teams());
-    formats.add(new TournamentFormat4Teams());
-    formats.add(new TournamentFormat3Teams());
+  private TournamentFormat tf;
+
+  private TournamentFormats(TournamentFormat tf) {
+    this.tf = tf;
   }
 
-  public TournamentFormat getTournamentFormatByName(String name) {
-    for (TournamentFormat tf : formats) {
-      if (tf.getName().equals(name)) {
-        return tf;
+  public static TournamentFormat getTournamentFormatByName(String name) {
+    for (TournamentFormats tf1 : TournamentFormats.values()) {
+      if (tf1.getTournamentFormat().getName().equals(name)) {
+        return tf1.getTournamentFormat();
       }
     }
     return null;
   }
 
-  public ArrayList<TournamentFormat> getFormats() {
-    return formats;
+  public TournamentFormat getTournamentFormat() {
+    return tf;
+  }
+
+  public static TournamentFormats getTournamentFormatsByName(String name) {
+    for (TournamentFormats tf1 : TournamentFormats.values()) {
+      if (tf1.getTournamentFormat().getName().equals(name)) {
+        return tf1;
+      }
+    }
+    return null;
   }
 
 }

@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import com.ssn.core.persistence.WithSessionAndTransaction;
 import com.ssn.tennis.controller.TennisManager;
+import com.ssn.tennis.model.Match;
 import com.ssn.tennis.model.Team;
 import com.ssn.tennis.model.Tournament;
 import com.ssn.tennis.model.User;
@@ -47,7 +48,7 @@ public class MatchTest {
         team1.addPlayer(dst);
         session.save(team1);
 
-        Tournament tournament = new Tournament("1", new Date(), TournamentType.SINGLE, new TournamentFormats().getTournamentFormatByName("3 teams"));
+        Tournament tournament = new Tournament("1", new Date(), TournamentType.SINGLE, TournamentFormats.getTournamentFormatsByName("3 teams"));
         session.save(tournament);
 
         ArrayList<User> participants = new ArrayList<>();
@@ -56,6 +57,9 @@ public class MatchTest {
         participants.add(cni);
         tournament.setParticipants(participants);
         tournament.start();
+        for (Match m : tournament.getMatches()) {
+          session.save(m);
+        }
 
       }
 

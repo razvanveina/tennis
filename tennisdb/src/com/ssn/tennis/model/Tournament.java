@@ -16,6 +16,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,6 +32,7 @@ import com.ssn.tennis.model.enums.MatchType;
 import com.ssn.tennis.model.enums.TournamentStatus;
 import com.ssn.tennis.model.enums.TournamentType;
 import com.ssn.tennis.model.format.TournamentFormat;
+import com.ssn.tennis.model.format.TournamentFormats;
 import com.ssn.tennis.model.matchdef.MatchFormatDefinition;
 
 /**
@@ -51,7 +54,9 @@ public class Tournament implements Serializable {
   private Date startDate;
   private TournamentType type = TournamentType.DOUBLE;
   private TournamentStatus status = TournamentStatus.NEW;
-  private TournamentFormat format;
+
+  @Enumerated(EnumType.STRING)
+  private TournamentFormats format;
 
   @ManyToMany(cascade = { CascadeType.ALL })
   @JoinTable(name = "tournament_player", //
@@ -72,7 +77,7 @@ public class Tournament implements Serializable {
 
   }
 
-  public Tournament(String name, Date date, TournamentType type, TournamentFormat format) {
+  public Tournament(String name, Date date, TournamentType type, TournamentFormats format) {
     this.name = name;
     startDate = date;
     this.type = type;
@@ -141,7 +146,7 @@ public class Tournament implements Serializable {
   }
 
   public int getMaxPlayers() {
-    return format.getMaxTeams() * type.getPlayersPerTeam();
+    return format.getTournamentFormat().getMaxTeams() * type.getPlayersPerTeam();
   }
 
   public boolean isStarted() {
@@ -254,7 +259,7 @@ public class Tournament implements Serializable {
   }
 
   public TournamentFormat getFormat() {
-    return format;
+    return format.getTournamentFormat();
   }
 
   public Classification getClassification(String group) {
@@ -334,7 +339,7 @@ public class Tournament implements Serializable {
     return true;
   }
 
-  public void setFormat(TournamentFormat format) {
+  public void setFormat(TournamentFormats format) {
     this.format = format;
   }
 
@@ -378,7 +383,7 @@ public class Tournament implements Serializable {
   public MatchFormatDefinition getMatchFormatDefinition(int number) {
     for (Match m : matches) {
       if (m.getNumber() == number) {
-        return format.getMatchesStructure()[number - 1];
+        return format.getTournamentFormat().getMatchesStructure()[number - 1];
       }
     }
     return null;

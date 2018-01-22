@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 import com.ssn.tennis.model.classification.ClassificationLine;
@@ -37,12 +39,19 @@ public class Match implements Serializable {
   @Column(name = "match_number")
   private int number;
 
+  @ManyToOne
+  @JoinColumn(name = "team1_id", nullable = true)
   private Team team1;
+
+  @ManyToOne
+  @JoinColumn(name = "team2_id", nullable = true)
   private Team team2;
 
   private int points1;
   private int points2;
 
+  @ManyToOne
+  @JoinColumn(name = "tournament_id", nullable = false)
   private Tournament tournament;
 
   public Match() {

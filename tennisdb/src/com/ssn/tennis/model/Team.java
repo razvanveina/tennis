@@ -47,6 +47,11 @@ public class Team implements Serializable {
   @ManyToMany(mappedBy = "teams")
   private List<Tournament> tournaments = new ArrayList<Tournament>();
 
+  //  @OneToMany(mappedBy = "team1")
+  //  private List<Match> matches1 = new ArrayList<Match>();
+  //  @OneToMany(mappedBy = "team2")
+  //  private List<Match> matches2 = new ArrayList<Match>();
+
   public Team() {
 
   }
