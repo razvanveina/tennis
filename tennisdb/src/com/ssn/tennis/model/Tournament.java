@@ -8,6 +8,8 @@ package com.ssn.tennis.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -144,22 +146,22 @@ public class Tournament implements Serializable {
   }
 
   private void buildTeams() {
-    List<User> participantsCopy = participants; //new ArrayList<>(participants);
-    //    Collections.sort(participantsCopy, new Comparator<User>() {
-    //      @Override
-    //      public int compare(User o1, User o2) {
-    //        return o1.getRating() - o2.getRating();
-    //      }
-    //    });
-    //
-    //    List<User> topHalf = new ArrayList<>(participantsCopy.subList(0, participantsCopy.size() / 2));
-    //    List<User> bottomHalf = new ArrayList<>(participantsCopy.subList(participantsCopy.size() / 2, participantsCopy.size()));
-    //    Collections.shuffle(topHalf);
-    //    Collections.shuffle(bottomHalf);
-    //
-    //    participantsCopy.clear();
-    //    participantsCopy.addAll(topHalf);
-    //    participantsCopy.addAll(bottomHalf);
+    List<User> participantsCopy = new ArrayList<>(participants);
+    Collections.sort(participantsCopy, new Comparator<User>() {
+      @Override
+      public int compare(User o1, User o2) {
+        return o1.getRating() - o2.getRating();
+      }
+    });
+
+    List<User> topHalf = new ArrayList<>(participantsCopy.subList(0, participantsCopy.size() / 2));
+    List<User> bottomHalf = new ArrayList<>(participantsCopy.subList(participantsCopy.size() / 2, participantsCopy.size()));
+    Collections.shuffle(topHalf);
+    Collections.shuffle(bottomHalf);
+
+    participantsCopy.clear();
+    participantsCopy.addAll(topHalf);
+    participantsCopy.addAll(bottomHalf);
 
     for (int i = 0; i < participantsCopy.size() / type.getPlayersPerTeam(); i++) {
       Team team = null;
