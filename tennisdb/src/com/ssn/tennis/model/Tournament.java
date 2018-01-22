@@ -14,12 +14,16 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 import com.ssn.tennis.model.classification.Classification;
 import com.ssn.tennis.model.enums.MatchType;
@@ -38,6 +42,9 @@ public class Tournament implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
+  @Column(name = "ID")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
+  @SequenceGenerator(initialValue = 1, sequenceName = "seq_gen", name = "gen")
   private long id;
 
   private String name;

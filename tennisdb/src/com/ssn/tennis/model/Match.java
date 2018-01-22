@@ -11,7 +11,10 @@ import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import com.ssn.tennis.model.classification.ClassificationLine;
 import com.ssn.tennis.model.matchdef.MatchFormatDefinition;
@@ -26,6 +29,9 @@ public class Match implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
+  @Column(name = "ID")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
+  @SequenceGenerator(initialValue = 1, sequenceName = "seq_gen", name = "gen")
   private long id;
 
   @Column(name = "match_number")
