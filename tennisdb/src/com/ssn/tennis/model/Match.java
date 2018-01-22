@@ -39,6 +39,10 @@ public class Match implements Serializable {
 
   private Tournament tournament;
 
+  public Match() {
+
+  }
+
   public Match(int number, Team team1, Team team2, Tournament tournament) {
     this.number = number;
     this.team1 = team1;

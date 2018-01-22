@@ -61,6 +61,10 @@ public class Tournament implements Serializable {
   @OneToMany(mappedBy = "tournament")
   private List<Match> matches = new ArrayList<Match>();
 
+  public Tournament() {
+
+  }
+
   public Tournament(String name, Date date, TournamentType type, TournamentFormat format) {
     this.name = name;
     startDate = date;
@@ -166,23 +170,25 @@ public class Tournament implements Serializable {
     for (int i = 0; i < participantsCopy.size() / type.getPlayersPerTeam(); i++) {
       Team team = null;
       if (type.equals(TournamentType.DOUBLE)) {
-        team = FileDatabase.getInstance().getTeamByParticipants(participantsCopy.get(i), participantsCopy.get(participantsCopy.size() - i - 1));
+        User p1 = participantsCopy.get(i);
+        User p2 = participantsCopy.get(participantsCopy.size() - i - 1);
+        team = FileDatabase.getInstance().getTeamByParticipants(p1, p2);
         if (team == null) {
           team = new Team();
-          team.addPlayer(participantsCopy.get(i));
-          team.addPlayer(participantsCopy.get(participantsCopy.size() - i - 1));
+          team.addPlayer(p1);
+          team.addPlayer(p2);
           FileDatabase.getInstance().addTeam(team);
         }
       } else {
-        team = FileDatabase.getInstance().getTeamByParticipants(participantsCopy.get(i));
+        User p1 = participantsCopy.get(i);
+        team = FileDatabase.getInstance().getTeamByParticipants(p1);
         if (team == null) {
           team = new Team();
-          team.addPlayer(participantsCopy.get(i));
+          team.addPlayer(p1);
           FileDatabase.getInstance().addTeam(team);
         }
       }
 
-      //Team team = this.type.createTeamForParticipantsAndIndex();
       teams.add(team);
     }
 

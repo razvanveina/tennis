@@ -29,7 +29,7 @@ public class TeamTest {
 
       @Override
       protected void executeBusinessLogic(Session session) {
-        User raz = new User("raz", "qwe", "Razvan", "Veina", true);
+        User raz = new User("raz2", "qwe", "Razvan", "Veina", true);
         session.save(raz);
         User dst = new User("dst", "dst", "Dana", "Stan", true);
         session.save(dst);

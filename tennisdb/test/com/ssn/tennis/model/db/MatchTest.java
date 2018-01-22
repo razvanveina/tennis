@@ -67,7 +67,7 @@ public class MatchTest {
       protected void executeBusinessLogic(Session session) {
         TennisManager tm = new TennisManager(session);
         User user = tm.findUserByUserName("dst");
-        assertEquals(1, user.getTeams().size());
+        assertEquals(2, user.getTeams().size());
         Team team = user.getTeams().get(0);
         assertEquals(2, team.getPlayers().size());
       }
