@@ -24,8 +24,8 @@ public class TournamentFormat4Teams2 extends TournamentFormat {
   public MatchFormatDefinition[] getMatchesStructure() {
 
     return new MatchFormatDefinition[] { //
-      new GroupMatchFormatDefinition(1, "A", 1, 2), //
-      new GroupMatchFormatDefinition(2, "A", 3, 4), //
+      new GroupMatchFormatDefinition(1, "A", 1, 3), //
+      new GroupMatchFormatDefinition(2, "A", 2, 4), //
       new KnockoutFromKnockoutMatchFormatDefinition(MatchType.FINAL, 3, 1, 2, true), //
 
     };

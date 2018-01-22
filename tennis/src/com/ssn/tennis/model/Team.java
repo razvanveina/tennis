@@ -21,7 +21,7 @@ public class Team implements Serializable {
   private ArrayList<User> players = new ArrayList<User>();
 
   public boolean hasPlayer(String name) {
-    for (User u : players) {
+    for (User u : getPlayers()) {
       if (u.hasName(name)) {
         return true;
       }
@@ -31,7 +31,7 @@ public class Team implements Serializable {
 
   @Override
   public String toString() {
-    return players.toString().//
+    return getPlayers().toString().//
       replaceAll("[\\[\\]]", "").//
       replaceAll(", ", "/");
   }
@@ -40,8 +40,8 @@ public class Team implements Serializable {
    * @param user
    */
   public void addPlayer(User user) {
-    players.add(user);
-    Collections.sort(players, new Comparator<User>() {
+    getPlayers().add(user);
+    Collections.sort(getPlayers(), new Comparator<User>() {
       @Override
       public int compare(User o1, User o2) {
         return o1.getUser().compareTo(o2.getUser());
@@ -53,7 +53,7 @@ public class Team implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((players == null) ? 0 : players.hashCode());
+    result = prime * result + ((getPlayers() == null) ? 0 : getPlayers().hashCode());
     return result;
   }
 
@@ -66,10 +66,10 @@ public class Team implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Team other = (Team) obj;
-    if (players == null) {
-      if (other.players != null)
+    if (getPlayers() == null) {
+      if (other.getPlayers() != null)
         return false;
-    } else if (!players.equals(other.players))
+    } else if (!getPlayers().equals(other.getPlayers()))
       return false;
     return true;
   }
@@ -79,7 +79,7 @@ public class Team implements Serializable {
    * @return
    */
   public boolean hasParticipants(ArrayList<User> part) {
-    return this.players.equals(part);
+    return this.getPlayers().equals(part);
   }
 
   public int getWon() {
@@ -89,4 +89,12 @@ public class Team implements Serializable {
   public int getLost() {
     return Database.getInstance().getMatchesLostByTeam(this);
   }
+
+  /**
+   * @return the players
+   */
+  public ArrayList<User> getPlayers() {
+    return players;
+  }
+
 }
