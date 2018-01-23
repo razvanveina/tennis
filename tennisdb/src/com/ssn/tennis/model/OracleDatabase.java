@@ -163,7 +163,12 @@ public class OracleDatabase implements Database {
       @Override
       protected void executeBusinessLogic(Session session) {
         TennisManager tm = new TennisManager(session);
-        setReturnValue(tm.findAllTournaments());
+        ArrayList<Tournament> allTournaments = tm.findAllTournaments();
+        for (Tournament t : allTournaments) {
+          t.getParticipants().toString();
+          t.getMatches().toString();
+        }
+        setReturnValue(allTournaments);
       }
 
     }.run();
