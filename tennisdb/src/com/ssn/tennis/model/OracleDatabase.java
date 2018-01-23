@@ -259,14 +259,24 @@ public class OracleDatabase implements Database {
 
   @Override
   public int getUserStars(User user) {
-    // TODO Auto-generated method stub
-    return 0;
+    int counter = 0;
+    for (Tournament t : getTournaments()) {
+      if (t.isFinished() && t.getWinner().hasPlayer(user.getUser())) {
+        counter++;
+      }
+    }
+    return counter;
   }
 
   @Override
   public int getTeamStars(Team tim) {
-    // TODO Auto-generated method stub
-    return 0;
+    int counter = 0;
+    for (Tournament t : getTournaments()) {
+      if (t.isFinished() && t.getWinner().toString().equals(tim.toString())) {
+        counter++;
+      }
+    }
+    return counter;
   }
 
   @Override
