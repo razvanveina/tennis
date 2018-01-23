@@ -252,8 +252,12 @@ public class OracleDatabase implements Database {
 
       @Override
       protected void executeBusinessLogic(Session session) {
+        ArrayList<User> players = new ArrayList<>();
+        for (User p : participants) {
+          players.add(p);
+        }
         Tournament tour = getTournamentByName(t.getName());
-        t.setParticipants(participants);
+        t.setParticipants(players);
         session.update(tour);
       }
     }.run();
