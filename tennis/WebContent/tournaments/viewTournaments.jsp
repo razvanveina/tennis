@@ -34,6 +34,25 @@
 }
 
 
+
+bn{
+background-color: #a0a0a0 ;
+ position: fixed;
+    top: 0;
+    right:0;
+    align: center;
+    line-height:200%;
+}
+bn  a {
+    color: black;    
+    text-decoration: none;
+     box-shadow: 2px 2px #606060;
+      transition: 0.5s;
+}
+bn  a:hover {
+    background-color: #d1d1d1;
+}
+
 </style>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -47,10 +66,11 @@
 ArrayList<Tournament> tournaments = Database.getInstance().getTournaments(); 
 %>
 
-<FORM action="addTournamentForm.jsp" method="POST">
-<INPUT type="submit" value="Add tournament"/>
+<!--  <FORM action="addTournamentForm.jsp" method="POST">
+<INPUT type="submit" value="Add tournament"/>-->
+<bn><A href="addTournamentForm.jsp"><strong>&nbsp&nbspAdd tournament&nbsp</strong></A></bn>
 </FORM>
-
+<br>
 <TABLE>
     <TR>
       <TH>Date</TH>
