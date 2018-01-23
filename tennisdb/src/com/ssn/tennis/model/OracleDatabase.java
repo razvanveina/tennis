@@ -220,8 +220,8 @@ public class OracleDatabase implements Database {
 
   @Override
   public void startTournament(String name) {
-    // TODO Auto-generated method stub
-
+    Tournament tournament = getTournamentByName(name);
+    tournament.start();
   }
 
   @Override
