@@ -141,8 +141,19 @@ public class OracleDatabase implements Database {
 
   @Override
   public boolean changePassword(String oldUser, String oldPass, String newPass) {
-    // TODO Auto-generated method stub
-    return false;
+    return new WithSessionAndTransaction<Boolean>() {
+
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        User tempUser = checkLogin(oldUser, oldPass);
+        if (tempUser != null) {
+          tempUser.setPassword(Utils.encrypt(newPass));
+          session.update(tempUser);
+          setReturnValue(true);
+        }
+        setReturnValue(false);
+      }
+    }.run();
   }
 
   @Override
