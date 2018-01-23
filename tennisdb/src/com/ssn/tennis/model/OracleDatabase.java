@@ -7,6 +7,7 @@
 package com.ssn.tennis.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -183,14 +184,24 @@ public class OracleDatabase implements Database {
 
   @Override
   public int getMatchesWonByUsername(String name) {
-    // TODO Auto-generated method stub
-    return 0;
+    int count = 0;
+
+    for (Tournament t : getTournaments()) {
+      count += t.getMatchesWonByUserName(name);
+    }
+
+    return (count);
   }
 
   @Override
   public int getMatchesLostByUsername(String name) {
-    // TODO Auto-generated method stub
-    return 0;
+    int count = 0;
+
+    for (Tournament t : getTournaments()) {
+      count += t.getMatchesLostByUserName(name);
+    }
+
+    return (count);
   }
 
   @Override
@@ -207,7 +218,13 @@ public class OracleDatabase implements Database {
 
   @Override
   public Team getTeamByParticipants(User... participants) {
-    // TODO Auto-generated method stub
+    ArrayList<User> part = new ArrayList<User>();
+    Collections.addAll(part, participants);
+    for (Team t : getTeams()) {
+      if (t.hasParticipants(part)) {
+        return t;
+      }
+    }
     return null;
   }
 
