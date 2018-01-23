@@ -292,7 +292,17 @@ public class OracleDatabase implements Database {
 
   @Override
   public void editTournament(String tourName, Date newDate, TournamentType type, String format) {
-    // TODO Auto-generated method stub
+    new WithSessionAndTransaction<Tournament>() {
+
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        Tournament tour = getTournamentByName(tourName);
+        tour.setStartDate(newDate);
+        tour.setType(type);
+        tour.setFormat(TournamentFormats.getTournamentFormatsByName(format));
+        session.update(tour);
+      }
+    }.run();
 
   }
 
