@@ -52,4 +52,12 @@ public class TennisManager {
     return (ArrayList<Team>) result;
   }
 
+  public Tournament findTournamentByName(String name) {
+    Query query = hibernateSession.getNamedQuery(Tournament.TOURNAMENT_BY_NAME);
+    query.setParameter("name", name);
+    List result = query.list();
+
+    return result.size() > 0 ? (Tournament) result.get(0) : null;
+  }
+
 }

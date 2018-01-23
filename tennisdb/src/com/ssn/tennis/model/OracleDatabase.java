@@ -17,6 +17,7 @@ import com.ssn.core.persistence.WithSessionAndTransaction;
 import com.ssn.tennis.common.Utils;
 import com.ssn.tennis.controller.TennisManager;
 import com.ssn.tennis.model.enums.TournamentType;
+import com.ssn.tennis.model.format.TournamentFormats;
 
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
@@ -136,8 +137,15 @@ public class OracleDatabase implements Database {
 
   @Override
   public void addTournament(String name, Date date, TournamentType type, String tournamentFormat) {
-    // TODO Auto-generated method stub
+    new WithSessionAndTransaction<ArrayList<Tournament>>() {
 
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        Tournament tournament = new Tournament(name, date, type, TournamentFormats.getTournamentFormatsByName(tournamentFormat));
+        session.save(tournament);
+      }
+
+    }.run();
   }
 
   @Override
@@ -154,9 +162,17 @@ public class OracleDatabase implements Database {
   }
 
   @Override
-  public boolean checkDuplicateTournament(String tournamentName) {
-    // TODO Auto-generated method stub
-    return false;
+  public boolean checkDuplicateTournament(String name) {
+    return new WithSessionAndTransaction<Boolean>() {
+
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        TennisManager tm = new TennisManager(session);
+        Tournament t = tm.findTournamentByName(name);
+        setReturnValue(t != null);
+      }
+
+    }.run();
   }
 
   @Override
@@ -197,15 +213,8 @@ public class OracleDatabase implements Database {
 
   @Override
   public ArrayList<Team> getTeams() {
-    return new WithSessionAndTransaction<ArrayList<Team>>() {
-
-      @Override
-      protected void executeBusinessLogic(Session session) {
-        TennisManager tm = new TennisManager(session);
-        setReturnValue(tm.findAllTeams());
-      }
-
-    }.run();
+    // TODO Auto-generated method stub
+    return null;
   }
 
   @Override
@@ -222,14 +231,7 @@ public class OracleDatabase implements Database {
 
   @Override
   public void addTeam(Team team) {
-    new WithSessionAndTransaction<Team>() {
-
-      @Override
-      protected void executeBusinessLogic(Session session) {
-        session.save(team);
-      }
-
-    }.run();
+    // TODO Auto-generated method stub
 
   }
 
@@ -247,24 +249,14 @@ public class OracleDatabase implements Database {
 
   @Override
   public int getUserStars(User user) {
-    int counter = 0;
-    for (Tournament t : getTournaments()) {
-      if (t.isFinished() && t.getWinner().hasPlayer(user.getUser())) {
-        counter++;
-      }
-    }
-    return counter;
+    // TODO Auto-generated method stub
+    return 0;
   }
 
   @Override
   public int getTeamStars(Team tim) {
-    int counter = 0;
-    for (Tournament t : getTournaments()) {
-      if (t.isFinished() && t.getWinner().toString().equals(tim.toString())) {
-        counter++;
-      }
-    }
-    return counter;
+    // TODO Auto-generated method stub
+    return 0;
   }
 
   @Override
