@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -18,7 +19,9 @@ import com.ssn.tennis.common.Utils;
 
 @Entity
 @Table(name = "PLAYER")
+@NamedQuery(name = User.USER_BY_NAME, query = "from User where user = :user")
 public class User implements Serializable, Comparable<User> {
+  public static final String USER_BY_NAME = "User.by.name";
   private static final long serialVersionUID = 1L;
 
   @Id

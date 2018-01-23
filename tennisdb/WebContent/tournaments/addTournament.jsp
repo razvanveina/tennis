@@ -8,33 +8,34 @@
     <%@page import="java.text.*" %>
     
     <%@include file="../checkLogin.jsp" %>
-    
-<% 
-	String name = request.getParameter("name");
-if(name==null){
-  name=request.getParameter("tourName");
-}
-  String dateS = request.getParameter("date");
-  TournamentType type = TournamentType.valueOf(request.getParameter("type"));
-  String tourFormat = request.getParameter("format");
-	boolean edit=(request.getParameter("edit").equals("true")? true:false);
-  DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm", Locale.ENGLISH);
-  Date date = format.parse(dateS);
-  if(edit){
-Database.getInstance().editTournament(name, date, type, tourFormat);
-  }else{
-  boolean isDuplicate=Database.getInstance().checkDuplicateTournament(name);
-  if(!isDuplicate && !name.equals("")){
-	  Database.getInstance().addTournament(name, date, type, tourFormat);  
-  }else{
-    %>
-    <script language="javascript">
-    alert( "The tournament you were trying to create is a duplicate. Please try another name or date" );
-    </script>
-    <% 
+
+<%
+  String name = request.getParameter("name");
+			if (name == null) {
+				name = request.getParameter("tourName");
+			}
+			String dateS = request.getParameter("date");
+			TournamentType type = TournamentType.valueOf(request.getParameter("type"));
+			String tourFormat = request.getParameter("format");
+      
+			boolean edit = (request.getParameter("edit").equals("true") ? true : false);
+			
+      DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm", Locale.ENGLISH);
+			Date date = format.parse(dateS);
+			if (edit) {
+				ApplicationFactory.getInstance().getDatabase().editTournament(name, date, type, tourFormat);
+			} else {
+				boolean isDuplicate = ApplicationFactory.getInstance().getDatabase().checkDuplicateTournament(name);
+				if (!isDuplicate && !name.equals("")) {
+				  ApplicationFactory.getInstance().getDatabase().addTournament(name, date, type, tourFormat);
+				} else {
+%>
+<script language="javascript">
+	alert("The tournament you were trying to create is a duplicate. Please try another name or date");
+</script>
+<%
   }
-	  }
-  
+  }
 %>
 
 <%@include file="viewTournaments.jsp" %> 

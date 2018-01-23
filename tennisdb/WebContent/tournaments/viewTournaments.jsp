@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="com.ssn.tennis.common.*, com.ssn.tennis.model.enums.*, java.util.*, java.text.*, java.net.*, java.nio.charset.*"%>
+    pageEncoding="ISO-8859-1" import="com.ssn.tennis.common.*, com.ssn.tennis.model.enums.*, java.util.*, java.text.*, java.net.*, java.nio.charset.*, com.ssn.core.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <style>
@@ -44,7 +44,7 @@
 <%@include file="../checkLogin.jsp" %> 
 <%@include file="../checkAdminRights.jsp" %> 
 <%
-ArrayList<Tournament> tournaments = Database.getInstance().getTournaments(); 
+ArrayList<Tournament> tournaments = ApplicationFactory.getInstance().getDatabase().getTournaments(); 
 %>
 
 <FORM action="addTournamentForm.jsp" method="POST">

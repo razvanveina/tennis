@@ -6,11 +6,13 @@
 
 package com.ssn.tennis.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import com.ssn.tennis.model.Tournament;
 import com.ssn.tennis.model.User;
 
 /**
@@ -26,11 +28,19 @@ public class TennisManager {
   }
 
   public User findUserByUserName(String user) {
-    Query query = hibernateSession.createQuery("from User where user = :user");
+    Query query = hibernateSession.getNamedQuery(User.USER_BY_NAME);
     query.setParameter("user", user);
     List result = query.list();
 
     return (User) result.get(0);
+  }
+
+  @SuppressWarnings("unchecked")
+  public ArrayList<Tournament> findAllTournaments() {
+    Query query = hibernateSession.getNamedQuery(Tournament.TOURNAMENT_ALL);
+    List result = query.list();
+
+    return (ArrayList<Tournament>) result;
   }
 
 }

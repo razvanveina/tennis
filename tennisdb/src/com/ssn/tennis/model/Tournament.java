@@ -24,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
@@ -42,8 +43,11 @@ import com.ssn.tennis.model.matchdef.MatchFormatDefinition;
  */
 
 @Entity
+@NamedQuery(name = Tournament.TOURNAMENT_ALL, query = "from Tournament")
 public class Tournament implements Serializable {
   private static final long serialVersionUID = 1L;
+
+  public static final String TOURNAMENT_ALL = "Tournament.all";
 
   @Id
   @Column(name = "ID")

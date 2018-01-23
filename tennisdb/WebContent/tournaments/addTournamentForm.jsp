@@ -1,6 +1,7 @@
 <%@page import="com.ssn.tennis.model.enums.TournamentType"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.ssn.core.*"%>
 <%@page import="com.ssn.tennis.model.format.TournamentFormats"%>
 <%@page import="com.ssn.tennis.model.format.TournamentFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -20,7 +21,7 @@
 String date=dateFormat.format(new Date(System.currentTimeMillis()));
 Tournament t=null;
 if(request.getParameter("name")!=null){
-  t=Database.getInstance().getTournamentByName(request.getParameter("name")); 
+  t=ApplicationFactory.getInstance().getDatabase().getTournamentByName(request.getParameter("name")); 
 }
 boolean edit=t!=null;
 %>
@@ -34,15 +35,15 @@ Type:<br>
 Format:<br>
 </div>
 <div class="addBox2">
- <INPUT type="text" name="name" value="<%=edit ? t.getName():""%>" <%=edit ? "disabled":""%>    /><BR/>
+ <INPUT type="text" name="name" value="<%=edit ? t.getName():""+System.currentTimeMillis()%>" <%=edit ? "disabled":""%>    /><BR/>
  <INPUT type="text" name="date" value="<%=edit ? dateFormat.format(t.getStartDate()):date%>"/><BR/>
  <select name="type">
   <option value="DOUBLE" <%=(edit && t.getType()==TournamentType.DOUBLE)? "selected=\"selected\"":"" %> >DOUBLE</option>
   <option value="SINGLE" <%=(edit && t.getType()==TournamentType.SINGLE)? "selected=\"selected\"":"" %> >SINGLE</option>
 </select><BR/>
  <select name="format">
-<% for (TournamentFormat tf : new TournamentFormats().getFormats()) { %> 
-  <option value="<%=tf.getName() %>" <%=(edit && t.getFormat().getName().equals(tf.getName()))? "selected=\"selected\"":"" %>><%=tf.getName() %></option>
+<% for (TournamentFormats tf : TournamentFormats.values()) { %>  
+  <option value="<%= tf.getTournamentFormat().getName() %>" <%=(edit && t.getFormat().getName().equals(tf.getTournamentFormat().getName()))? "selected=\"selected\"":"" %>><%=tf.getTournamentFormat().getName() %></option>
   <% } %>
 </select><BR/>
 <br>
