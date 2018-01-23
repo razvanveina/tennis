@@ -6,18 +6,20 @@
     <%@page import="com.ssn.tennis.model.enums.*" %>
         <%@page import="java.util.*" %>
     <%@page import="java.text.*" %>
+        <%@page import="com.ssn.core.*"%>
+    
     
     <%@include file="../checkLogin.jsp" %>
     
 <% 
-  Tournament tour = Database.getInstance().getTournamentByName(request.getParameter("name"));
+  Tournament tour = ApplicationFactory.getInstance().getDatabase().getTournamentByName(request.getParameter("name"));
 String oldName=tour.getName();
 String dupName="duplicate";
 String suffix=oldName; 
 int counter=0;
 boolean nameValid=false;
 while(!nameValid){      
-  if(Database.getInstance().getTournamentByName(suffix)==null){
+  if(ApplicationFactory.getInstance().getDatabase().getTournamentByName(suffix)==null){
     nameValid=true;
     break;
   }
@@ -47,9 +49,9 @@ while(!nameValid){
  Date date=dateFormat.parse(dateS);
  TournamentType type = tour.getType();
  String tourFormat=tour.getFormat().getName();
-Database.getInstance().addTournament(name, date, type, tourFormat);
-Tournament tx=Database.getInstance().getTournamentByName(name);
-tx.setParticipants(tour.getParticipants());
+ ApplicationFactory.getInstance().getDatabase().addTournament(name, date, type, tourFormat);
+Tournament tx=ApplicationFactory.getInstance().getDatabase().getTournamentByName(name);
+tx.setParticipants(tour.getParticipants()); 
 
 %>
 

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*"%>
+    pageEncoding="ISO-8859-1" import="java.util.*, com.ssn.core.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -34,14 +34,14 @@
 <body>
 <%
 String name = request.getParameter("name");
-Tournament tournament = Database.getInstance().getTournamentByName(name); 
+Tournament tournament = ApplicationFactory.getInstance().getDatabase().getTournamentByName(name); 
 %>
 <%@include file="../checkLogin.jsp" %>
 <%@include file="../checkAdminRights.jsp" %> 
 
 <%
-ArrayList<User> users= Database.getInstance().getUsers();
-ArrayList<User> lastUsers=tournament.getParticipants();
+ArrayList<User> users= ApplicationFactory.getInstance().getDatabase().getUsers();
+List<User> lastUsers=tournament.getParticipants(); 
 boolean hasOldParticipants=!lastUsers.isEmpty();
 int checkCount=0;
 Collections.sort(users, new Comparator<User>() {

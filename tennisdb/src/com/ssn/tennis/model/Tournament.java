@@ -113,7 +113,7 @@ public class Tournament implements Serializable {
     return participants;
   }
 
-  public void setParticipants(ArrayList<User> participants) {
+  public void setParticipants(List<User> participants) {
     this.participants = participants;
   }
 

@@ -3,13 +3,16 @@
     <%@page import="com.ssn.tennis.common.*" %>
     <%@page import="java.util.*" %>
     <%@page import="java.text.*" %>
+        <%@page import="com.ssn.core.*"%>
+    
     
     <%@include file="../checkLogin.jsp" %>
+    
 <%
 String tournamentString=request.getParameter("name");
-Tournament tour= Database.getInstance().getTournamentByName(tournamentString);
+Tournament tour= ApplicationFactory.getInstance().getDatabase().getTournamentByName(tournamentString);
 tour.start();
 %>
-<%@include file="viewTournamentForm.jsp" %>  
+<%@include file="viewTournamentForm.jsp" %>   
 
 

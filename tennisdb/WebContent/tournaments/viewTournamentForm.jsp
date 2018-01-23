@@ -1,6 +1,8 @@
 <%@page import="javax.xml.crypto.Data"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="com.ssn.tennis.common.*, java.util.*, java.text.*, com.ssn.tennis.model.classification.*"%>
+        <%@page import="com.ssn.core.*"%>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,12 +12,12 @@
 </head>
 <BODY> 
 <%@include file="../checkLogin.jsp" %> 
-<%@include file="../checkAdminRights.jsp" %> 
+<%@include file="../checkAdminRights.jsp" %>  
 
 <%
 String tournamentName = request.getParameter("name");
-Tournament tournament=Database.getInstance().getTournamentByName(tournamentName);
-ArrayList<Match> matches=tournament.getMatches();
+Tournament tournament=ApplicationFactory.getInstance().getDatabase().getTournamentByName(tournamentName);
+List<Match> matches=tournament.getMatches();
 %>
 <FORM action="addTournamentScore.jsp?name=<%=tournament.getName() %>" method="POST">
 <TABLE>

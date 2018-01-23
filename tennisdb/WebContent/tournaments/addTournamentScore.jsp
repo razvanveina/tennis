@@ -2,13 +2,14 @@
 <%@page import="com.ssn.tennis.common.*"%>
 <%@page import="java.util.*"%>
 <%@page import="java.text.*"%>
+<%@page import="com.ssn.core.*"%>
 
 <%@include file="../checkLogin.jsp"%>
 
 <%
   String tournamentN = request.getParameter("name");
-  Tournament tour = Database.getInstance().getTournamentByName(tournamentN);
-  ArrayList<Match> currentMatches = tour.getMatches();
+  Tournament tour = ApplicationFactory.getInstance().getDatabase().getTournamentByName(tournamentN);
+  List<Match> currentMatches = tour.getMatches();
   for (int i = 1; i <= currentMatches.size(); i++) {
     String matchNumber = request.getParameter("id" + i);
     String score1 = request.getParameter("sc1_" + i);
@@ -18,7 +19,6 @@
     match.setPoints2(Integer.valueOf(score2 != null && score2.length()>0 ? score2 : "0"));
 
   }
-    Database.save(Database.getInstance());
-%>
+%> 
 
 <%@include file="viewTournamentForm.jsp"%>

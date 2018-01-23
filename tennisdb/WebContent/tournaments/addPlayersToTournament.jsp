@@ -8,16 +8,16 @@
      String[] players = request.getParameterValues("usersArray[]");
      ArrayList<User> usersToAdd = new ArrayList<User>();
      String tournamentName = request.getParameter("name");
-     Tournament tournament = Database.getInstance().getTournamentByName(tournamentName);
+     Tournament tournament = ApplicationFactory.getInstance().getDatabase().getTournamentByName(tournamentName);
    %>
 <%
   if (players != null) {
     for (String player : players) { 
       String playerName = player.replaceAll("/", "");
-      usersToAdd.add(Database.getInstance().getUserByUsername(playerName));
+      usersToAdd.add(ApplicationFactory.getInstance().getDatabase().getUserByUsername(playerName));
     }
   }
-Database.getInstance().addParticipantsToTournament(tournament, usersToAdd);
+ApplicationFactory.getInstance().getDatabase().addParticipantsToTournament(tournament, usersToAdd);
 %>
 <%@include file="viewTournaments.jsp" %>  
 
