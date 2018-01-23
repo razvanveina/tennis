@@ -334,4 +334,10 @@ public class FileDatabase implements Serializable, Database {
     //      }
     //    }
   }
+
+  @Override
+  public void addMatchScore(Match match, int score1, int score2) {
+    // TODO Auto-generated method stub
+
+  }
 }

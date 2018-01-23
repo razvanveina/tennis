@@ -10,8 +10,7 @@
     
 <%
 String tournamentString=request.getParameter("name");
-Tournament tour= ApplicationFactory.getInstance().getDatabase().getTournamentByName(tournamentString);
-tour.start();
+ApplicationFactory.getInstance().getDatabase().startTournament(tournamentString);
 %>
 <%@include file="viewTournamentForm.jsp" %>   
 

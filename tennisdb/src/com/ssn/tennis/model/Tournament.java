@@ -29,7 +29,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import org.hibernate.Session;
+
 import com.ssn.core.ApplicationFactory;
+import com.ssn.core.persistence.WithSessionAndTransaction;
 import com.ssn.tennis.model.classification.Classification;
 import com.ssn.tennis.model.enums.MatchType;
 import com.ssn.tennis.model.enums.TournamentStatus;
@@ -69,14 +72,14 @@ public class Tournament implements Serializable {
 
   @ManyToMany(cascade = { CascadeType.ALL })
   @JoinTable(name = "tournament_player", //
-  joinColumns = { @JoinColumn(name = "tournament_id") }, //
-  inverseJoinColumns = { @JoinColumn(name = "player_id") })
+      joinColumns = { @JoinColumn(name = "tournament_id") }, //
+      inverseJoinColumns = { @JoinColumn(name = "player_id") })
   private List<User> participants = new ArrayList<User>();
 
   @ManyToMany(cascade = { CascadeType.ALL })
   @JoinTable(name = "tournament_team", //
-  joinColumns = { @JoinColumn(name = "tournament_id") }, //
-  inverseJoinColumns = { @JoinColumn(name = "team_id") })
+      joinColumns = { @JoinColumn(name = "tournament_id") }, //
+      inverseJoinColumns = { @JoinColumn(name = "team_id") })
   private List<Team> teams = new ArrayList<Team>();
 
   @OneToMany(mappedBy = "tournament")
@@ -110,7 +113,11 @@ public class Tournament implements Serializable {
   }
 
   public List<User> getParticipants() {
-    return participants;
+    ArrayList<User> result = new ArrayList<>();
+    for (User p : participants) {
+      result.add(ApplicationFactory.getInstance().getDatabase().getUserByUsername(p.getUser()));
+    }
+    return result;
   }
 
   public void setParticipants(List<User> participants) {
@@ -159,7 +166,7 @@ public class Tournament implements Serializable {
   }
 
   public boolean isStarted() {
-    return matches.size() > 0;
+    return getMatches().size() > 0;
   }
 
   public void start() {
@@ -198,7 +205,7 @@ public class Tournament implements Serializable {
           team = new Team();
           team.addPlayer(p1);
           team.addPlayer(p2);
-          FileDatabase.getInstance().addTeam(team);
+          ApplicationFactory.getInstance().getDatabase().addTeam(team);
         }
       } else {
         User p1 = participantsCopy.get(i);
@@ -222,13 +229,24 @@ public class Tournament implements Serializable {
   }
 
   public List<Match> getMatches() {
-    return matches;
+    return new WithSessionAndTransaction<ArrayList<Match>>() {
+
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        ArrayList<Match> result = new ArrayList<>();
+        for (Match m : matches) {
+          m.toString();
+          result.add(m);
+        }
+        setReturnValue(result);
+      }
+    }.run();
   }
 
   public int getMatchesWonByUserName(String name) {
     int won = 0;
 
-    for (Match m : matches) {
+    for (Match m : getMatches()) {
       if (m.isPlayed()) {
         if (m.hasPlayer(name)) {
           if (m.isWonByUser(name)) {
@@ -244,7 +262,7 @@ public class Tournament implements Serializable {
   public int getMatchesLostByUserName(String name) {
     int lost = 0;
 
-    for (Match m : matches) {
+    for (Match m : getMatches()) {
       if (m.isPlayed()) {
         if (m.hasPlayer(name)) {
           if (m.isLostByUser(name)) {
@@ -274,7 +292,7 @@ public class Tournament implements Serializable {
   public Classification getClassification(String group) {
     Classification cls = new Classification();
 
-    for (Match match : matches) {
+    for (Match match : getMatches()) {
       if (match.isGroupMatch(group)) {
         cls.addMatch(match);
       }
@@ -286,7 +304,7 @@ public class Tournament implements Serializable {
   }
 
   public boolean isGroupFinished(String group) {
-    for (Match match : matches) {
+    for (Match match : getMatches()) {
       if (match.isGroupMatch(group)) {
         if (!match.isPlayed()) {
           return false;
@@ -303,7 +321,7 @@ public class Tournament implements Serializable {
   public int getMatchesWonByTeam(Team team) {
     int won = 0;
 
-    for (Match m : matches) {
+    for (Match m : getMatches()) {
       if (m.isPlayed()) {
         if (m.hasTeam(team)) {
           if (m.isWonByTeam(team)) {
@@ -323,7 +341,7 @@ public class Tournament implements Serializable {
   public int getMatchesLostByTeam(Team team) {
     int lost = 0;
 
-    for (Match m : matches) {
+    for (Match m : getMatches()) {
       if (m.isPlayed()) {
         if (m.hasTeam(team)) {
           if (m.isLostByTeam(team)) {
@@ -337,10 +355,10 @@ public class Tournament implements Serializable {
   }
 
   public boolean isFinished() {
-    if (matches.isEmpty()) {
+    if (getMatches().isEmpty()) {
       return false;
     }
-    for (Match m : matches) {
+    for (Match m : getMatches()) {
       if (!m.isPlayed()) {
         return false;
       }
@@ -355,7 +373,7 @@ public class Tournament implements Serializable {
   public Team getWinner() {
     Team winner = null;
     if (isFinished()) {
-      for (Match m : matches) {
+      for (Match m : getMatches()) {
         if (m.getFormat().getType().equals(MatchType.FINAL)) {
           winner = m.getWinningTeam();
         }
@@ -390,7 +408,7 @@ public class Tournament implements Serializable {
   }
 
   public MatchFormatDefinition getMatchFormatDefinition(int number) {
-    for (Match m : matches) {
+    for (Match m : getMatches()) {
       if (m.getNumber() == number) {
         return format.getTournamentFormat().getMatchesStructure()[number - 1];
       }

@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
 import com.ssn.tennis.model.classification.ClassificationLine;
@@ -27,8 +28,10 @@ import com.ssn.tennis.model.matchdef.MatchFormatDefinition;
  */
 
 @Entity
+@NamedQuery(name = Match.QUERY_BY_NAME, query = "from Match where id=:id")
 public class Match implements Serializable {
   private static final long serialVersionUID = 1L;
+  public static final String QUERY_BY_NAME = "Match.by.name";
 
   @Id
   @Column(name = "ID")

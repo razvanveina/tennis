@@ -98,6 +98,8 @@ public class OracleDatabase implements Database {
         TennisManager tm = new TennisManager(session);
         Tournament t = tm.findTournamentByName(name);
         t.getParticipants().toString();
+        t.getMatches().toString();
+        t.getTeams().toString();
         setReturnValue(t);
       }
 
@@ -150,15 +152,16 @@ public class OracleDatabase implements Database {
           tempUser.setPassword(Utils.encrypt(newPass));
           session.update(tempUser);
           setReturnValue(true);
+        } else {
+          setReturnValue(false);
         }
-        setReturnValue(false);
       }
     }.run();
   }
 
   @Override
   public void addTournament(String name, Date date, TournamentType type, String tournamentFormat) {
-    new WithSessionAndTransaction<ArrayList<Tournament>>() {
+    new WithSessionAndTransaction() {
 
       @Override
       protected void executeBusinessLogic(Session session) {
@@ -180,6 +183,8 @@ public class OracleDatabase implements Database {
         for (Tournament t : allTournaments) {
           t.getParticipants().toString();
           t.getMatches().toString();
+          t.getTeams().toString();
+
         }
         setReturnValue(allTournaments);
       }
@@ -235,29 +240,27 @@ public class OracleDatabase implements Database {
 
       @Override
       protected void executeBusinessLogic(Session session) {
-        TennisManager tm = new TennisManager(session);
-        Tournament tour = tm.findTournamentByName(name);
+        //   TennisManager tm = new TennisManager(session);
+        Tournament tour = getTournamentByName(name);
         tour.start();
         for (Match m : tour.getMatches()) {
           session.save(m);
         }
-
+        session.update(tour);
       }
     }.run();
   }
 
   @Override
   public void addParticipantsToTournament(Tournament t, ArrayList<User> participants) {
-    new WithSessionAndTransaction<Tournament>() {
+    new WithSessionAndTransaction() {
 
       @Override
       protected void executeBusinessLogic(Session session) {
-        ArrayList<User> players = new ArrayList<>();
-        for (User p : participants) {
-          players.add(p);
-        }
         Tournament tour = getTournamentByName(t.getName());
-        t.setParticipants(players);
+        t.getMatches().toString();
+        participants.toString();
+        tour.setParticipants(participants);
         session.update(tour);
       }
     }.run();
@@ -283,7 +286,12 @@ public class OracleDatabase implements Database {
       @Override
       protected void executeBusinessLogic(Session session) {
         TennisManager tm = new TennisManager(session);
-        setReturnValue(tm.findAllTeams());
+        ArrayList<Team> tims = tm.findAllTeams();
+        setReturnValue(tims);
+        for (Team tim : tims) {
+          tim.getPlayers().toString();
+          tim.getTournaments().toString();
+        }
       }
 
     }.run();
@@ -313,7 +321,7 @@ public class OracleDatabase implements Database {
 
   @Override
   public void addTeam(Team team) {
-    new WithSessionAndTransaction<Team>() {
+    new WithSessionAndTransaction() {
 
       @Override
       protected void executeBusinessLogic(Session session) {
@@ -399,6 +407,22 @@ public class OracleDatabase implements Database {
     }
 
     return instance;
+  }
+
+  @Override
+  public void addMatchScore(Match match, int score1, int score2) {
+
+    new WithSessionAndTransaction() {
+
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        TennisManager tm = new TennisManager(session);
+        Match m = tm.readMatchById(match.getId());
+        m.setPoints1(score1);
+        m.setPoints2(score2);
+        session.update(m);
+      }
+    }.run();
   }
 
 }

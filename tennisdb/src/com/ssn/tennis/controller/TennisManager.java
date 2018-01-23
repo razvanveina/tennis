@@ -12,6 +12,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import com.ssn.tennis.model.Match;
 import com.ssn.tennis.model.Team;
 import com.ssn.tennis.model.Tournament;
 import com.ssn.tennis.model.User;
@@ -58,6 +59,14 @@ public class TennisManager {
     List result = query.list();
 
     return result.size() > 0 ? (Tournament) result.get(0) : null;
+  }
+
+  public Match readMatchById(long id) {
+    Query query = hibernateSession.getNamedQuery(Match.QUERY_BY_NAME);
+    query.setParameter("id", id);
+    List result = query.list();
+
+    return result.size() > 0 ? (Match) result.get(0) : null;
   }
 
 }

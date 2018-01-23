@@ -13,11 +13,11 @@
   for (int i = 1; i <= currentMatches.size(); i++) {
     String matchNumber = request.getParameter("id" + i);
     String score1 = request.getParameter("sc1_" + i);
+    int sc1=Integer.valueOf(score1 != null && score1.length()>0 ? score1 : "0");
     String score2 = request.getParameter("sc2_" + i);
+    int sc2=Integer.valueOf(score2 != null && score2.length()>0 ? score2 : "0");
     Match match = currentMatches.get(i - 1);
-    match.setPoints1(Integer.valueOf(score1 != null && score1.length()>0 ? score1 : "0"));
-    match.setPoints2(Integer.valueOf(score2 != null && score2.length()>0 ? score2 : "0"));
-
+    ApplicationFactory.getInstance().getDatabase().addMatchScore(match, sc1, sc2);
   }
 %> 
 

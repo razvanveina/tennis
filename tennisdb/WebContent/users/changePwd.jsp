@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@page import="com.ssn.tennis.common.*" %>
+    <%@page import="com.ssn.tennis.common.*, com.ssn.core.*" %>
     
     <%@include file="../checkLogin.jsp" %>
     
@@ -9,7 +9,7 @@
 	String oldPass = request.getParameter("oldpass");
   String newPass = request.getParameter("newpass");
 	
-  boolean changed=Database.getInstance().changePassword(oldUser, oldPass, newPass);  
+  boolean changed=ApplicationFactory.getInstance().getDatabase().changePassword(oldUser, oldPass, newPass);  
 if (changed){
 %>
 <script>

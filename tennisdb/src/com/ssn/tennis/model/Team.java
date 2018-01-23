@@ -25,6 +25,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
+import com.ssn.core.ApplicationFactory;
+
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
  * @version $Revision: $, $Date: $, $Author: $
@@ -98,11 +100,11 @@ public class Team implements Serializable {
   }
 
   public int getWon() {
-    return FileDatabase.getInstance().getMatchesWonByTeam(this);
+    return ApplicationFactory.getInstance().getDatabase().getMatchesWonByTeam(this);
   }
 
   public int getLost() {
-    return FileDatabase.getInstance().getMatchesLostByTeam(this);
+    return ApplicationFactory.getInstance().getDatabase().getMatchesLostByTeam(this);
   }
 
   public List<User> getPlayers() {
