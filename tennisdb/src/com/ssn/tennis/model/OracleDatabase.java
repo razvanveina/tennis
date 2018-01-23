@@ -231,8 +231,19 @@ public class OracleDatabase implements Database {
 
   @Override
   public void startTournament(String name) {
-    Tournament tournament = getTournamentByName(name);
-    tournament.start();
+    new WithSessionAndTransaction<Tournament>() {
+
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        TennisManager tm = new TennisManager(session);
+        Tournament tour = tm.findTournamentByName(name);
+        tour.start();
+        for (Match m : tour.getMatches()) {
+          session.save(m);
+        }
+
+      }
+    }.run();
   }
 
   @Override
