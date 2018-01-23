@@ -219,14 +219,24 @@ public class OracleDatabase implements Database {
 
   @Override
   public int getMatchesWonByTeam(Team team) {
-    // TODO Auto-generated method stub
-    return 0;
+    int count = 0;
+
+    for (Tournament t : getTournaments()) {
+      count += t.getMatchesWonByTeam(team);
+    }
+
+    return (count);
   }
 
   @Override
   public int getMatchesLostByTeam(Team team) {
-    // TODO Auto-generated method stub
-    return 0;
+    int count = 0;
+
+    for (Tournament t : getTournaments()) {
+      count += t.getMatchesLostByTeam(team);
+    }
+
+    return (count);
   }
 
   @Override
