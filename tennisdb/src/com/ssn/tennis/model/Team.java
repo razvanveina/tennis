@@ -21,6 +21,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -29,8 +31,10 @@ import javax.persistence.SequenceGenerator;
  */
 
 @Entity
+@NamedQueries({ @NamedQuery(name = Team.QUERY_ALL, query = "from Team") })
 public class Team implements Serializable {
   private static final long serialVersionUID = 1L;
+  public static final String QUERY_ALL = "Team.all";
 
   @Id
   @Column(name = "ID")
@@ -40,8 +44,8 @@ public class Team implements Serializable {
 
   @ManyToMany(cascade = { CascadeType.ALL })
   @JoinTable(name = "team_player", //
-  joinColumns = { @JoinColumn(name = "team_id") }, //
-  inverseJoinColumns = { @JoinColumn(name = "player_id") })
+      joinColumns = { @JoinColumn(name = "team_id") }, //
+      inverseJoinColumns = { @JoinColumn(name = "player_id") })
   private List<User> players = new ArrayList<User>();
 
   @ManyToMany(mappedBy = "teams")

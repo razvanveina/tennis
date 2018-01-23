@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="com.ssn.tennis.common.*, java.util.*"%>
+    pageEncoding="ISO-8859-1" import="com.ssn.tennis.common.*, java.util.*, com.ssn.core.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,7 +12,7 @@
 <%@include file="../checkAdminRights.jsp" %> 
 
 <%
-ArrayList<Team> teams = Database.getInstance().getTeams();
+ArrayList<Team> teams = ApplicationFactory.getInstance().getDatabase().getTeams();
 
 HashMap<String, Team> teamsMap=new HashMap<String, Team>();
 for(Team t:teams){
@@ -41,7 +41,7 @@ teams=new ArrayList(teamsMap.values());
       <TD><%= team.getLost() %></TD>
        <TD align="center">
       <% 
-      int stars=Database.getInstance().getTeamStars(team);
+      int stars=ApplicationFactory.getInstance().getDatabase().getTeamStars(team);
      while(stars>=10){
        %>
        <img src="../img/star10.png" width="20" height="20"> 

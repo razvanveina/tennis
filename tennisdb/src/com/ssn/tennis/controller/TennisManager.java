@@ -12,6 +12,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import com.ssn.tennis.model.Team;
 import com.ssn.tennis.model.Tournament;
 import com.ssn.tennis.model.User;
 
@@ -41,6 +42,14 @@ public class TennisManager {
     List result = query.list();
 
     return (ArrayList<Tournament>) result;
+  }
+
+  @SuppressWarnings("unchecked")
+  public ArrayList<Team> findAllTeams() {
+    Query query = hibernateSession.getNamedQuery(Team.QUERY_ALL);
+    List result = query.list();
+
+    return (ArrayList<Team>) result;
   }
 
 }

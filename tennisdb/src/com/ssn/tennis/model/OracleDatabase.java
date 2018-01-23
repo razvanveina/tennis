@@ -197,8 +197,15 @@ public class OracleDatabase implements Database {
 
   @Override
   public ArrayList<Team> getTeams() {
-    // TODO Auto-generated method stub
-    return null;
+    return new WithSessionAndTransaction<ArrayList<Team>>() {
+
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        TennisManager tm = new TennisManager(session);
+        setReturnValue(tm.findAllTeams());
+      }
+
+    }.run();
   }
 
   @Override
