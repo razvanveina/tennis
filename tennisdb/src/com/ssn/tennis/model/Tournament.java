@@ -27,6 +27,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.ssn.core.ApplicationFactory;
 import com.ssn.tennis.model.classification.Classification;
 import com.ssn.tennis.model.enums.MatchType;
 import com.ssn.tennis.model.enums.TournamentStatus;
@@ -184,7 +185,7 @@ public class Tournament implements Serializable {
       if (type.equals(TournamentType.DOUBLE)) {
         User p1 = participantsCopy.get(i);
         User p2 = participantsCopy.get(participantsCopy.size() - i - 1);
-        team = FileDatabase.getInstance().getTeamByParticipants(p1, p2);
+        team = ApplicationFactory.getInstance().getDatabase().getTeamByParticipants(p1, p2);
         if (team == null) {
           team = new Team();
           team.addPlayer(p1);
@@ -193,11 +194,11 @@ public class Tournament implements Serializable {
         }
       } else {
         User p1 = participantsCopy.get(i);
-        team = FileDatabase.getInstance().getTeamByParticipants(p1);
+        team = ApplicationFactory.getInstance().getDatabase().getTeamByParticipants(p1);
         if (team == null) {
           team = new Team();
           team.addPlayer(p1);
-          FileDatabase.getInstance().addTeam(team);
+          ApplicationFactory.getInstance().getDatabase().addTeam(team);
         }
       }
 
