@@ -222,7 +222,14 @@ public class OracleDatabase implements Database {
 
   @Override
   public void addTeam(Team team) {
-    // TODO Auto-generated method stub
+    new WithSessionAndTransaction<Team>() {
+
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        session.save(team);
+      }
+
+    }.run();
 
   }
 
