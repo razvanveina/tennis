@@ -226,7 +226,15 @@ public class OracleDatabase implements Database {
 
   @Override
   public void addParticipantsToTournament(Tournament t, ArrayList<User> participants) {
-    // TODO Auto-generated method stub
+    new WithSessionAndTransaction<Tournament>() {
+
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        Tournament tour = getTournamentByName(t.getName());
+        t.setParticipants(participants);
+        session.update(tour);
+      }
+    }.run();
 
   }
 
