@@ -96,7 +96,9 @@ public class OracleDatabase implements Database {
       @Override
       protected void executeBusinessLogic(Session session) {
         TennisManager tm = new TennisManager(session);
-        setReturnValue(tm.findTournamentByName(name));
+        Tournament t = tm.findTournamentByName(name);
+        t.getParticipants().toString();
+        setReturnValue(t);
       }
 
     }.run();
@@ -336,6 +338,12 @@ public class OracleDatabase implements Database {
       protected void executeBusinessLogic(Session session) {
         User raz = new User("raz", "qwe", "Razvan", "Veina", true);
         session.save(raz);
+        User dst = new User("dst", "qwe", "Dana", "Stan", true);
+        session.save(dst);
+        User cni = new User("cni", "qwe", "Catalin", "Nichifor", true);
+        session.save(cni);
+        User cri = new User("cri", "qwe", "Cristian", "Pasat", true);
+        session.save(cri);
       }
 
     }.run();
