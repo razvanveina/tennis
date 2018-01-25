@@ -13,12 +13,14 @@
 
 <%
 ArrayList<Team> teams = ApplicationFactory.getInstance().getDatabase().getTeams();
-
+Collections.sort(teams);
+/*
 HashMap<String, Team> teamsMap=new HashMap<String, Team>();
 for(Team t:teams){
   teamsMap.put(t.toString(), t);
 }
 teams=new ArrayList(teamsMap.values());
+*/
 %>
 
 <TABLE>
@@ -36,7 +38,7 @@ teams=new ArrayList(teamsMap.values());
     <TR bgcolor="#f2f2f2">
       <TD><b><%= team.toString() %></b></TD>
       <% int sum = team.getWon()+team.getLost(); %>
-      <TD><%= sum != 0 ? 1000*team.getWon()/(team.getWon()+team.getLost()) : "--" %></TD>
+      <TD><%= team.getRating() %></TD> 
       <TD><%= team.getWon() %></TD>
       <TD><%= team.getLost() %></TD>
        <TD align="center">

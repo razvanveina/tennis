@@ -25,8 +25,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
-import com.ssn.core.ApplicationFactory;
-
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
  * @version $Revision: $, $Date: $, $Author: $
@@ -34,7 +32,7 @@ import com.ssn.core.ApplicationFactory;
 
 @Entity
 @NamedQueries({ @NamedQuery(name = Team.QUERY_ALL, query = "from Team") })
-public class Team implements Serializable {
+public class Team implements Serializable, Comparable<Team> {
   private static final long serialVersionUID = 1L;
   public static final String QUERY_ALL = "Team.all";
 
@@ -99,12 +97,35 @@ public class Team implements Serializable {
     return this.players.equals(part);
   }
 
+  public int getRating() {
+    int lost = getLost();
+    int won = getWon();
+
+    if (won + lost == 0) {
+      return 0;
+    }
+    return won * 1000 / (won + lost);
+  }
+
   public int getWon() {
-    return ApplicationFactory.getInstance().getDatabase().getMatchesWonByTeam(this);
+    int count = 0;
+
+    for (Tournament t : getTournaments()) {
+      count += t.getMatchesWonByTeam(this);
+    }
+
+    return (count);
+
   }
 
   public int getLost() {
-    return ApplicationFactory.getInstance().getDatabase().getMatchesLostByTeam(this);
+    int count = 0;
+
+    for (Tournament t : getTournaments()) {
+      count += t.getMatchesLostByTeam(this);
+    }
+
+    return (count);
   }
 
   public List<User> getPlayers() {
@@ -160,6 +181,11 @@ public class Team implements Serializable {
     } else if (!players.equals(other.players))
       return false;
     return true;
+  }
+
+  @Override
+  public int compareTo(Team o) {
+    return o.getRating() - this.getRating();
   }
 
 }

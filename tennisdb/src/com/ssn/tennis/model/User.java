@@ -156,7 +156,7 @@ public class User implements Serializable, Comparable<User> {
     int lost = getLost();
     int won = getWon();
 
-    if (lost == 0) {
+    if (won + lost == 0) {
       return 0;
     }
     return won * 1000 / (won + lost);

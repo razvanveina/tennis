@@ -387,14 +387,29 @@ public class OracleDatabase implements Database {
 
       @Override
       protected void executeBusinessLogic(Session session) {
-        User raz = new User("raz", "qwe", "Razvan", "Veina", true);
-        session.save(raz);
-        User dst = new User("dst", "qwe", "Dana", "Stan", true);
-        session.save(dst);
-        User cni = new User("cni", "qwe", "Catalin", "Nichifor", true);
-        session.save(cni);
-        User cri = new User("cri", "qwe", "Cristian", "Pasat", true);
-        session.save(cri);
+        TennisManager tm = new TennisManager(session);
+        ArrayList<User> findAllUsers = tm.findAllUsers();
+        if (findAllUsers.size() == 0) {
+          session.save(new User("raz", "qwe", "Razvan", "Veina", true));
+          session.save(new User("cni", "cni", "Catalin", "Nichifor", true));
+          session.save(new User("dst", "dst", "Dana", "Stan", true));
+          session.save(new User("cmt", "cmt", "Cristi", "Matei", false));
+
+          session.save(new User("cpl", "cpl", "Cosmin", "Plugar", false));
+          session.save(new User("cba", "cba", "Cristi", "Baciu", false));
+          session.save(new User("asa", "asa", "Andreea", "Sas", false));
+          session.save(new User("apa", "apa", "Andreea", "Pantea", false));
+
+          session.save(new User("ave", "ave", "Andor", "Vetesi", false));
+          session.save(new User("rva", "rva", "Robert", "Valea", false));
+          session.save(new User("ema", "ema", "Elena", "Malaescu", false));
+          session.save(new User("rvo", "rvo", "Razvan", "Voicu", false));
+
+          session.save(new User("cvo", "cvo", "Cristina", "Volinteriu", false));
+          session.save(new User("cco", "cco", "Marius", "Cosma", false));
+          session.save(new User("acn", "acn", "Andrei", "Contoman", false));
+          session.save(new User("sbr", "sbr", "Sorin", "Brazdau", false));
+        }
       }
 
     }.run();

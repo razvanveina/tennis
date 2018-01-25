@@ -50,6 +50,10 @@ public class TennisManager {
     query.setParameter("pass", Utils.encrypt(pass));
     List result = query.list();
 
+    if (result.size() == 0) {
+      return null;
+    }
+
     User user2 = (User) result.get(0);
     List<Tournament> tournaments = user2.getTournaments();
     for (Tournament tournament : tournaments) {
