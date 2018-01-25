@@ -90,8 +90,17 @@ public class Team implements Serializable, Comparable<Team> {
   }
 
   public boolean hasParticipants(ArrayList<User> part) {
-    // FIXME doesn't work anymore
-    return this.players.equals(part);
+    Comparator<User> comparator = new Comparator<User>() {
+
+      @Override
+      public int compare(User o1, User o2) {
+        return o1.getUser().compareTo(o2.getUser());
+      }
+    };
+    List<User> list1 = new ArrayList<>(players);
+    list1.sort(comparator);
+    part.sort(comparator);
+    return list1.equals(part);
   }
 
   public int getRating() {
