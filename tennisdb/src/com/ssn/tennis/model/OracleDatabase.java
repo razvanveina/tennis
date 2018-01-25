@@ -244,6 +244,12 @@ public class OracleDatabase implements Database {
           session.saveOrUpdate(t);
         }
         for (Match m : tour.getMatches()) {
+          if (m.getTeam1().isProxy()) {
+            session.save(m.getTeam1());
+          }
+          if (m.getTeam2().isProxy()) {
+            session.save(m.getTeam2());
+          }
           session.save(m);
         }
         session.update(tour);

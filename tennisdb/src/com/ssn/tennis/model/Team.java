@@ -14,10 +14,15 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -32,6 +37,9 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @NamedQueries({ @NamedQuery(name = Team.QUERY_ALL, query = "from Team") })
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue(value = "team")
 public class Team implements Serializable, Comparable<Team> {
   private static final long serialVersionUID = 1L;
   public static final String QUERY_ALL = "Team.all";
@@ -192,6 +200,10 @@ public class Team implements Serializable, Comparable<Team> {
   @Override
   public int compareTo(Team o) {
     return o.getRating() - this.getRating();
+  }
+
+  public boolean isProxy() {
+    return false;
   }
 
 }

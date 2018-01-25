@@ -6,6 +6,11 @@
 
 package com.ssn.tennis.model.proxy;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import com.ssn.tennis.model.Team;
 import com.ssn.tennis.model.Tournament;
 
@@ -14,14 +19,24 @@ import com.ssn.tennis.model.Tournament;
  * @version $Revision: $, $Date: $, $Author: $
  */
 
+@Entity
+@DiscriminatorValue("matchwin")
 public class MatchWinnerTeamProxy extends Team {
   private static final long serialVersionUID = 1L;
+
+  public MatchWinnerTeamProxy() {
+
+  }
 
   private int teamMatchId;
   private boolean winners;
 
+  @ManyToOne
+  @JoinColumn(name = "team_id", nullable = true)
   private Team team;
 
+  @ManyToOne
+  @JoinColumn(name = "tournament_id", nullable = true)
   private Tournament tournament;
 
   public MatchWinnerTeamProxy(int teamMatchId, boolean winners, Tournament tournament) {
@@ -53,4 +68,7 @@ public class MatchWinnerTeamProxy extends Team {
     return (team != null ? team.hasPlayer(name) : false);
   }
 
+  public boolean isProxy() {
+    return true;
+  }
 }

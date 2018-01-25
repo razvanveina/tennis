@@ -6,6 +6,11 @@
 
 package com.ssn.tennis.model.proxy;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import com.ssn.tennis.model.Team;
 import com.ssn.tennis.model.Tournament;
 
@@ -14,13 +19,25 @@ import com.ssn.tennis.model.Tournament;
  * @version $Revision: $, $Date: $, $Author: $
  */
 
+@Entity
+@DiscriminatorValue("grouppos")
 public class GroupPositionTeamProxy extends Team {
 
   private static final long serialVersionUID = 1L;
   private String teamGroup;
   private int teamGroupPosition;
+
+  @ManyToOne
+  @JoinColumn(name = "team2_id", nullable = true)
   private Team team;
+
+  @ManyToOne
+  @JoinColumn(name = "tournament2_id", nullable = true)
   private Tournament tournament;
+
+  public GroupPositionTeamProxy() {
+
+  }
 
   public GroupPositionTeamProxy(String teamGroup, int teamGroupPosition, Tournament tournament) {
     this.teamGroup = teamGroup;
@@ -46,5 +63,9 @@ public class GroupPositionTeamProxy extends Team {
     }
 
     return team.toString();
+  }
+
+  public boolean isProxy() {
+    return true;
   }
 }
