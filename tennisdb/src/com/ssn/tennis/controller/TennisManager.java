@@ -12,6 +12,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import com.ssn.tennis.common.Utils;
 import com.ssn.tennis.model.Match;
 import com.ssn.tennis.model.Team;
 import com.ssn.tennis.model.Tournament;
@@ -34,7 +35,28 @@ public class TennisManager {
     query.setParameter("user", user);
     List result = query.list();
 
-    return (User) result.get(0);
+    User user2 = (User) result.get(0);
+    List<Tournament> tournaments = user2.getTournaments();
+    for (Tournament tournament : tournaments) {
+      tournament.getMatches().toString();
+    }
+
+    return user2;
+  }
+
+  public User findUserByUserNameAndPassword(String user, String pass) {
+    Query query = hibernateSession.getNamedQuery(User.USER_BY_NAME_AND_PASS);
+    query.setParameter("user", user);
+    query.setParameter("pass", Utils.encrypt(pass));
+    List result = query.list();
+
+    User user2 = (User) result.get(0);
+    List<Tournament> tournaments = user2.getTournaments();
+    for (Tournament tournament : tournaments) {
+      tournament.getMatches().toString();
+    }
+
+    return user2;
   }
 
   @SuppressWarnings("unchecked")
@@ -67,6 +89,21 @@ public class TennisManager {
     List result = query.list();
 
     return result.size() > 0 ? (Match) result.get(0) : null;
+  }
+
+  @SuppressWarnings("unchecked")
+  public ArrayList<User> findAllUsers() {
+    Query query = hibernateSession.getNamedQuery(User.USER_ALL);
+    List result = query.list();
+
+    for (User u : (List<User>) result) {
+      List<Tournament> tournaments = u.getTournaments();
+      for (Tournament tournament : tournaments) {
+        tournament.getMatches().toString();
+      }
+    }
+
+    return (ArrayList<User>) result;
   }
 
 }

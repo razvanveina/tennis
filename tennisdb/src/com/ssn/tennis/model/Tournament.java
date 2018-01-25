@@ -29,10 +29,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
-import org.hibernate.Session;
-
 import com.ssn.core.ApplicationFactory;
-import com.ssn.core.persistence.WithSessionAndTransaction;
 import com.ssn.tennis.model.classification.Classification;
 import com.ssn.tennis.model.enums.MatchType;
 import com.ssn.tennis.model.enums.TournamentStatus;
@@ -72,14 +69,14 @@ public class Tournament implements Serializable {
 
   @ManyToMany(cascade = { CascadeType.ALL })
   @JoinTable(name = "tournament_player", //
-      joinColumns = { @JoinColumn(name = "tournament_id") }, //
-      inverseJoinColumns = { @JoinColumn(name = "player_id") })
+  joinColumns = { @JoinColumn(name = "tournament_id") }, //
+  inverseJoinColumns = { @JoinColumn(name = "player_id") })
   private List<User> participants = new ArrayList<User>();
 
   @ManyToMany(cascade = { CascadeType.ALL })
   @JoinTable(name = "tournament_team", //
-      joinColumns = { @JoinColumn(name = "tournament_id") }, //
-      inverseJoinColumns = { @JoinColumn(name = "team_id") })
+  joinColumns = { @JoinColumn(name = "tournament_id") }, //
+  inverseJoinColumns = { @JoinColumn(name = "team_id") })
   private List<Team> teams = new ArrayList<Team>();
 
   @OneToMany(mappedBy = "tournament")
@@ -169,15 +166,15 @@ public class Tournament implements Serializable {
     return getMatches().size() > 0;
   }
 
-  public void start() {
+  public void start(List<Team> teams) {
     if (this.isStarted()) {
       return;
     }
-    buildTeams();
+    buildTeams(teams);
     status = TournamentStatus.STARTED;
   }
 
-  private void buildTeams() {
+  private void buildTeams(List<Team> teamsParam) {
     List<User> participantsCopy = new ArrayList<>(participants);
     Collections.sort(participantsCopy, new Comparator<User>() {
       @Override
@@ -200,20 +197,20 @@ public class Tournament implements Serializable {
       if (type.equals(TournamentType.DOUBLE)) {
         User p1 = participantsCopy.get(i);
         User p2 = participantsCopy.get(participantsCopy.size() - i - 1);
-        team = ApplicationFactory.getInstance().getDatabase().getTeamByParticipants(p1, p2);
+        team = ApplicationFactory.getInstance().getDatabase().getTeamByParticipants(teamsParam, p1, p2);
         if (team == null) {
           team = new Team();
           team.addPlayer(p1);
           team.addPlayer(p2);
-          ApplicationFactory.getInstance().getDatabase().addTeam(team);
+          //ApplicationFactory.getInstance().getDatabase().addTeam(team);
         }
       } else {
         User p1 = participantsCopy.get(i);
-        team = ApplicationFactory.getInstance().getDatabase().getTeamByParticipants(p1);
+        team = ApplicationFactory.getInstance().getDatabase().getTeamByParticipants(teamsParam, p1);
         if (team == null) {
           team = new Team();
           team.addPlayer(p1);
-          ApplicationFactory.getInstance().getDatabase().addTeam(team);
+          //ApplicationFactory.getInstance().getDatabase().addTeam(team);
         }
       }
 
@@ -229,18 +226,19 @@ public class Tournament implements Serializable {
   }
 
   public List<Match> getMatches() {
-    return new WithSessionAndTransaction<ArrayList<Match>>() {
-
-      @Override
-      protected void executeBusinessLogic(Session session) {
-        ArrayList<Match> result = new ArrayList<>();
-        for (Match m : matches) {
-          m.toString();
-          result.add(m);
-        }
-        setReturnValue(result);
-      }
-    }.run();
+    return matches;
+    //    return new WithSessionAndTransaction<ArrayList<Match>>() {
+    //
+    //      @Override
+    //      protected void executeBusinessLogic(Session session) {
+    //        ArrayList<Match> result = new ArrayList<>();
+    //        for (Match m : matches) {
+    //          m.toString();
+    //          result.add(m);
+    //        }
+    //        setReturnValue(result);
+    //      }
+    //    }.run();
   }
 
   public int getMatchesWonByUserName(String name) {

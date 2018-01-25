@@ -46,8 +46,8 @@ public class Team implements Serializable {
 
   @ManyToMany(cascade = { CascadeType.ALL })
   @JoinTable(name = "team_player", //
-      joinColumns = { @JoinColumn(name = "team_id") }, //
-      inverseJoinColumns = { @JoinColumn(name = "player_id") })
+  joinColumns = { @JoinColumn(name = "team_id") }, //
+  inverseJoinColumns = { @JoinColumn(name = "player_id") })
   private List<User> players = new ArrayList<User>();
 
   @ManyToMany(mappedBy = "teams")

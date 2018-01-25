@@ -56,7 +56,7 @@ public class OracleDatabaseTest {
         participants.add(dst);
         participants.add(cni);
         tournament.setParticipants(participants);
-        tournament.start();
+        tournament.start(new ArrayList<>());
         for (Match m : tournament.getMatches()) {
           session.save(m);
         }

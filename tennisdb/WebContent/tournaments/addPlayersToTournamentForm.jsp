@@ -40,7 +40,7 @@ Tournament tournament = ApplicationFactory.getInstance().getDatabase().getTourna
 <%@include file="../checkAdminRights.jsp" %> 
 
 <%
-ArrayList<User> users= ApplicationFactory.getInstance().getDatabase().getUsers();
+List<User> users= ApplicationFactory.getInstance().getDatabase().getUsers();
 List<User> lastUsers=tournament.getParticipants(); 
 boolean hasOldParticipants=!lastUsers.isEmpty();
 int checkCount=0;

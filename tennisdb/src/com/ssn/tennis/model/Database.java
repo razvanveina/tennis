@@ -8,6 +8,7 @@ package com.ssn.tennis.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.ssn.tennis.model.enums.TournamentType;
 
@@ -28,7 +29,7 @@ public interface Database {
 
   public Tournament getTournamentByName(String name);
 
-  public ArrayList<User> getUsers();
+  public List<User> getUsers();
 
   public void editUser(String oldUser, String user, String pass, String name, String surname, boolean admin);
 
@@ -50,8 +51,6 @@ public interface Database {
 
   public void addParticipantsToTournament(Tournament t, ArrayList<User> participants);
 
-  public Team getTeamByParticipants(User... participants);
-
   public ArrayList<Team> getTeams();
 
   public int getMatchesWonByTeam(Team team);
@@ -71,4 +70,6 @@ public interface Database {
   public void addMatchScore(Match match, int score1, int score2);
 
   void init();
+
+  Team getTeamByParticipants(List<Team> teams, User... participants);
 }

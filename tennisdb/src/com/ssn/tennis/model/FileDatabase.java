@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import com.ssn.tennis.common.Utils;
 import com.ssn.tennis.model.enums.TournamentType;
@@ -213,9 +214,10 @@ public class FileDatabase implements Serializable, Database {
     return (count);
   }
 
+  @Override
   public void startTournament(String name) {
     Tournament tournament = getTournamentByName(name);
-    tournament.start();
+    tournament.start(null);
   }
 
   public void addParticipantsToTournament(Tournament t, ArrayList<User> participants) {
@@ -339,5 +341,11 @@ public class FileDatabase implements Serializable, Database {
   public void addMatchScore(Match match, int score1, int score2) {
     // TODO Auto-generated method stub
 
+  }
+
+  @Override
+  public Team getTeamByParticipants(List<Team> teams, User[] participants) {
+    // TODO Auto-generated method stub
+    return null;
   }
 }

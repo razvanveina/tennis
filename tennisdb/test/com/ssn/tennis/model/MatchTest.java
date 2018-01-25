@@ -8,6 +8,7 @@ package com.ssn.tennis.model;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.Test;
@@ -31,7 +32,7 @@ public class MatchTest {
 
     Tournament t = db.getTournamentByName("1");
     db.addParticipantsToTournament(t, db.getUsers());
-    t.start();
+    t.start(new ArrayList<>());
 
     t.getMatches().get(0).setPoints1(11);
     t.getMatches().get(0).setPoints2(0);

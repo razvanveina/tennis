@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -19,10 +20,16 @@ import com.ssn.tennis.common.Utils;
 
 @Entity
 @Table(name = "PLAYER")
-@NamedQuery(name = User.USER_BY_NAME, query = "from User where user = :user")
+@NamedQueries({ // 
+  @NamedQuery(name = User.USER_BY_NAME, query = "from User where user = :user"), //
+  @NamedQuery(name = User.USER_ALL, query = "from User"), //
+  @NamedQuery(name = User.USER_BY_NAME_AND_PASS, query = "from User where user = :user and password = :pass"), //
+})
 public class User implements Serializable, Comparable<User> {
   public static final String USER_BY_NAME = "User.by.name";
+  public static final String USER_BY_NAME_AND_PASS = "User.by.name.and.pass";
   private static final long serialVersionUID = 1L;
+  public static final String USER_ALL = "Users.all";
 
   @Id
   @Column(name = "ID")
@@ -146,7 +153,13 @@ public class User implements Serializable, Comparable<User> {
   }
 
   public int getRating() {
-    return OracleDatabase.getInstance().getUserRatingByName(user);
+    int lost = getLost();
+    int won = getWon();
+
+    if (lost == 0) {
+      return 0;
+    }
+    return won * 1000 / (won + lost);
   }
 
   @Override
@@ -155,11 +168,24 @@ public class User implements Serializable, Comparable<User> {
   }
 
   public int getWon() {
-    return OracleDatabase.getInstance().getMatchesWonByUsername(this.user);
+    int count = 0;
+
+    for (Tournament t : getTournaments()) {
+      count += t.getMatchesWonByUserName(user);
+    }
+
+    return (count);
+
   }
 
   public int getLost() {
-    return OracleDatabase.getInstance().getMatchesLostByUsername(this.user);
+    int count = 0;
+
+    for (Tournament t : getTournaments()) {
+      count += t.getMatchesLostByUserName(user);
+    }
+
+    return (count);
   }
 
   /**

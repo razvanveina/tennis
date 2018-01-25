@@ -12,7 +12,7 @@
 <%@include file="../checkAdminRights.jsp" %> 
 
 <%
-ArrayList<User> users = ApplicationFactory.getInstance().getDatabase().getUsers();
+List<User> users = ApplicationFactory.getInstance().getDatabase().getUsers(); 
 Collections.sort(users);
 %>
 <br>

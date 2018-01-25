@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.ssn.core.persistence.WithSessionAndTransaction;
@@ -63,14 +62,8 @@ public class OracleDatabase implements Database {
 
       @Override
       protected void executeBusinessLogic(Session session) {
-        Query query = session.createQuery("from User where user = :user and password = :password");
-        query.setParameter("user", user);
-        query.setParameter("password", Utils.encrypt(password));
-        List result = query.list();
-
-        if (result.size() > 0) {
-          setReturnValue((User) result.get(0));
-        }
+        TennisManager tm = new TennisManager(session);
+        setReturnValue(tm.findUserByUserNameAndPassword(user, password));
       }
 
     }.run();
@@ -98,6 +91,11 @@ public class OracleDatabase implements Database {
         TennisManager tm = new TennisManager(session);
         Tournament t = tm.findTournamentByName(name);
         t.getParticipants().toString();
+        for (User user : t.getParticipants()) {
+          for (Tournament tx : user.getTournaments()) {
+            tx.getMatches().toString();
+          }
+        }
         t.getMatches().toString();
         t.getTeams().toString();
         setReturnValue(t);
@@ -107,15 +105,14 @@ public class OracleDatabase implements Database {
   }
 
   @Override
-  public ArrayList<User> getUsers() {
+  public List<User> getUsers() {
     return new WithSessionAndTransaction<ArrayList<User>>() {
 
       @SuppressWarnings("unchecked")
       @Override
       protected void executeBusinessLogic(Session session) {
-        Query query = session.createQuery("from User");
-        List result = query.list();
-        setReturnValue(new ArrayList<User>(result));
+        TennisManager tm = new TennisManager(session);
+        setReturnValue(tm.findAllUsers());
       }
 
     }.run();
@@ -240,9 +237,12 @@ public class OracleDatabase implements Database {
 
       @Override
       protected void executeBusinessLogic(Session session) {
-        //   TennisManager tm = new TennisManager(session);
-        Tournament tour = getTournamentByName(name);
-        tour.start();
+        TennisManager tm = new TennisManager(session);
+        Tournament tour = tm.findTournamentByName(name);
+        tour.start(tm.findAllTeams());
+        for (Team t : tour.getTeams()) {
+          session.saveOrUpdate(t);
+        }
         for (Match m : tour.getMatches()) {
           session.save(m);
         }
@@ -267,11 +267,10 @@ public class OracleDatabase implements Database {
 
   }
 
-  @Override
-  public Team getTeamByParticipants(User... participants) {
+  public Team getTeamByParticipants(List<Team> teams, User... participants) {
     ArrayList<User> part = new ArrayList<User>();
     Collections.addAll(part, participants);
-    for (Team t : getTeams()) {
+    for (Team t : teams) {
       if (t.hasParticipants(part)) {
         return t;
       }
