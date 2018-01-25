@@ -89,11 +89,8 @@ public class Team implements Serializable, Comparable<Team> {
     });
   }
 
-  /**
-   * @param part
-   * @return
-   */
   public boolean hasParticipants(ArrayList<User> part) {
+    // FIXME doesn't work anymore
     return this.players.equals(part);
   }
 
