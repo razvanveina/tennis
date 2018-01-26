@@ -216,4 +216,8 @@ public class Team implements Serializable, Comparable<Team> {
     return this;
   }
 
+  protected void regenerate() {
+    //
+  }
+
 }

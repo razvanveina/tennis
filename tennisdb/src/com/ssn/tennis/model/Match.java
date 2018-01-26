@@ -251,4 +251,13 @@ public class Match implements Serializable {
     this.tournament = tournament;
   }
 
+  public void regenerate() {
+    if (team1.isProxy()) {
+      team1.regenerate();
+    }
+    if (team2.isProxy()) {
+      team2.regenerate();
+    }
+  }
+
 }

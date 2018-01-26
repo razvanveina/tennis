@@ -439,4 +439,10 @@ public class Tournament implements Serializable {
     return true;
   }
 
+  public void reiterateMatches() {
+    for (Match m : matches) {
+      m.regenerate();
+    }
+  }
+
 }

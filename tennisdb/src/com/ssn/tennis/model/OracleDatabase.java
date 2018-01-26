@@ -440,6 +440,7 @@ public class OracleDatabase implements Database {
         Match m = tm.readMatchById(match.getId());
         m.setPoints1(score1);
         m.setPoints2(score2);
+        m.getTournament().reiterateMatches();
         session.update(m);
       }
     }.run();

@@ -80,4 +80,9 @@ public class GroupPositionTeamProxy extends Team {
     return this.team;
   }
 
+  @Override
+  public void regenerate() {
+    team = null;
+  }
+
 }

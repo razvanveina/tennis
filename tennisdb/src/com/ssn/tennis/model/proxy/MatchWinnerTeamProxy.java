@@ -82,4 +82,9 @@ public class MatchWinnerTeamProxy extends Team {
   public Team getTeam() {
     return this.team;
   }
+
+  @Override
+  public void regenerate() {
+    team = null;
+  }
 }
