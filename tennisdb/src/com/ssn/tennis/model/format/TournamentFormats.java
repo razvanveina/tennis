@@ -17,6 +17,7 @@ public enum TournamentFormats {
     TF6(new TournamentFormat6Teams()), // 
     TF5(new TournamentFormat5Teams()), //
     TF4(new TournamentFormat4Teams()), //
+    TF4_2(new TournamentFormat4Teams2()), //
     TF3(new TournamentFormat3Teams()); //
 
   private TournamentFormat tf;

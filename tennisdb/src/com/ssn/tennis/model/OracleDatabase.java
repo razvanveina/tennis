@@ -442,6 +442,9 @@ public class OracleDatabase implements Database {
           session.save(new User("sbr", "sbr", "Sorin", "Brazdau", false));
 
           session.save(new User("rst", "rst", "Razvan", "Strugariu", false));
+          session.save(new User("cci", "cci", "Catalin", "Cinda", false));
+          session.save(new User("sch", "sch", "Sorin", "Chis", false));
+          session.save(new User("stu", "stu", "Seba", "Tutuianu", false));
         }
       }
 

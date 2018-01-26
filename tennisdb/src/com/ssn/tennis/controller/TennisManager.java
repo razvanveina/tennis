@@ -35,13 +35,17 @@ public class TennisManager {
     query.setParameter("user", user);
     List result = query.list();
 
-    User user2 = (User) result.get(0);
-    List<Tournament> tournaments = user2.getTournaments();
-    for (Tournament tournament : tournaments) {
-      tournament.getMatches().toString();
+    if (result.size() > 0) {
+      User user2 = (User) result.get(0);
+      List<Tournament> tournaments = user2.getTournaments();
+      for (Tournament tournament : tournaments) {
+        tournament.getMatches().toString();
+      }
+
+      return user2;
     }
 
-    return user2;
+    return null;
   }
 
   public User findUserByUserNameAndPassword(String user, String pass) {
