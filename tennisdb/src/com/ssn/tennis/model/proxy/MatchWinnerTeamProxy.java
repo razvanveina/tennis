@@ -69,4 +69,17 @@ public class MatchWinnerTeamProxy extends Team {
     return (team != null ? team.hasPlayer(name) : false);
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    Team t = (Team) obj;
+    if (team == null) {
+      return false;
+    }
+    return team.equals(t);
+  }
+
+  @Override
+  public Team getTeam() {
+    return this.team;
+  }
 }

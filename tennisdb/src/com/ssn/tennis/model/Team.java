@@ -212,4 +212,8 @@ public class Team implements Serializable, Comparable<Team> {
     this.proxy = proxy;
   }
 
+  public Team getTeam() {
+    return this;
+  }
+
 }
