@@ -348,4 +348,10 @@ public class FileDatabase implements Serializable, Database {
     // TODO Auto-generated method stub
     return null;
   }
+
+  @Override
+  public void cleanupTournaments() {
+    // TODO Auto-generated method stub
+
+  }
 }

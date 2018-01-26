@@ -445,4 +445,25 @@ public class Tournament implements Serializable {
     }
   }
 
+  public List<Team> cleanup() {
+    List<Team> teamsToDelete = new ArrayList<>();
+
+    if (!isFinished()) {
+      return new ArrayList<>();
+    }
+
+    for (Match m : matches) {
+      if (m.getTeam1().isProxy()) {
+        teamsToDelete.add(m.getTeam1());
+        m.setTeam1(m.getTeam1().getTeam());
+      }
+      if (m.getTeam2().isProxy()) {
+        teamsToDelete.add(m.getTeam2());
+        m.setTeam2(m.getTeam2().getTeam());
+      }
+    }
+
+    return teamsToDelete;
+  }
+
 }

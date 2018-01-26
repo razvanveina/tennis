@@ -72,4 +72,6 @@ public interface Database {
   void init();
 
   Team getTeamByParticipants(List<Team> teams, User... participants);
+
+  void cleanupTournaments();
 }

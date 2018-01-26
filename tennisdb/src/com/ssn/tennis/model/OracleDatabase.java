@@ -446,4 +446,23 @@ public class OracleDatabase implements Database {
     }.run();
   }
 
+  @Override
+  public void cleanupTournaments() {
+    new WithSessionAndTransaction() {
+
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        TennisManager tm = new TennisManager(session);
+        ArrayList<Tournament> tournaments = tm.findAllTournaments();
+        for (Tournament tournament : tournaments) {
+          List<Team> teamsToDelete = tournament.cleanup();
+
+          for (Team team : teamsToDelete) {
+            session.delete(team);
+          }
+        }
+      }
+    }.run();
+  }
+
 }
