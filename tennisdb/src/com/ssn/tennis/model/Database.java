@@ -74,4 +74,6 @@ public interface Database {
   Team getTeamByParticipants(List<Team> teams, User... participants);
 
   void cleanupTournaments();
+
+  void duplicateTournament(String name);
 }

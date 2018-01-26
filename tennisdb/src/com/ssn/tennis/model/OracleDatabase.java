@@ -6,6 +6,8 @@
 
 package com.ssn.tennis.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -13,6 +15,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import com.ssn.core.ApplicationFactory;
 import com.ssn.core.persistence.WithSessionAndTransaction;
 import com.ssn.tennis.common.Utils;
 import com.ssn.tennis.controller.TennisManager;
@@ -90,15 +93,17 @@ public class OracleDatabase implements Database {
       protected void executeBusinessLogic(Session session) {
         TennisManager tm = new TennisManager(session);
         Tournament t = tm.findTournamentByName(name);
-        t.getParticipants().toString();
-        for (User user : t.getParticipants()) {
-          for (Tournament tx : user.getTournaments()) {
-            tx.getMatches().toString();
+        if (t != null) {
+          t.getParticipants().toString();
+          for (User user : t.getParticipants()) {
+            for (Tournament tx : user.getTournaments()) {
+              tx.getMatches().toString();
+            }
           }
+          t.getMatches().toString();
+          t.getTeams().toString();
+          setReturnValue(t);
         }
-        t.getMatches().toString();
-        t.getTeams().toString();
-        setReturnValue(t);
       }
 
     }.run();
@@ -359,7 +364,27 @@ public class OracleDatabase implements Database {
 
       @Override
       protected void executeBusinessLogic(Session session) {
-        session.delete(tour);
+        TennisManager tm = new TennisManager(session);
+        Tournament x = tm.findTournamentByName(tour.getName());
+
+        for (Match m : x.getMatches()) {
+          if (m.getTeam1().isProxy()) {
+            session.delete(m.getTeam1());
+          }
+          if (m.getTeam2().isProxy()) {
+            session.delete(m.getTeam2());
+          }
+          session.delete(m);
+        }
+
+        x.setMatches(null);
+
+        x.setParticipants(null);
+
+        x.setTeams(null);
+
+        session.update(x);
+        session.delete(x);
       }
 
     }.run();
@@ -415,6 +440,8 @@ public class OracleDatabase implements Database {
           session.save(new User("cco", "cco", "Marius", "Cosma", false));
           session.save(new User("acn", "acn", "Andrei", "Contoman", false));
           session.save(new User("sbr", "sbr", "Sorin", "Brazdau", false));
+
+          session.save(new User("rst", "rst", "Razvan", "Strugariu", false));
         }
       }
 
@@ -463,6 +490,64 @@ public class OracleDatabase implements Database {
         }
       }
     }.run();
+  }
+
+  @Override
+  public void duplicateTournament(String pname) {
+    new WithSessionAndTransaction() {
+
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        Tournament tour = ApplicationFactory.getInstance().getDatabase().getTournamentByName(pname);
+
+        String oldName = tour.getName();
+        String dupName = "duplicate";
+        String suffix = oldName;
+        int counter = 0;
+        boolean nameValid = false;
+        while (!nameValid) {
+          if (ApplicationFactory.getInstance().getDatabase().getTournamentByName(suffix) == null) {
+            nameValid = true;
+            break;
+          } else {
+            oldName = suffix;
+            counter++;
+            suffix = "";
+          }
+          if (oldName.contains(dupName)) {
+            int index = oldName.indexOf(dupName) + dupName.length();
+            if (index == oldName.length()) {
+              suffix = oldName + (counter);
+            } else {
+              suffix = oldName.substring(0, index);
+              suffix = suffix + (counter);
+            }
+
+          } else {
+            suffix = oldName + dupName;
+          }
+
+        }
+
+        String name = suffix;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy-HH:mm ");
+        String dateS = dateFormat.format(new Date(System.currentTimeMillis()));
+        Date date = null;
+        try {
+          date = dateFormat.parse(dateS);
+        } catch (ParseException e) {
+          // TODO Auto-generated catch block
+        }
+        TournamentType type = tour.getType();
+        String tourFormat = tour.getFormat().getName();
+
+        ApplicationFactory.getInstance().getDatabase().addTournament(name, date, type, tourFormat);
+        Tournament tx = ApplicationFactory.getInstance().getDatabase().getTournamentByName(name);
+        tx.setParticipants(tour.getParticipants());
+        session.update(tx);
+      }
+    }.run();
+
   }
 
 }

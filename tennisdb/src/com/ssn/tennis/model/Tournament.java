@@ -45,7 +45,7 @@ import com.ssn.tennis.model.matchdef.MatchFormatDefinition;
 
 @Entity
 @NamedQueries({ //
-  @NamedQuery(name = Tournament.TOURNAMENT_ALL, query = "from Tournament"), //
+  @NamedQuery(name = Tournament.TOURNAMENT_ALL, query = "from Tournament order by startDate"), //
   @NamedQuery(name = Tournament.TOURNAMENT_BY_NAME, query = "from Tournament where name=:name") })
 public class Tournament implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -79,7 +79,7 @@ public class Tournament implements Serializable {
   inverseJoinColumns = { @JoinColumn(name = "team_id") })
   private List<Team> teams = new ArrayList<Team>();
 
-  @OneToMany(mappedBy = "tournament")
+  @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL)
   private List<Match> matches = new ArrayList<Match>();
 
   public Tournament() {

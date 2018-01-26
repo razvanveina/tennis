@@ -354,4 +354,10 @@ public class FileDatabase implements Serializable, Database {
     // TODO Auto-generated method stub
 
   }
+
+  @Override
+  public void duplicateTournament(String name) {
+    // TODO Auto-generated method stub
+
+  }
 }

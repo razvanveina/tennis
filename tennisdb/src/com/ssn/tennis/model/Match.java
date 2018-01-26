@@ -42,11 +42,11 @@ public class Match implements Serializable {
   @Column(name = "match_number")
   private int number;
 
-  @ManyToOne
+  @ManyToOne()
   @JoinColumn(name = "team1_id", nullable = true)
   private Team team1;
 
-  @ManyToOne
+  @ManyToOne()
   @JoinColumn(name = "team2_id", nullable = true)
   private Team team2;
 
