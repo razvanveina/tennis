@@ -44,6 +44,7 @@ public class GroupPositionTeamProxy extends Team {
     this.teamGroupPosition = teamGroupPosition;
     this.tournament = tournament;
     this.team = null;
+    this.setProxy(true);
   }
 
   @Override
@@ -65,7 +66,4 @@ public class GroupPositionTeamProxy extends Team {
     return team.toString();
   }
 
-  public boolean isProxy() {
-    return true;
-  }
 }

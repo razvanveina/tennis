@@ -43,6 +43,7 @@ public class MatchWinnerTeamProxy extends Team {
     this.teamMatchId = teamMatchId;
     this.winners = winners;
     this.tournament = tournament;
+    this.setProxy(true);
   }
 
   @Override
@@ -68,7 +69,4 @@ public class MatchWinnerTeamProxy extends Team {
     return (team != null ? team.hasPlayer(name) : false);
   }
 
-  public boolean isProxy() {
-    return true;
-  }
 }

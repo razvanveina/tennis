@@ -36,7 +36,7 @@ import javax.persistence.SequenceGenerator;
  */
 
 @Entity
-@NamedQueries({ @NamedQuery(name = Team.QUERY_ALL, query = "from Team") })
+@NamedQueries({ @NamedQuery(name = Team.QUERY_ALL, query = "from Team where proxy = false") })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue(value = "team")
@@ -58,6 +58,8 @@ public class Team implements Serializable, Comparable<Team> {
 
   @ManyToMany(mappedBy = "teams")
   private List<Tournament> tournaments = new ArrayList<Tournament>();
+
+  private boolean proxy = false;
 
   //  @OneToMany(mappedBy = "team1")
   //  private List<Match> matches1 = new ArrayList<Match>();
@@ -203,7 +205,11 @@ public class Team implements Serializable, Comparable<Team> {
   }
 
   public boolean isProxy() {
-    return false;
+    return proxy;
+  }
+
+  public void setProxy(boolean proxy) {
+    this.proxy = proxy;
   }
 
 }

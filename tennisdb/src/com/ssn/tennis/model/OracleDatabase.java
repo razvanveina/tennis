@@ -241,7 +241,7 @@ public class OracleDatabase implements Database {
         Tournament tour = tm.findTournamentByName(name);
         tour.start(tm.findAllTeams());
         for (Team t : tour.getTeams()) {
-          session.saveOrUpdate(t);
+          session.save(t);
         }
         for (Match m : tour.getMatches()) {
           if (m.getTeam1().isProxy()) {
