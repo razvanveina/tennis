@@ -110,11 +110,13 @@ public class Tournament implements Serializable {
   }
 
   public List<User> getParticipants() {
-    ArrayList<User> result = new ArrayList<>();
-    for (User p : participants) {
-      result.add(ApplicationFactory.getInstance().getDatabase().getUserByUsername(p.getUser()));
-    }
-    return result;
+    // ?!?
+    //    ArrayList<User> result = new ArrayList<>();
+    //    for (User p : participants) {
+    //      result.add(ApplicationFactory.getInstance().getDatabase().getUserByUsername(p.getUser()));
+    //    }
+    //    return result;
+    return participants;
   }
 
   public void setParticipants(List<User> participants) {
@@ -332,10 +334,6 @@ public class Tournament implements Serializable {
     return won;
   }
 
-  /**
-   * @param team
-   * @return
-   */
   public int getMatchesLostByTeam(Team team) {
     int lost = 0;
 

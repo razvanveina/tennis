@@ -44,7 +44,9 @@
 <%@include file="../checkLogin.jsp" %> 
 <%@include file="../checkAdminRights.jsp" %> 
 <%
+System.out.println("getTournaments>"+System.currentTimeMillis());
 ArrayList<Tournament> tournaments = ApplicationFactory.getInstance().getDatabase().getTournaments(); 
+System.out.println("getTournaments<"+System.currentTimeMillis());
 %>
 
 <FORM action="addTournamentForm.jsp" method="POST">
@@ -72,10 +74,15 @@ ArrayList<Tournament> tournaments = ApplicationFactory.getInstance().getDatabase
 <% 
 int playersChosen=0;
 for (int i = tournaments.size() - 1; i >= 0; i--) { 
+  System.out.println("for:" + System.currentTimeMillis());
   Tournament t = tournaments.get(i);
+  System.out.println("11:" + System.currentTimeMillis());
   DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
+  System.out.println("12:" + System.currentTimeMillis());
   int numberOfPlayersNeeded=t.getFormat()!=null? t.getMaxPlayers() : -1; 
+  System.out.println("13:" + System.currentTimeMillis());
   boolean hasEnoughPlayers=t.getParticipants().size()==numberOfPlayersNeeded;
+  System.out.println("1:" + System.currentTimeMillis());
   if(t.isFinished()){
     %>
     <TR bgcolor="#acb7a3">
@@ -168,7 +175,7 @@ for (int i = tournaments.size() - 1; i >= 0; i--) {
         </TD>
         
             <TD>
-            <% if (t.getStatus() != TournamentStatus.FINISHED) { %>
+            <% if (true || t.getStatus() != TournamentStatus.FINISHED) { %>
          <div class="tooltip">
          <a href="deleteTournament.jsp?name=<%= URLEncoder.encode(t.getName(), StandardCharsets.UTF_8.toString()) %>"> 
         <img src="../img/delete.png" width="25" height="20">
@@ -179,7 +186,13 @@ for (int i = tournaments.size() - 1; i >= 0; i--) {
         <img src="../img/delete1.png" width="25" height="20">
         <%} %>
         </TD>
+        <%
+        System.out.println("2:" + System.currentTimeMillis());
+        %>
         <TD><%=t.getWinner()!=null? t.getWinner():"" %></TD>
+        <%
+        System.out.println("3:" + System.currentTimeMillis());
+        %>
         
 <% } %>       
 

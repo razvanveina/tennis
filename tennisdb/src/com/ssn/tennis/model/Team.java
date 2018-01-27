@@ -99,7 +99,7 @@ public class Team implements Serializable, Comparable<Team> {
     });
   }
 
-  public boolean hasParticipants(ArrayList<User> part) {
+  public boolean hasParticipants(List<User> part) {
     Comparator<User> comparator = new Comparator<User>() {
 
       @Override
@@ -220,4 +220,24 @@ public class Team implements Serializable, Comparable<Team> {
     //
   }
 
+  /**
+   * 
+   */
+  public void updateRatings() {
+    for (User u : players) {
+      u.updateRatings();
+    }
+  }
+
+  public int getStars() {
+    int count = 0;
+
+    for (Tournament t : getTournaments()) {
+      if (t.isFinished() && hasParticipants(t.getWinner().getPlayers())) {
+        count++;
+      }
+    }
+
+    return (count);
+  }
 }

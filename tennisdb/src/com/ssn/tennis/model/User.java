@@ -43,12 +43,16 @@ public class User implements Serializable, Comparable<User> {
   private String name;
   private String surname;
   private boolean admin;
+  private int rating = -1;
 
   @ManyToMany(mappedBy = "players")
   private List<Team> teams = new ArrayList<>();
 
   @ManyToMany(mappedBy = "participants")
   private List<Tournament> tournaments = new ArrayList<>();
+  private int lost;
+  private int won;
+  private int stars;
 
   public User() {
     //
@@ -152,14 +156,36 @@ public class User implements Serializable, Comparable<User> {
     this.admin = admin;
   }
 
-  public int getRating() {
-    int lost = getLost();
-    int won = getWon();
+  public void setRating(int rating) {
+    this.rating = rating;
+  }
 
-    if (won + lost == 0) {
-      return 0;
+  public void recomputeRatings() {
+    System.out.println("Start: " + System.currentTimeMillis());
+    this.lost = computeLost();
+    System.out.println(System.currentTimeMillis());
+    this.won = computeWon();
+    System.out.println(System.currentTimeMillis());
+
+    this.rating = (won + lost > 0 ? won * 1000 / (won + lost) : 0);
+    this.stars = computeStars();//ApplicationFactory.getInstance().getDatabase().getUserStars(this);
+    System.out.println(System.currentTimeMillis());
+  }
+
+  private int computeStars() {
+    int count = 0;
+
+    for (Tournament t : getTournaments()) {
+      if (t.isFinished() && t.getWinner().hasPlayer(this.user)) {
+        count++;
+      }
     }
-    return won * 1000 / (won + lost);
+
+    return (count);
+  }
+
+  public int getRating() {
+    return rating;
   }
 
   @Override
@@ -167,7 +193,7 @@ public class User implements Serializable, Comparable<User> {
     return o.getRating() - this.getRating();
   }
 
-  public int getWon() {
+  public int computeWon() {
     int count = 0;
 
     for (Tournament t : getTournaments()) {
@@ -178,7 +204,7 @@ public class User implements Serializable, Comparable<User> {
 
   }
 
-  public int getLost() {
+  public int computeLost() {
     int count = 0;
 
     for (Tournament t : getTournaments()) {
@@ -214,6 +240,52 @@ public class User implements Serializable, Comparable<User> {
    */
   public void setTournaments(List<Tournament> tournaments) {
     this.tournaments = tournaments;
+  }
+
+  public void updateRatings() {
+    recomputeRatings();
+  }
+
+  /**
+   * @return the lost
+   */
+  public int getLost() {
+    return lost;
+  }
+
+  /**
+   * @param lost the lost to set
+   */
+  public void setLost(int lost) {
+    this.lost = lost;
+  }
+
+  /**
+   * @return the won
+   */
+  public int getWon() {
+    return won;
+  }
+
+  /**
+   * @param won the won to set
+   */
+  public void setWon(int won) {
+    this.won = won;
+  }
+
+  /**
+   * @return the stars
+   */
+  public int getStars() {
+    return stars;
+  }
+
+  /**
+   * @param stars the stars to set
+   */
+  public void setStars(int stars) {
+    this.stars = stars;
   }
 
 }

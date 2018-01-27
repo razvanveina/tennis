@@ -13,6 +13,9 @@
 
 <%
 List<User> users = ApplicationFactory.getInstance().getDatabase().getUsers(); 
+for (User user : users) {
+  user.updateRatings();
+}
 Collections.sort(users);
 %>
 <br>
@@ -30,7 +33,7 @@ Collections.sort(users);
     </TR>
 
 <% for (User user : users) {
-  int stars=ApplicationFactory.getInstance().getDatabase().getUserStars(user);
+  int stars=user.getStars();//.getInstance().getDatabase().getUserStars(user);
   %>
 
     <TR>
@@ -38,8 +41,10 @@ Collections.sort(users);
       <TD><%= user.getName() %></TD>
       <TD><%= user.getSurname() %></TD>
       <TD><%= user.getRating() %></TD>
+       
       <TD><%= user.getWon() %></TD>
       <TD><%= user.getLost() %></TD>
+      
       <TD align="center">
       <% 
      while(stars>=10){

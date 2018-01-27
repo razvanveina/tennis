@@ -260,4 +260,12 @@ public class Match implements Serializable {
     }
   }
 
+  /**
+   * 
+   */
+  public void updateRatings() {
+    team1.updateRatings();
+    team2.updateRatings();
+  }
+
 }

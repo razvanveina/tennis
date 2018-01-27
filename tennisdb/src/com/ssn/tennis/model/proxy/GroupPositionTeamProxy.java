@@ -6,6 +6,8 @@
 
 package com.ssn.tennis.model.proxy;
 
+import java.util.List;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -13,6 +15,7 @@ import javax.persistence.ManyToOne;
 
 import com.ssn.tennis.model.Team;
 import com.ssn.tennis.model.Tournament;
+import com.ssn.tennis.model.User;
 
 /**
  * @author <a href="mailto:rveina@ssi-schaefer-noell.com">rveina</a>
@@ -50,6 +53,11 @@ public class GroupPositionTeamProxy extends Team {
   @Override
   public boolean hasPlayer(String name) {
     return (team != null ? team.hasPlayer(name) : false);
+  }
+
+  @Override
+  public List<User> getPlayers() {
+    return (team != null ? team.getPlayers() : null);
   }
 
   @Override

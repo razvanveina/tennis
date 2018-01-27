@@ -278,6 +278,7 @@ public class OracleDatabase implements Database {
 
   }
 
+  @Override
   public Team getTeamByParticipants(List<Team> teams, User... participants) {
     ArrayList<User> part = new ArrayList<User>();
     Collections.addAll(part, participants);
@@ -301,6 +302,15 @@ public class OracleDatabase implements Database {
         for (Team tim : tims) {
           tim.getPlayers().toString();
           tim.getTournaments().toString();
+          for (Tournament t : tim.getTournaments()) {
+            t.getMatches().toString();
+            for (Match m : t.getMatches()) {
+              m.getTeam1().toString();
+              m.getTeam2().toString();
+            }
+            t.getTeams().toString();
+            t.getWinner().getPlayers().toString();
+          }
         }
       }
 
@@ -470,6 +480,7 @@ public class OracleDatabase implements Database {
         Match m = tm.readMatchById(match.getId());
         m.setPoints1(score1);
         m.setPoints2(score2);
+        m.updateRatings();
         m.getTournament().reiterateMatches();
         session.update(m);
       }
@@ -501,7 +512,8 @@ public class OracleDatabase implements Database {
 
       @Override
       protected void executeBusinessLogic(Session session) {
-        Tournament tour = ApplicationFactory.getInstance().getDatabase().getTournamentByName(pname);
+        TennisManager tm = new TennisManager(session);
+        Tournament tour = tm.findTournamentByName(pname);//ApplicationFactory.getInstance().getDatabase().getTournamentByName(pname);
 
         String oldName = tour.getName();
         String dupName = "duplicate";
@@ -544,9 +556,12 @@ public class OracleDatabase implements Database {
         TournamentType type = tour.getType();
         String tourFormat = tour.getFormat().getName();
 
-        ApplicationFactory.getInstance().getDatabase().addTournament(name, date, type, tourFormat);
-        Tournament tx = ApplicationFactory.getInstance().getDatabase().getTournamentByName(name);
-        tx.setParticipants(tour.getParticipants());
+        //        ApplicationFactory.getInstance().getDatabase().addTournament(name, date, type, tourFormat);
+        //        Tournament tx = ApplicationFactory.getInstance().getDatabase().getTournamentByName(name);
+        Tournament tx = new Tournament(name, date, type, TournamentFormats.getTournamentFormatsByName(tourFormat));
+        session.save(tx);
+
+        tx.setParticipants(new ArrayList<>(tour.getParticipants()));
         session.update(tx);
       }
     }.run();

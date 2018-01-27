@@ -12,7 +12,9 @@
 <%@include file="../checkAdminRights.jsp" %> 
 
 <%
+System.out.println("1:" + System.currentTimeMillis());
 ArrayList<Team> teams = ApplicationFactory.getInstance().getDatabase().getTeams();
+System.out.println("2:" + System.currentTimeMillis());
 Collections.sort(teams);
 /*
 HashMap<String, Team> teamsMap=new HashMap<String, Team>();
@@ -43,7 +45,7 @@ teams=new ArrayList(teamsMap.values());
       <TD><%= team.getLost() %></TD>
        <TD align="center">
       <% 
-      int stars=ApplicationFactory.getInstance().getDatabase().getTeamStars(team);
+      int stars=team.getStars(); //ApplicationFactory.getInstance().getDatabase().getTeamStars(team);
      while(stars>=10){
        %>
        <img src="../img/star10.png" width="20" height="20"> 
