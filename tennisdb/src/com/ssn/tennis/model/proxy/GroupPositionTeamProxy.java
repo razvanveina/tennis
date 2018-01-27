@@ -93,4 +93,35 @@ public class GroupPositionTeamProxy extends Team {
     team = null;
   }
 
+  @Override
+  public int getWon() {
+    if (team == null) {
+      return 0;
+    }
+
+    int count = 0;
+
+    for (Tournament t : team.getTournaments()) {
+      count += t.getMatchesWonByTeam(this);
+    }
+
+    return (count);
+
+  }
+
+  @Override
+  public int getLost() {
+    if (team == null) {
+      return 0;
+    }
+
+    int count = 0;
+
+    for (Tournament t : team.getTournaments()) {
+      count += t.getMatchesLostByTeam(this);
+    }
+
+    return (count);
+  }
+
 }

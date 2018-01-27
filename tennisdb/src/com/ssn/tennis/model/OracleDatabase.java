@@ -309,7 +309,9 @@ public class OracleDatabase implements Database {
               m.getTeam2().toString();
             }
             t.getTeams().toString();
-            t.getWinner().getPlayers().toString();
+            if (t.getWinner() != null) {
+              t.getWinner().getPlayers().toString();
+            }
           }
         }
       }
@@ -563,6 +565,56 @@ public class OracleDatabase implements Database {
 
         tx.setParticipants(new ArrayList<>(tour.getParticipants()));
         session.update(tx);
+      }
+    }.run();
+
+  }
+
+  @Override
+  public Team getTeamById(long id) {
+    return new WithSessionAndTransaction<Team>() {
+
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        TennisManager tm = new TennisManager(session);
+        Team team = tm.readTeamById(id);
+        if (team.isProxy()) {
+          if (team.getTeam() != null) {
+            team = team.getTeam();
+          }
+        }
+        team.getPlayers().toString();
+        team.getTournaments().toString();
+        for (Tournament t : team.getTournaments()) {
+          t.getMatches().toString();
+          for (Match m : t.getMatches()) {
+            m.getTeam1().toString();
+            m.getTeam2().toString();
+          }
+          t.getTeams().toString();
+          if (t.getWinner() != null) {
+            t.getWinner().getPlayers().toString();
+          }
+        }
+        setReturnValue(team);
+      }
+    }.run();
+  }
+
+  @Override
+  public List<Match> getMatchesInvolvingTeams(Team t1, Team t2) {
+    return new WithSessionAndTransaction<List<Match>>() {
+
+      @Override
+      protected void executeBusinessLogic(Session session) {
+        List<Match> result = new ArrayList<>();
+
+        TennisManager tm = new TennisManager(session);
+        ArrayList<Tournament> tournaments = tm.findAllTournaments();
+        for (Tournament tournament : tournaments) {
+          result.addAll(tournament.getMatchesInvolvingTeams(t1, t2));
+        }
+        setReturnValue(result);
       }
     }.run();
 

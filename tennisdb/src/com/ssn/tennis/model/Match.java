@@ -28,10 +28,10 @@ import com.ssn.tennis.model.matchdef.MatchFormatDefinition;
  */
 
 @Entity
-@NamedQuery(name = Match.QUERY_BY_NAME, query = "from Match where id=:id")
+@NamedQuery(name = Match.QUERY_BY_ID, query = "from Match where id=:id")
 public class Match implements Serializable {
   private static final long serialVersionUID = 1L;
-  public static final String QUERY_BY_NAME = "Match.by.name";
+  public static final String QUERY_BY_ID = "Match.by.name";
 
   @Id
   @Column(name = "ID")

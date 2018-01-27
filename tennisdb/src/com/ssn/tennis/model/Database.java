@@ -76,4 +76,8 @@ public interface Database {
   void cleanupTournaments();
 
   void duplicateTournament(String name);
+
+  Team getTeamById(long id);
+
+  List<Match> getMatchesInvolvingTeams(Team t1, Team t2);
 }

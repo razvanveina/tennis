@@ -36,13 +36,15 @@ import javax.persistence.SequenceGenerator;
  */
 
 @Entity
-@NamedQueries({ @NamedQuery(name = Team.QUERY_ALL, query = "from Team where proxy = false") })
+@NamedQueries({ @NamedQuery(name = Team.QUERY_ALL, query = "from Team where proxy = false"), // 
+  @NamedQuery(name = Team.QUERY_BY_ID, query = "from Team where id = :id") })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue(value = "team")
 public class Team implements Serializable, Comparable<Team> {
   private static final long serialVersionUID = 1L;
   public static final String QUERY_ALL = "Team.all";
+  public static final String QUERY_BY_ID = "Team.by.id";
 
   @Id
   @Column(name = "ID")
@@ -107,7 +109,7 @@ public class Team implements Serializable, Comparable<Team> {
         return o1.getUser().compareTo(o2.getUser());
       }
     };
-    List<User> list1 = new ArrayList<>(players);
+    List<User> list1 = new ArrayList<>(getPlayers());
     list1.sort(comparator);
     part.sort(comparator);
     return list1.equals(part);

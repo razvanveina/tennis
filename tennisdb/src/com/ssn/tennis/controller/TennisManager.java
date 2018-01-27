@@ -92,7 +92,7 @@ public class TennisManager {
   }
 
   public Match readMatchById(long id) {
-    Query query = hibernateSession.getNamedQuery(Match.QUERY_BY_NAME);
+    Query query = hibernateSession.getNamedQuery(Match.QUERY_BY_ID);
     query.setParameter("id", id);
     List result = query.list();
 
@@ -112,6 +112,14 @@ public class TennisManager {
     }
 
     return (ArrayList<User>) result;
+  }
+
+  public Team readTeamById(long id) {
+    Query query = hibernateSession.getNamedQuery(Team.QUERY_BY_ID);
+    query.setParameter("id", id);
+    List result = query.list();
+
+    return result.size() > 0 ? (Team) result.get(0) : null;
   }
 
 }

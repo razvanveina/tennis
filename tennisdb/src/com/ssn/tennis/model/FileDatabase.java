@@ -360,4 +360,16 @@ public class FileDatabase implements Serializable, Database {
     // TODO Auto-generated method stub
 
   }
+
+  @Override
+  public Team getTeamById(long id) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public List<Match> getMatchesInvolvingTeams(Team t1, Team t2) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }
