@@ -10,6 +10,11 @@
   String tournamentN = request.getParameter("name");
   Tournament tour = ApplicationFactory.getInstance().getDatabase().getTournamentByName(tournamentN);
   List<Match> currentMatches = tour.getMatches();
+  Collections.sort(currentMatches, new Comparator<Match>(){
+    public int compare(Match o1, Match o2){
+      return o1.getNumber() - o2.getNumber();
+    }
+  });
   for (int i = 1; i <= currentMatches.size(); i++) {
     String matchNumber = request.getParameter("id" + i);
     String score1 = request.getParameter("sc1_" + i);

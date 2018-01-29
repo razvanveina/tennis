@@ -18,6 +18,11 @@
 String tournamentName = request.getParameter("name");
 Tournament tournament=ApplicationFactory.getInstance().getDatabase().getTournamentByName(tournamentName);
 List<Match> matches=tournament.getMatches();
+Collections.sort(matches, new Comparator<Match>(){
+  public int compare(Match o1, Match o2){
+    return o1.getNumber() - o2.getNumber();
+  }
+});
 %>
 <FORM action="addTournamentScore.jsp?name=<%=tournament.getName() %>" method="POST">
 <TABLE>
@@ -25,8 +30,8 @@ List<Match> matches=tournament.getMatches();
       <TH>Match</TH>
       <TH>Group</TH>
       <TH>Players</TH>
-      <TH>Team 1 score</TH>
-      <TH>Team 2 score</TH>
+      <TH>Sc 1</TH>
+      <TH>Sc 2</TH>
       <!-- <TH>Email</TH> -->
     </TR>
 
@@ -45,8 +50,8 @@ for (Match match: matches) {
       <TD><INPUT type="hidden" name="group"+<%=matchNumber%>/><b><%= match.getFormat().getStageInfo() %></b></TD>
       <TD><INPUT type="hidden" name="players"+<%=matchNumber%>><b><a href="../users/h2h.jsp?p1=<%=match.getTeam1().getId()%>&p2=<%=match.getTeam2().getId()%>">
       <%= match.toString()%></a></b></TD>
-      <TD><INPUT type="text" name="sc1_<%=matchNumber%>" value="<%=match.getPoints1()%>" autocomplete="off" <%=tournament.isFinished()? " disabled":""%>/> </TD>
-      <TD><INPUT type="text" name="sc2_<%=matchNumber%>" value="<%=match.getPoints2()%>" autocomplete="off" <%=tournament.isFinished()? " disabled":""%>/> </TD>
+      <TD><INPUT style="width: 50px;" type="text" name="sc1_<%=matchNumber%>" value="<%=match.getPoints1()%>" autocomplete="off" <%=tournament.isFinished()? " disabled":""%>/> </TD>
+      <TD><INPUT style="width: 50px;" type="text" name="sc2_<%=matchNumber%>" value="<%=match.getPoints2()%>" autocomplete="off" <%=tournament.isFinished()? " disabled":""%>/> </TD>
     </TR>
 <% } %>
 
