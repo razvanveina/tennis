@@ -47,8 +47,8 @@ int checkCount=0;
 Collections.sort(users, new Comparator<User>() {
   @Override
   public int compare(User u1, User u2) {
-      String s1 = u1.getUser();
-      String s2 = u2.getUser();
+      String s1 = u1.getSurname();
+      String s2 = u2.getSurname();
       return s1.compareToIgnoreCase(s2);
   }
 
@@ -69,7 +69,7 @@ Collections.sort(users, new Comparator<User>() {
           String checked=(isChecked? "checked":"");
           %>
 				<label><INPUT type="checkbox" name="usersArray[]"
-					value="<%=user.getUser() %>" <%= checked %> onchange='checkboxes()'><%=user.getName()%> <%=user.getSurname()%> </label>
+					value="<%=user.getUser() %>" <%= checked %> onchange='checkboxes()'><%=user.getName()%> <B><%=user.getSurname()%></B> </label>
 				<BR />
         
 
