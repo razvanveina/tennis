@@ -499,6 +499,9 @@ public class OracleDatabase implements Database {
         ArrayList<Tournament> tournaments = tm.findAllTournaments();
         for (Tournament tournament : tournaments) {
           List<Team> teamsToDelete = tournament.cleanup();
+          for (Match m : tournament.getMatches()) {
+            session.saveOrUpdate(m);
+          }
 
           for (Team team : teamsToDelete) {
             session.delete(team);

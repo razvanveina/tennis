@@ -85,6 +85,10 @@ public class GroupPositionTeamProxy extends Team {
 
   @Override
   public Team getTeam() {
+    if (this.team.isProxy()) {
+      return this.team.getTeam();
+    }
+
     return this.team;
   }
 
