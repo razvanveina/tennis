@@ -27,6 +27,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 
 import com.ssn.core.ApplicationFactory;
@@ -80,6 +81,7 @@ public class Tournament implements Serializable {
   private List<Team> teams = new ArrayList<Team>();
 
   @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL)
+  @OrderBy("number")
   private List<Match> matches = new ArrayList<Match>();
 
   public Tournament() {
