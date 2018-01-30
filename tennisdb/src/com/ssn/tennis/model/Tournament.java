@@ -469,9 +469,11 @@ public class Tournament implements Serializable {
   public List<Match> getMatchesInvolvingTeams(Team t1, Team t2) {
     List<Match> result = new ArrayList<>();
     for (Match m : matches) {
-      if ((m.getTeam1().hasParticipants(t1.getPlayers()) && m.getTeam2().hasParticipants(t2.getPlayers()) || //
-        (m.getTeam2().hasParticipants(t1.getPlayers()) && m.getTeam1().hasParticipants(t2.getPlayers())))) {
-        result.add(m);
+      if (m.isPlayed()) {
+        if ((m.getTeam1().hasParticipants(t1.getPlayers()) && m.getTeam2().hasParticipants(t2.getPlayers()) || //
+          (m.getTeam2().hasParticipants(t1.getPlayers()) && m.getTeam1().hasParticipants(t2.getPlayers())))) {
+          result.add(m);
+        }
       }
     }
     return result;

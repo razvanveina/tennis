@@ -18,6 +18,9 @@ Team team1 = ApplicationFactory.getInstance().getDatabase().getTeamById(Integer.
 Team team2 = ApplicationFactory.getInstance().getDatabase().getTeamById(Integer.parseInt(p2));
 int sum1 = team1.getWon() + team2.getLost();
 int sum2 = team2.getWon() + team1.getLost();
+if (sum1+sum2 == 0) {
+return;  
+}
 int pr1 = 100 * sum1 / (sum1+sum2);
 int pr2 = 100 - pr1;
 DecimalFormat df = new DecimalFormat("#.00");
