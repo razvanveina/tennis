@@ -50,8 +50,8 @@ for (Match match: matches) {
       <TD><INPUT type="hidden" name="group"+<%=matchNumber%>/><b><%= match.getFormat().getStageInfo() %></b></TD>
       <TD><INPUT type="hidden" name="players"+<%=matchNumber%>><b><a href="../users/h2h.jsp?p1=<%=match.getTeam1().getId()%>&p2=<%=match.getTeam2().getId()%>">
       <%= match.toString()%></a></b></TD>
-      <TD><INPUT style="width: 50px;" type="text" name="sc1_<%=matchNumber%>" value="<%=match.getPoints1()%>" autocomplete="off" <%=tournament.isFinished()? " disabled":""%>/> </TD>
-      <TD><INPUT style="width: 50px;" type="text" name="sc2_<%=matchNumber%>" value="<%=match.getPoints2()%>" autocomplete="off" <%=tournament.isFinished()? " disabled":""%>/> </TD>
+      <TD><INPUT style="width: 50px;" type="number" name="sc1_<%=matchNumber%>" value="<%=match.getPoints1()%>" autocomplete="off" <%=tournament.isFinished()? " disabled":""%>/> </TD>
+      <TD><INPUT style="width: 50px;" type="number" name="sc2_<%=matchNumber%>" value="<%=match.getPoints2()%>" autocomplete="off" <%=tournament.isFinished()? " disabled":""%>/> </TD>
     </TR>
 <% } %>
 
