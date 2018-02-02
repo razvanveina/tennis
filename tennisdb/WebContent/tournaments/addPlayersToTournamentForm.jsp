@@ -69,7 +69,7 @@ Collections.sort(users, new Comparator<User>() {
           String checked=(isChecked? "checked":"");
           %>
 				<label><INPUT type="checkbox" name="usersArray[]"
-					value="<%=user.getUser() %>" <%= checked %> onchange='checkboxes()'><%=user.getName()%> <B><%=user.getSurname()%></B> </label>
+					value="<%=user.getUser() %>" id="<%=user.getUser()%>" <%= checked %> onchange='checkboxes()'><%=user.getName()%> <B><%=user.getSurname()%></B> </label>
 				<BR />
         
 
@@ -82,9 +82,16 @@ Collections.sort(users, new Comparator<User>() {
   <div class="box2">
    Players selected: <p id="checkedPlayers" align=center><%=lastUsers.size() %></p><br>
    Players needed: <p ><%=tournament.getMaxPlayers() %>
+   
   
 </p></div>
   </div>
+  
+  
+
+  <input type="text" id="selectedUser" value="Add by username..."><br>
+  <input type="button" id="button0" value="Add Player" onclick="checkName()"/>
+
   <script language="JavaScript" type="text/javascript">
 
   function checkboxes()
@@ -101,6 +108,13 @@ Collections.sort(users, new Comparator<User>() {
 
  }
 
+  
+  function checkName(){
+
+	    	   document.getElementById(document.getElementById("selectedUser").value).checked = true;
+	    	   document.getElementById("selectedUser").value="";
+	    
+	        }
 </script>
 
   </BODY>
