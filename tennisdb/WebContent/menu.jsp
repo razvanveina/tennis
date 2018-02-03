@@ -12,12 +12,12 @@
 	} 
 %>
 <% if (userM != null) { %>
-<<ul>
-<li><A href="<%=rel %>users/users.jsp"><strong> &nbsp Users</strong></A></li>
-<li><A href="<%=rel %>tournaments/viewTournaments.jsp"><strong>Tournaments</strong></A></li>
-<li><A href="<%=rel %>users/teams.jsp"><strong>Teams</strong></A></li>
-<li><A href="<%=rel %>users/changePwdForm.jsp"><strong>Settings</strong></A></li>
-<li><A href="<%=rel %>logout.jsp"><strong>Logout <%=userM.toString() %></strong></A></li>
+<ul>
+<li><A href="<%=rel %>users/users.jsp"><strong>&nbsp&nbspUsers&nbsp</strong></A></li>
+<li><A href="<%=rel %>tournaments/viewTournaments.jsp"><strong>&nbspTournaments&nbsp</strong></A></li>
+<li><A href="<%=rel %>users/teams.jsp"><strong>&nbspTeams&nbsp</strong></A></li>
+<li><A href="<%=rel %>users/changePwdForm.jsp"><strong>&nbspSettings&nbsp</strong></A></li>
+<li><A href="<%=rel %>logout.jsp"><strong> &nbspLogout <%=userM.toString() %> &nbsp</strong></A></li>
 </ul>
 <% } else { %>
 <A href="<%=rel %>index.jsp">Login</A>

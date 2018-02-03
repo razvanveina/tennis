@@ -49,9 +49,8 @@ ArrayList<Tournament> tournaments = ApplicationFactory.getInstance().getDatabase
 System.out.println("getTournaments<"+System.currentTimeMillis());
 %>
 
-<FORM action="addTournamentForm.jsp" method="POST">
-<INPUT type="submit" value="Add tournament"/>
-</FORM>
+<navigatorButton><A href="addTournamentForm.jsp"><strong>&nbsp&nbspAdd tournament&nbsp</strong></A></navigatorButton>
+
 
 <TABLE>
     <TR>
