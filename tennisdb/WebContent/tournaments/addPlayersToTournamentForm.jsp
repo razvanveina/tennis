@@ -21,14 +21,40 @@
    padding: 15px;
     float:right;
     min-height:230px;
-    width:55%;
+    width:45%;
+  }
+  
+    .box3   {
+    float: left;
+    padding: 15px;
+    width:15%;
+  
   }
 .clearfix::after {
-    content:"";
     clear: right;
-    display: table;
+    display: inline-block;
+    
 }
 
+
+.dropdown {
+    border: 1px solid #ddd; /* Add a border to all links */
+    margin-top: -1px; /* Prevent double borders */
+    background-color: #f6f6f6; /* Grey background color */
+    padding: 5px;
+    align:center;
+    text-decoration: none; /* Remove default text underline */
+    font-size: 14px; /* Increase the font-size */
+    color: black; /* Add a black text color */
+    display: none; /* Make it into a block element to fill the whole list */
+}
+
+
+.dropdown a:hover:not(.header) {
+    background-color: #eee; /* Add a hover effect to all links, except for headers */
+}
+
+.show {display:block;}
 
   </style>  
 <body>
@@ -69,16 +95,31 @@ Collections.sort(users, new Comparator<User>() {
           String checked=(isChecked? "checked":"");
           %>
 				<label><INPUT type="checkbox" name="usersArray[]"
-					value="<%=user.getUser() %>" id="<%=user.getUser()%>" <%= checked %> onchange='checkboxes()'><%=user.getName()%> <B><%=user.getSurname()%></B> </label>
+					value="<%=user.getUser() %>" id="<%=user.getUser()%>" <%= checked %> onchange='countCheckedCheckboxes()'><%=user.getName()%> <B><%=user.getSurname()%></B> </label>
 				<BR />
         
 
 				<%}%>
 			</fieldset>
       <br>
-				<INPUT type="submit" value="Add"/>
+			<navigatorButton>	<INPUT  type="submit" value="Add"/></navigatorButton>
 		</FORM>
 	</div>
+  
+  
+  <div class="box3">
+   <input type="text" id="selectedUser" onkeyup="searchUsers()" onkeydown = "if (event.keyCode == 13) document.getElementById('button0').click()"  placeholder="Search by username.."><br>
+  <dl id="myDropdown">
+  <%
+  for(User user:users){%>
+  <dt> <input type="button" class="dropdown" id="<%=user.getUser()%>" onclick='selectThisUser(this.value)' value="<%=user.getUser()%>"/> </dt> 
+  <%} %>
+  </dl>
+  <input type="button" id="button0" value="Add Player" onclick="checkName()"/>
+  </div>
+  
+  
+  
   <div class="box2">
    Players selected: <p id="checkedPlayers" align=center><%=lastUsers.size() %></p><br>
    Players needed: <p ><%=tournament.getMaxPlayers() %>
@@ -89,12 +130,12 @@ Collections.sort(users, new Comparator<User>() {
   
   
 
-  <input type="text" id="selectedUser" value="Add by username..."><br>
-  <input type="button" id="button0" value="Add Player" onclick="checkName()"/>
+ 
 
   <script language="JavaScript" type="text/javascript">
 
-  function checkboxes()
+  //count the checked checkboxes
+  function countCheckedCheckboxes()
   {
    var inputElems = document.getElementsByTagName("input"),
     count = 0;
@@ -108,13 +149,57 @@ Collections.sort(users, new Comparator<User>() {
 
  }
 
-  
+  //Check the checkbox of the user entered 
   function checkName(){
 
 	    	   document.getElementById(document.getElementById("selectedUser").value).checked = true;
 	    	   document.getElementById("selectedUser").value="";
-	    
+	    	   countCheckedCheckboxes();
+	    	   searchUsers();
 	        }
+  
+  
+  function selectThisUser(username){
+	  document.getElementById(username).checked=true;
+	  countCheckedCheckboxes();
+	  document.getElementById("selectedUser").value="";
+	  document.getElementById("selectedUser").focus();
+	  searchUsers();
+  }
+  
+  
+  function searchUsers(){
+	  var input, filter, ul, li, a, i;
+	    input = document.getElementById("selectedUser");
+	    filter = input.value.toUpperCase();
+	    ul = document.getElementById("myDropdown");
+	    li = ul.getElementsByTagName('dt');
+	    
+	    for (i = 0; i < li.length; i++) {
+	        a = li[i].getElementsByTagName("input")[0];
+	        if (a.value.toUpperCase().indexOf(filter) > -1 && filter != "") {
+	            a.style.display = "inline-block";
+	        } else {
+	            a.style.display = "none";
+	        }
+	    }
+  }
+  
+  //hide the search dropdown if it loses focus
+  window.onclick = function(event) {
+	  if (!event.target.matches('.dropdown')) {
+		  var  ul, li, a, i;
+	     ul = document.getElementById("myDropdown");
+	     li = ul.getElementsByTagName('dt');
+	      
+	      for (i = 0; i < li.length; i++) {
+	          a = li[i].getElementsByTagName("input")[0];
+	              a.style.display = "none";
+	      }
+	    }
+	  }
+  
+  
 </script>
 
   </BODY>
