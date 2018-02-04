@@ -37,21 +37,23 @@
 }
 
 
-.dropdown {
+.button {
     border: 1px solid #ddd; /* Add a border to all links */
     margin-top: -1px; /* Prevent double borders */
     background-color: #f6f6f6; /* Grey background color */
     padding: 5px;
     align:center;
+    width:45px;
     text-decoration: none; /* Remove default text underline */
     font-size: 14px; /* Increase the font-size */
     color: black; /* Add a black text color */
     display: none; /* Make it into a block element to fill the whole list */
+ box-shadow: 2px 2px #b2b2b2;
 }
 
 
-.dropdown a:hover:not(.header) {
-    background-color: #eee; /* Add a hover effect to all links, except for headers */
+.button:hover{
+    background-color: #b2b2b2; /* Add a hover effect to all links, except for headers */
 }
 
 .show {display:block;}
@@ -108,15 +110,16 @@ Collections.sort(users, new Comparator<User>() {
   
   
   <div class="box3">
-   <input type="text" id="selectedUser" onkeyup="searchUsers()" onkeydown = "if (event.keyCode == 13) document.getElementById('button0').click()"  placeholder="Search by username.."><br>
+   <input type="text" id="selectedUser"  autocomplete="off" onkeyup="searchUsers()" onkeydown = "if (event.keyCode == 13) document.getElementById('button0').click()"  placeholder="Search by username.."><br>
   <dl id="myDropdown">
   <%
   for(User user:users){%>
-  <dt> <input type="button" class="dropdown" id="<%=user.getUser()%>" onclick='selectThisUser(this.value)' value="<%=user.getUser()%>"/> </dt> 
+  <dt> <input type="button" class="button" id="<%=user.getUser()%>" onclick='selectThisUser(this.value)' value="<%=user.getUser()%>"/></dt> 
   <%} %>
   </dl>
-  <input type="button" id="button0" value="Add Player" onclick="checkName()"/>
   </div>
+  <br>
+  <input type="button" id="button0" value="Add Player" onclick="checkName()"/>
   
   
   
