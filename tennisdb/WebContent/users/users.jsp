@@ -22,6 +22,7 @@ Collections.sort(users);
 
 <TABLE>
     <TR>
+    <TH width="3"></TH>
       <TH>User</TH>
       <TH>Name</TH>
       <TH>Surname</TH>
@@ -32,11 +33,19 @@ Collections.sort(users);
       <!-- <TH>Email</TH> -->
     </TR>
 
-<% for (User user : users) {
+<%
+
+int position=1;    
+for (int i=0; i<users.size(); i++) {
+  User user=users.get(i);
   int stars=user.getStars();//.getInstance().getDatabase().getUserStars(user);
+  if(i>0 && users.get(i-1).getRating()>user.getRating()){
+    position++;
+  }
   %>
 
     <TR>
+    <TD align="center"><strong><%=position %>.</strong></TD>
       <TD><A href="editUserForm.jsp?name=<%=user.getUser() %>"><%= user.getUser() %></A></TD>
       <TD><%= user.getName() %></TD>
       <TD><%= user.getSurname() %></TD>
@@ -53,7 +62,7 @@ Collections.sort(users);
     <%
     stars=stars-10;
      }      
-      for(int i=0; i<stars; i++){ %>
+      for(int j=0; j<stars; j++){ %>
       <img src="../img/star.png" width="10" height="10">
       <%} %>
       </TD>
