@@ -36,11 +36,12 @@ Collections.sort(users);
 <%
 
 int position=1;    
-for (int i=0; i<users.size(); i++) {
-  User user=users.get(i);
+for (int i=1; i<=users.size(); i++) {
+  User user=users.get(i-1);
   int stars=user.getStars();//.getInstance().getDatabase().getUserStars(user);
-  if(i>0 && users.get(i-1).getRating()>user.getRating()){
-    position++;
+  if(i>1 && users.get(i-2).getRating()!=user.getRating()){
+   //
+    position=i;
   }
   %>
 
