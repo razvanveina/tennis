@@ -27,7 +27,7 @@
     .box3   {
     float: left;
     padding: 15px;
-    width:15%;
+    width:10%;
   
   }
 .clearfix::after {
@@ -104,7 +104,7 @@ Collections.sort(users, new Comparator<User>() {
 				<%}%>
 			</fieldset>
       <br>
-			<navigatorButton>	<INPUT  type="submit" value="Add"/></navigatorButton>
+			<INPUT  type="submit" value="Save"/>
 		</FORM>
 	</div>
   
