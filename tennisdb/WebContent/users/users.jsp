@@ -29,6 +29,7 @@ Collections.sort(users);
       <TH>Rating</TH>
       <TH>Won</TH>
       <TH>Lost</TH>
+      <TH>Total</TH>
       <TH>Stars</TH>
       <!-- <TH>Email</TH> -->
     </TR>
@@ -54,6 +55,7 @@ for (int i=1; i<=users.size(); i++) {
        
       <TD><%= user.getWon() %></TD>
       <TD><%= user.getLost() %></TD>
+      <TD><%= user.getWon()+user.getLost() %></TD>
       
       <TD align="center">
       <% 

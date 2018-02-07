@@ -31,6 +31,7 @@ teams=new ArrayList(teamsMap.values());
       <TH>Team Rating</TH>
       <TH>Won</TH>
       <TH>Lost</TH>
+      <TH>Total</TH>
       <TH>Stars</TH>
       <!-- <TH>Email</TH> -->
     </TR>
@@ -43,6 +44,8 @@ teams=new ArrayList(teamsMap.values());
       <TD><%= team.getRating() %></TD> 
       <TD><%= team.getWon() %></TD>
       <TD><%= team.getLost() %></TD>
+      <TD><%= team.getWon()+team.getLost() %></TD>
+      
        <TD align="center">
       <% 
       int stars=team.getStars(); //ApplicationFactory.getInstance().getDatabase().getTeamStars(team);
